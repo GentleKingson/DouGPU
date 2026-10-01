@@ -1,0 +1,32 @@
+services:
+  trainer:
+    build: .
+    image: dougpu:local
+    init: true
+    working_dir: /app
+    # Match your host uid/gid when they differ from the usual WSL/Ubuntu 1000.
+    user: "${DOUGPU_UID:-1000}:${DOUGPU_GID:-1000}"
+    # Keep the prepared engine, run directories, configs and evidence on host.
+    volumes:
+      - .:/app
+    environment:
+      PYTHONUNBUFFERED: "1"
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+      CUDA_VISIBLE_DEVICES: "0"
+      XLA_PYTHON_CLIENT_MEM_FRACTION: "${DOUGPU_GPU_MEMORY_FRACTION:-0.70}"
+      JAX_COMPILATION_CACHE_DIR: /app/.cache/jax
+      DOUGPU_LOCK_DIR: /app/.cache/locks
+    shm_size: 2gb
+    stop_grace_period: 120s
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    # Starting the service only displays usage; choose doctor/prepare/train.
+    command: ["--help"]

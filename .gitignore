@@ -1,0 +1,23 @@
+.DS_Store
+.venv/
+.cache/
+runs/
+benchmarks/
+reports/
+__pycache__/
+*.pyc
+.pytest_cache/
+hardware.json
+
+# Local environment and credentials; keep shareable templates.
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Runtime logs and training artifacts outside runs/.
+*.log
+weights/
+checkpoints/
+*.ckpt
+*.npz

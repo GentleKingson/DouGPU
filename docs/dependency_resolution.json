@@ -1,0 +1,247 @@
+{
+  "purpose": "Package resolution; NVRTC entry updated to 13.1.115 after LocalServer kernel validation on 2026-10-01. See training-fixes-2026-10-01.zh-CN.md for runtime evidence.",
+  "distributions": [
+    {
+      "name": "jax",
+      "version": "0.7.2",
+      "wheel_url": "https://files.pythonhosted.org/packages/d5/e6/5fd0f6fff79eb47469ff9c4fa27125b661517a2fbf8884689b02e9fdfaa8/jax-0.7.2-py3-none-any.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "e7e32f9be51ae5cc6854225958c57de8cca2187d279844338465b15e8a1fe7f2"
+        },
+        "hash": "sha256=e7e32f9be51ae5cc6854225958c57de8cca2187d279844338465b15e8a1fe7f2"
+      }
+    },
+    {
+      "name": "jaxlib",
+      "version": "0.7.2",
+      "wheel_url": "https://files.pythonhosted.org/packages/7b/73/b44fbe943c9e02e25c99eb64e6b86e2dde8d918d064326813b5bbe620951/jaxlib-0.7.2-cp312-cp312-manylinux_2_27_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "11f32319e662ccff66859eb393757050d8971bd880bc4dd70dec6434d890fb59"
+        },
+        "hash": "sha256=11f32319e662ccff66859eb393757050d8971bd880bc4dd70dec6434d890fb59"
+      }
+    },
+    {
+      "name": "numpy",
+      "version": "2.5.3",
+      "wheel_url": "https://files.pythonhosted.org/packages/65/af/aa78d1a88805456e212b65461354cd943197fb9acecc4c90fd12295123a3/numpy-2.5.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "b7e18c623bb5c95acb3b3328861272816ba199fb531921c5d6d0b675f1fde9e3"
+        },
+        "hash": "sha256=b7e18c623bb5c95acb3b3328861272816ba199fb531921c5d6d0b675f1fde9e3"
+      }
+    },
+    {
+      "name": "scipy",
+      "version": "1.18.1",
+      "wheel_url": "https://files.pythonhosted.org/packages/df/64/ff35eb9e54894cf471ff4716abd3c81eb0a0626869217ce3e6ba4ccf17d7/scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "f55fa87b6c612ecd6b058f167c53231b1d14e412efe361d3d6e38b3631c73218"
+        },
+        "hash": "sha256=f55fa87b6c612ecd6b058f167c53231b1d14e412efe361d3d6e38b3631c73218"
+      }
+    },
+    {
+      "name": "ml_dtypes",
+      "version": "0.6.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/c7/f9/7d76c1eae866f5d4636401b31b6d6dd90e4b4ced1fa7cfdfcca9c60e4bd3/ml_dtypes-0.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "3b4a480aa8fd54a1805b8ac10f3f91763926a74f73c0c364c10f9231854f4170"
+        },
+        "hash": "sha256=3b4a480aa8fd54a1805b8ac10f3f91763926a74f73c0c364c10f9231854f4170"
+      }
+    },
+    {
+      "name": "opt_einsum",
+      "version": "3.4.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/23/cd/066e86230ae37ed0be70aae89aabf03ca8d9f39c8aea0dec8029455b5540/opt_einsum-3.4.0-py3-none-any.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "69bb92469f86a1565195ece4ac0323943e83477171b91d24c35afe028a90d7cd"
+        },
+        "hash": "sha256=69bb92469f86a1565195ece4ac0323943e83477171b91d24c35afe028a90d7cd"
+      }
+    },
+    {
+      "name": "jax-cuda13-plugin",
+      "version": "0.7.2",
+      "wheel_url": "https://files.pythonhosted.org/packages/96/68/e7acd624d11c902129e705207f934af5978c5257e1788b50e6f3b4f90ef7/jax_cuda13_plugin-0.7.2-cp312-cp312-manylinux_2_27_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "4b0471df4fc16899c0ae90621ab84cf851cb4d58f97c6ff56572a3b5a0cd311a"
+        },
+        "hash": "sha256=4b0471df4fc16899c0ae90621ab84cf851cb4d58f97c6ff56572a3b5a0cd311a"
+      }
+    },
+    {
+      "name": "jax-cuda13-pjrt",
+      "version": "0.7.2",
+      "wheel_url": "https://files.pythonhosted.org/packages/0c/36/be844febc9c6f0e671b22e74c9fdd274f79fc3bd5e8abaaef48bb5c92f49/jax_cuda13_pjrt-0.7.2-py3-none-manylinux_2_27_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "bbac8c63629e9308f1a7daf00b3841e5a28a61740d7a1eda78fac0685a25c01d"
+        },
+        "hash": "sha256=bbac8c63629e9308f1a7daf00b3841e5a28a61740d7a1eda78fac0685a25c01d"
+      }
+    },
+    {
+      "name": "nvidia-cudnn-cu13",
+      "version": "9.18.1.3",
+      "wheel_url": "https://files.pythonhosted.org/packages/9f/db/5d307805325b2b1f2a6207a83f32305861e7d47753b8c7d46c6fc8edc167/nvidia_cudnn_cu13-9.18.1.3-py3-none-manylinux_2_27_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "ece857192c8c5d4e2152c32172ffe41c27c2ec484ef5c39c3f6cf592e512c46d"
+        },
+        "hash": "sha256=ece857192c8c5d4e2152c32172ffe41c27c2ec484ef5c39c3f6cf592e512c46d"
+      }
+    },
+    {
+      "name": "nvidia-cublas",
+      "version": "13.1.0.3",
+      "wheel_url": "https://files.pythonhosted.org/packages/e7/44/423ac00af4dd95a5aeb27207e2c0d9b7118702149bf4704c3ddb55bb7429/nvidia_cublas-13.1.0.3-py3-none-manylinux_2_27_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "ee8722c1f0145ab246bccb9e452153b5e0515fd094c3678df50b2a0888b8b171"
+        },
+        "hash": "sha256=ee8722c1f0145ab246bccb9e452153b5e0515fd094c3678df50b2a0888b8b171"
+      }
+    },
+    {
+      "name": "nvidia-cuda-cupti",
+      "version": "13.0.85",
+      "wheel_url": "https://files.pythonhosted.org/packages/33/6d/737d164b4837a9bbd202f5ae3078975f0525a55730fe871d8ed4e3b952b0/nvidia_cuda_cupti-13.0.85-py3-none-manylinux_2_25_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "4eb01c08e859bf924d222250d2e8f8b8ff6d3db4721288cf35d14252a4d933c8"
+        },
+        "hash": "sha256=4eb01c08e859bf924d222250d2e8f8b8ff6d3db4721288cf35d14252a4d933c8"
+      }
+    },
+    {
+      "name": "nvidia-cuda-nvcc",
+      "version": "13.0.88",
+      "wheel_url": "https://files.pythonhosted.org/packages/71/8b/a546c12881fffeba927d810598987df25d74b8b241788c7db8dfc93b0173/nvidia_cuda_nvcc-13.0.88-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "56fe502eb77625a12f25172caa3cdddb4e4c8ba2c8c17dba44b164761b380f03"
+        },
+        "hash": "sha256=56fe502eb77625a12f25172caa3cdddb4e4c8ba2c8c17dba44b164761b380f03"
+      }
+    },
+    {
+      "name": "nvidia-cuda-nvrtc",
+      "version": "13.1.115",
+      "wheel_url": "https://files.pythonhosted.org/packages/ff/d8/6fcf0f32d133a7da92efb1e90844d9f7c104627066cc52b13f7f0b128b54/nvidia_cuda_nvrtc-13.1.115-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "d7cf1284ab82f379884decc8813d9d4a729bc96b1ec020a9cf80303f698d73c4"
+        },
+        "hash": "sha256=d7cf1284ab82f379884decc8813d9d4a729bc96b1ec020a9cf80303f698d73c4"
+      }
+    },
+    {
+      "name": "nvidia-cuda-runtime",
+      "version": "13.0.96",
+      "wheel_url": "https://files.pythonhosted.org/packages/2e/24/d1558f3b68b1d26e706813b1d10aa1d785e4698c425af8db8edc3dced472/nvidia_cuda_runtime-13.0.96-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "7f82250d7782aa23b6cfe765ecc7db554bd3c2870c43f3d1821f1d18aebf0548"
+        },
+        "hash": "sha256=7f82250d7782aa23b6cfe765ecc7db554bd3c2870c43f3d1821f1d18aebf0548"
+      }
+    },
+    {
+      "name": "nvidia-cufft",
+      "version": "12.0.0.61",
+      "wheel_url": "https://files.pythonhosted.org/packages/a8/2f/7b57e29836ea8714f81e9898409196f47d772d5ddedddf1592eadb8ab743/nvidia_cufft-12.0.0.61-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "6c44f692dce8fd5ffd3e3df134b6cdb9c2f72d99cf40b62c32dde45eea9ddad3"
+        },
+        "hash": "sha256=6c44f692dce8fd5ffd3e3df134b6cdb9c2f72d99cf40b62c32dde45eea9ddad3"
+      }
+    },
+    {
+      "name": "nvidia-cusolver",
+      "version": "12.0.4.66",
+      "wheel_url": "https://files.pythonhosted.org/packages/5f/67/cba3777620cdacb99102da4042883709c41c709f4b6323c10781a9c3aa34/nvidia_cusolver-12.0.4.66-py3-none-manylinux_2_27_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "0a759da5dea5c0ea10fd307de75cdeb59e7ea4fcb8add0924859b944babf1112"
+        },
+        "hash": "sha256=0a759da5dea5c0ea10fd307de75cdeb59e7ea4fcb8add0924859b944babf1112"
+      }
+    },
+    {
+      "name": "nvidia-cusparse",
+      "version": "12.6.3.3",
+      "wheel_url": "https://files.pythonhosted.org/packages/fa/18/623c77619c31d62efd55302939756966f3ecc8d724a14dab2b75f1508850/nvidia_cusparse-12.6.3.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "2b3c89c88d01ee0e477cb7f82ef60a11a4bcd57b6b87c33f789350b59759360b"
+        },
+        "hash": "sha256=2b3c89c88d01ee0e477cb7f82ef60a11a4bcd57b6b87c33f789350b59759360b"
+      }
+    },
+    {
+      "name": "nvidia-nccl-cu13",
+      "version": "2.27.7",
+      "wheel_url": "https://files.pythonhosted.org/packages/f1/3a/dabb10684e60edfaf1a1c9984d12a668bc1091582099d4e03ac5b9983b51/nvidia_nccl_cu13-2.27.7-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "b28a524abd8389b76a4a3f133c76a7aaa7005e47fcaa9d9603b90103927a3f93"
+        },
+        "hash": "sha256=b28a524abd8389b76a4a3f133c76a7aaa7005e47fcaa9d9603b90103927a3f93"
+      }
+    },
+    {
+      "name": "nvidia-nvjitlink",
+      "version": "13.0.88",
+      "wheel_url": "https://files.pythonhosted.org/packages/56/7a/123e033aaff487c77107195fa5a2b8686795ca537935a24efae476c41f05/nvidia_nvjitlink-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "13a74f429e23b921c1109976abefacc69835f2f433ebd323d3946e11d804e47b"
+        },
+        "hash": "sha256=13a74f429e23b921c1109976abefacc69835f2f433ebd323d3946e11d804e47b"
+      }
+    },
+    {
+      "name": "nvidia-nvshmem-cu13",
+      "version": "3.3.24",
+      "wheel_url": "https://files.pythonhosted.org/packages/6f/e9/8530afb8ed38d16bbc89cec80a4dd6a52dbf59bc93e546c3658cfa8b1f9b/nvidia_nvshmem_cu13-3.3.24-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "c14d09571697d2e57cb079c8daec88ab1c68cb3586532bfbd4886125a08339b7"
+        },
+        "hash": "sha256=c14d09571697d2e57cb079c8daec88ab1c68cb3586532bfbd4886125a08339b7"
+      }
+    },
+    {
+      "name": "nvidia-cuda-crt",
+      "version": "13.0.88",
+      "wheel_url": "https://files.pythonhosted.org/packages/05/69/a1ec4d9f0747d85964206feb47bf359f48a2d6af74c0add8abba6efe3dda/nvidia_cuda_crt-13.0.88-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "2c8043c7c9e02492716426e9919fc78d2c5b3b2a7a768a88e952676b08aa55a4"
+        },
+        "hash": "sha256=2c8043c7c9e02492716426e9919fc78d2c5b3b2a7a768a88e952676b08aa55a4"
+      }
+    },
+    {
+      "name": "nvidia-nvvm",
+      "version": "13.0.88",
+      "wheel_url": "https://files.pythonhosted.org/packages/15/b0/ee41e6d1108d959b5097163e7190c2d0f7857dea75606ce358f0275891b4/nvidia_nvvm-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "archive_info": {
+        "hashes": {
+          "sha256": "c5f41ffeb6466944a026dfa5317d7d85355c119bbec279205d22f1869d1054e0"
+        },
+        "hash": "sha256=c5f41ffeb6466944a026dfa5317d7d85355c119bbec279205d22f1869d1054e0"
+      }
+    }
+  ]
+}

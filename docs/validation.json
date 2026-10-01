@@ -1,0 +1,1004 @@
+{
+  "date": "2026-09-30",
+  "trainer_source_sha256": "fdcb6ac40db6d690e0b58e44c54e4e79cf6d77ae31eb756dcd707e3e3c7f370a",
+  "environment": {
+    "system": "Linux x86_64",
+    "python": "3.12.14",
+    "jax": "0.7.2",
+    "jaxlib": "0.7.2",
+    "visible_cpus": 9,
+    "visible_cpu_quota": 8,
+    "nvidia_gpu": false,
+    "docker_daemon": false
+  },
+  "unique_test_results": {
+    "passed": 202,
+    "skipped": 1
+  },
+  "test_counting": "Latest recorded result by unique classname and test name across listed runs",
+  "test_runs": [
+    {
+      "evidence_file": "test-suite.xml",
+      "counts": {
+        "passed": 122,
+        "skipped": 1
+      },
+      "sha256": "b48d147a03f9ec45a7ad06565bed73fc5cc77e7b98a3d0ef2d8dedac1ac47177"
+    },
+    {
+      "evidence_file": "test-migration.xml",
+      "counts": {
+        "passed": 32
+      },
+      "sha256": "6eb326ef3bb58232e3d5d095337bdfc22456928b97be7d9e8588ea0e3409e610"
+    },
+    {
+      "evidence_file": "test-migration-final.xml",
+      "counts": {
+        "passed": 28
+      },
+      "sha256": "d8f27bac02f68d810a0634fe335b435be9680800f1a0c1362a38c95057e870e6"
+    },
+    {
+      "evidence_file": "test-guards.xml",
+      "counts": {
+        "passed": 67
+      },
+      "sha256": "d079a354e6c9bd8b7485cb8eeb8269b56885571b547e904247cf987d8c501ddd"
+    },
+    {
+      "evidence_file": "test-official-opponent.xml",
+      "counts": {
+        "passed": 2
+      },
+      "sha256": "7a6b0a00d1cad6c50ce31fb0bef8dc0734b85cfb3349c7851306ba21910d4cfd"
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "tests.test_action_chunks::test_chunk_sizes_scores_choices_rng_and_all_history_buckets[False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_action_chunks::test_chunk_sizes_scores_choices_rng_and_all_history_buckets[True]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_action_chunks::test_overflow_winner_tie_and_nonfinite_after_first_chunk[1024]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_action_chunks::test_overflow_winner_tie_and_nonfinite_after_first_chunk[2048]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_checkpoint_logs::test_log_compression_roundtrip_and_corrupt_fallback[None]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_checkpoint_logs::test_log_compression_roundtrip_and_corrupt_fallback[]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_checkpoint_logs::test_log_compression_roundtrip_and_corrupt_fallback[{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n{\"event\":\"train\",\"updates\":4}\\n]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_compact_samples::test_bad_compact_tokens_rejected_before_replay_write[shape0]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_compact_samples::test_bad_compact_tokens_rejected_before_replay_write[shape1]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_compact_samples::test_bad_compact_tokens_rejected_before_replay_write[shape2]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_compact_samples::test_bad_compact_tokens_rejected_before_replay_write[shape3]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_compact_samples::test_bad_compact_tokens_rejected_before_replay_write[shape4]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_compact_samples::test_compact_merge_ring_wrap_and_legacy_full_width[17]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_compact_samples::test_compact_merge_ring_wrap_and_legacy_full_width[1]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_compact_samples::test_compact_merge_ring_wrap_and_legacy_full_width[64]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_compact_samples::test_mixed_old_new_batches_and_sample_rng",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_compact_samples::test_preserves_full_width_legacy_padding_bytes",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_core::test_bf16_train_and_disabled_auxiliary",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_core::test_causal_and_padding",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_core::test_checkpoint_fallback_and_policy",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_core::test_chunked_candidates_not_truncated",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_core::test_default_chunk_overflow_and_multiple_owners",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_core::test_optimizer_updates_and_skips_nonfinite",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_core::test_reward_and_information_boundary",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_core::test_ring_replay_and_balance",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_core::test_spawn_actors",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_evaluation_optimization::test_observe_only_computes_consumed_inputs[assignments0-False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_evaluation_optimization::test_observe_only_computes_consumed_inputs[assignments0-True]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_evaluation_optimization::test_observe_only_computes_consumed_inputs[assignments1-False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_evaluation_optimization::test_observe_only_computes_consumed_inputs[assignments1-True]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_evaluation_optimization::test_observe_only_computes_consumed_inputs[assignments2-False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_evaluation_optimization::test_observe_only_computes_consumed_inputs[assignments2-True]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_evaluation_optimization::test_observe_only_computes_consumed_inputs[assignments3-False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_evaluation_optimization::test_observe_only_computes_consumed_inputs[assignments3-True]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_execution::test_bulk_replay_wrap_and_oversized_batch[17]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_execution::test_bulk_replay_wrap_and_oversized_batch[1]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_execution::test_bulk_replay_wrap_and_oversized_batch[3]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_execution::test_choose_matches_score_and_rng",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_execution::test_compact_oracle_is_not_a_policy_input",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_execution::test_compact_rules_and_incremental_tokens_match_upstream",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_execution::test_cpu_profile_respects_parent_limits",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_execution::test_device_reduction_ties_overflow_and_nonfinite",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_execution::test_eval_buckets_preserve_choices",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_execution::test_packed_requests_and_actor_protocol",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_execution::test_parallel_evaluation_preserves_order_and_training_games[1-douzero]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_execution::test_parallel_evaluation_preserves_order_and_training_games[1-reference]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_execution::test_parallel_evaluation_preserves_order_and_training_games[2-douzero]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_execution::test_parallel_evaluation_preserves_order_and_training_games[2-reference]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_gpu_attention::test_attention_rejects_unknown_implementation",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_gpu_attention::test_cudnn_bf16_requires_cuda_backend",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_gpu_attention::test_cudnn_bf16_valid_outputs_losses_and_gradients",
+      "status": "skipped"
+    },
+    {
+      "id": "tests.test_gpu_attention::test_cudnn_does_not_silently_fall_back_for_fp32[False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_gpu_attention::test_cudnn_does_not_silently_fall_back_for_fp32[True]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_gpu_attention::test_cudnn_host_padding_guard",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_gpu_attention::test_cudnn_rejects_interior_pad_before_dispatch",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_gpu_attention::test_xla_causality_and_interior_pad_key_mask",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_gpu_attention::test_xla_inference_fused_and_overflow_preserve_scores_and_choices",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_gpu_attention::test_xla_losses_and_all_parameter_gradients",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_gpu_attention::test_xla_one_optimizer_step_preserves_state_and_batch",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_gpu_attention::test_xla_valid_outputs_for_every_history_length",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_hand_count_cache::test_cached_hand_features_labels_and_output_isolation[0]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_hand_count_cache::test_cached_hand_features_labels_and_output_isolation[1]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_hand_count_cache::test_cached_hand_features_labels_and_output_isolation[2]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_hand_count_cache::test_cached_hands_keep_invalid_card_checks[hand0]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_hand_count_cache::test_cached_hands_keep_invalid_card_checks[hand1]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_hand_count_cache::test_cached_hands_keep_invalid_card_checks[hand2]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_hand_count_cache::test_hand_cache_reuses_existing_bounded_cache",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_hand_count_cache::test_mutated_hidden_hands_do_not_change_public_inputs_or_poison_cache",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_history_groups::test_same_rows_role_weights_sequence_losses_and_single_adam[2]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_history_groups::test_same_rows_role_weights_sequence_losses_and_single_adam[4]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_inference_optimization::test_order_rng_scores_ties_and_overflow[False-True]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_inference_optimization::test_order_rng_scores_ties_and_overflow[True-False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_inference_optimization::test_order_rng_scores_ties_and_overflow[True-True]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_inference_optimization::test_partition_cost_guard_and_invalid_inputs",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_inference_optimization::test_runtime_remat_preserves_model_config_and_optimizer",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_inference_optimization::test_weighted_padding_not_mean_of_fractions",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_kv::test_cached_choice_overflow_rng_ties_finite_and_key_validation",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_kv::test_frozen_cached_evaluation_matches_serial_and_parallel",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_kv::test_incremental_prefix_offsets_buckets_reset_and_versions[False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_kv::test_incremental_prefix_offsets_buckets_reset_and_versions[True]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_credit_only_cycle_and_padding_use_aggregate_numerators_denominators",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_diagnostic_attention_is_recorded_but_never_selected",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_duplicate_repeat_does_not_count_as_three_independent_repeats",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_failed_preflight_stops_before_training_and_records_oom_without_fallback",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_final_save_failure_rejects_otherwise_fast_candidate",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_interior_incomplete_or_unmatched_cycles_rejected[global_updates]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_interior_incomplete_or_unmatched_cycles_rejected[missing_rule_eval]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_interior_incomplete_or_unmatched_cycles_rejected[missing_train]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_new_session_failing_before_start_does_not_reuse_old_training_rows",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_nonfinite_current_session_rejected_without_nonfinite_summary_output[-inf]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_nonfinite_current_session_rejected_without_nonfinite_summary_output[inf]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_nonfinite_current_session_rejected_without_nonfinite_summary_output[nan]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_nonfinite_step_in_trimmed_terminal_tail_still_rejects_trial",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_old_log_format_without_session_ids_is_supported",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_paired_rank_uses_rates_from_aggregate_time_and_three_repeats",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_session_start_and_terminal_saves_do_not_count_as_periodic_work",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_snapshot_verifies_manifest_and_copies_one_generation_read_only",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_time_limit_may_trim_incomplete_terminal_evaluation_but_error_may_not",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_tuning_stages_preserve_learning_semantics_and_have_valid_geometry",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_warmup_counts_latest_session_cycles_not_global_checkpoint_counter",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_metrics::test_window_of_only_credit_is_insufficient_even_with_updates",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_runtime::test_additional_cycles_use_newer_verified_mirror",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_runtime::test_explicit_cuda_overrides_inherited_cpu_mode",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_runtime::test_local_migration_preserves_full_state_and_source",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_runtime::test_performance_changes_keep_learning_batch_and_objective",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_runtime::test_policy_only_or_inconsistent_adam_state_rejected",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_runtime::test_run_lock_rejects_concurrent_owner",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_local_runtime::test_runtime_config_rejects_alternate_attention_with_research_kv",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_official_opponent_import::test_opponent_constructor_uses_standalone_loader_and_safe_cpu_weight_flags",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_official_opponent_import::test_real_model_file_resolves_all_roles_without_parent_package",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_packed_inference::test_actor_packed_path_preserves_complete_rounds_without_unpack",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_packed_inference::test_packed_choices_scores_rng_ties_and_invalid_values[False-False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_packed_inference::test_packed_choices_scores_rng_ties_and_invalid_values[True-False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_packed_inference::test_packed_choices_scores_rng_ties_and_invalid_values[True-True]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_packed_inference::test_packed_slices_and_exact_inference_tensors[128-False-False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_packed_inference::test_packed_slices_and_exact_inference_tensors[128-False-True]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_packed_inference::test_packed_slices_and_exact_inference_tensors[256-False-False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_packed_inference::test_packed_slices_and_exact_inference_tensors[5-False-False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_packed_inference::test_packed_slices_and_exact_inference_tensors[8-True-False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_packed_inference::test_resume_does_not_initialize_discarded_parameters",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_performance::test_action_cache_validation_and_isolation",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_performance::test_fork_preserves_source_and_learner",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_performance::test_padding_preserves_fp32_loss_and_gradients",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_performance::test_replay_bucket_boundaries",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_actor_protocol_rejects_partial_duplicate_and_busy_evaluation",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_actor_round_deadline_does_not_scale_with_worker_count",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_group_config_validation",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_grouped_round_preserves_samples_requests_and_rng[1]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_grouped_round_preserves_samples_requests_and_rng[2]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_grouped_round_preserves_samples_requests_and_rng[4]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_phase_strata_preserve_order_samples_and_rng[False-False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_phase_strata_preserve_order_samples_and_rng[False-True]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_phase_strata_preserve_order_samples_and_rng[True-False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_phase_strata_preserve_order_samples_and_rng[True-True]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_prefetch_defers_failure_without_committing_unused_rng[sample]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_prefetch_defers_failure_without_committing_unused_rng[transfer]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_prefetch_matches_direct_batches_and_consumed_rng_only[False]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_prefetch_matches_direct_batches_and_consumed_rng_only[True]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_ready_first_receive_still_merges_in_worker_order",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_pipeline::test_strata_rebuilt_after_versions_and_replay_change",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_preflight_shapes::test_cpu_preflight_subprocess_verifies_all_real_lengths",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_preflight_shapes::test_preflight_failure_writes_error_report_and_returns_nonzero",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_preflight_shapes::test_preflight_full_512_is_real_non_pad_work[1]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_preflight_shapes::test_preflight_full_512_is_real_non_pad_work[4]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_ready_actors::test_ready_bounded_fairness_accounting_and_versions",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_ready_actors::test_ready_options_are_explicit",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_bundled_real_source_manifest_still_verifies",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_corrupt_new_archive_and_marker_fall_back_to_older_mirror",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_invalid_marker_still_allows_older_valid_generation[None]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_invalid_marker_still_allows_older_valid_generation[document10]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_invalid_marker_still_allows_older_valid_generation[document1]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_invalid_marker_still_allows_older_valid_generation[document2]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_invalid_marker_still_allows_older_valid_generation[document3]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_invalid_marker_still_allows_older_valid_generation[document4]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_invalid_marker_still_allows_older_valid_generation[document5]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_invalid_marker_still_allows_older_valid_generation[document6]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_invalid_marker_still_allows_older_valid_generation[document7]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_invalid_marker_still_allows_older_valid_generation[document8]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_invalid_marker_still_allows_older_valid_generation[document9]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_invalid_marker_still_allows_older_valid_generation[{\"file\":]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_local_source_checks_engine_and_encoding_schema[encoding_schema-2]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_local_source_checks_engine_and_encoding_schema[encoding_schema-None]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_local_source_checks_engine_and_encoding_schema[engine-None]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_local_source_checks_engine_and_encoding_schema[engine-reference]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_locked_source_accepts_normal_bytecode_cache",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_no_markers_is_still_a_new_run",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[local-None]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[local-document10]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[local-document1]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[local-document2]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[local-document3]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[local-document4]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[local-document5]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[local-document6]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[local-document7]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[local-document8]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[local-document9]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[local-{\"file\":]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[mirror-None]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[mirror-document10]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[mirror-document1]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[mirror-document2]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[mirror-document3]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[mirror-document4]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[mirror-document5]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[mirror-document6]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[mirror-document7]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[mirror-document8]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[mirror-document9]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_observed_invalid_markers_never_mean_fresh_run[mirror-{\"file\":]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_raw_symlinks_rejected_even_with_identical_resolved_bytes[file]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_raw_symlinks_rejected_even_with_identical_resolved_bytes[package]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_raw_symlinks_rejected_even_with_identical_resolved_bytes[vendor]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_removing_a_source_from_manifest_does_not_skip_validation",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_untracked_importable_source_is_rejected[douzero/env/untracked.cpython-312-x86_64-linux-gnu.so]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_untracked_importable_source_is_rejected[douzero/env/untracked.py]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_untracked_importable_source_is_rejected[douzero/env/untracked.pyc]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_source_and_recovery_guards::test_untracked_importable_source_is_rejected[douzero/env/utils/__init__.py]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_version_migration::test_version_migration_proves_history_and_preserves_source[missing]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_version_migration::test_version_migration_proves_history_and_preserves_source[overflow]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_version_migration::test_version_migration_proves_history_and_preserves_source[reverse]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_version_migration::test_version_migration_proves_history_and_preserves_source[skipped]",
+      "status": "passed"
+    },
+    {
+      "id": "tests.test_version_migration::test_version_migration_proves_history_and_preserves_source[valid]",
+      "status": "passed"
+    }
+  ],
+  "rules_selftest": {
+    "engine": "douzero",
+    "games": 30,
+    "moves": 1384,
+    "max_tokens_seen": 216,
+    "max_legal_actions_seen": 153,
+    "jax_loaded": false
+  },
+  "original_manual_comparison": {
+    "kind": "Separate CPU comparison against extracted original source",
+    "matched_output_and_optimizer_leaves": 86,
+    "bitwise_equal": true,
+    "scope": "One deterministic accumulated update; no TPU/CUDA equivalence claim"
+  },
+  "dependency_resolution": {
+    "distributions": 22,
+    "method": "pip dry-run ignore-installed only-binary",
+    "cuda_install_or_kernel_run": false
+  },
+  "python_sources_parsed": 58,
+  "installer_bash_syntax": "passed",
+  "cuda_unavailable_check": {
+    "expected_nonzero_exit": true,
+    "cpu_fallback": false,
+    "error": "Unable to initialize the requested cuda backend. Check the matching JAX accelerator packages and device/driver visibility; no CPU fallback will be used."
+  },
+  "end_to_end": {
+    "device": "CPU only",
+    "model": "tiny one-layer FP32 test model",
+    "engine": "pinned official DouZero",
+    "initial": {
+      "cycle": 2,
+      "updates": 2,
+      "frames": 192,
+      "games": 3,
+      "complete_samples": 129
+    },
+    "resume": {
+      "cycle": 3,
+      "updates": 3,
+      "frames": 412,
+      "games": 5,
+      "complete_samples": 235
+    },
+    "full_import": {
+      "params_adam_champion_replay_exact": true,
+      "rng_counters_credit_exact": true,
+      "source_unchanged": true
+    },
+    "after_import_training": {
+      "cycle": 4,
+      "updates": 4,
+      "frames": 584,
+      "games": 6,
+      "complete_samples": 278
+    },
+    "heldout_evaluation": {
+      "result": {
+        "landlord_win_rate": 0.0,
+        "farmer_team_win_rate": 0.0,
+        "balanced_win_rate": 0.0,
+        "paired_bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "deals": 4,
+        "games": 8,
+        "seed": 910001
+      },
+      "opponent": "rule",
+      "engine": "douzero",
+      "policy_sha256": "c8725c5e813aec13257aae07eb90a6f16e52d6178e42a46028c36d7af39c9046",
+      "policy_meta": {
+        "metadata": {
+          "cycle": 4
+        },
+        "model": {
+          "bf16": false,
+          "ffn": 64,
+          "heads": 2,
+          "layers": 1,
+          "max_seq": 512,
+          "q_hidden": 32,
+          "remat": true,
+          "vocab": 32,
+          "width": 32
+        },
+        "schema": 1
+      },
+      "opponent_hashes": {},
+      "jax": "0.7.2",
+      "packages": {
+        "jax": "0.7.2",
+        "jaxlib": "0.7.2",
+        "numpy": "2.5.3",
+        "scipy": "1.18.1",
+        "ml_dtypes": "0.6.0"
+      },
+      "attention_impl": "manual",
+      "backend": "cpu",
+      "note": "Paired deal bootstrap; fixed-seed evaluation, not an Elo rating"
+    },
+    "source_directory_comparison": {
+      "added": [],
+      "removed": [],
+      "modified": []
+    },
+    "signal_stop": {
+      "launcher_process_group_received_sigint": true,
+      "exit_code": 0,
+      "verified_checkpoint": true,
+      "stop_reason": "signal",
+      "actor_keyboard_interrupt": false,
+      "cycle": 6,
+      "updates": 6,
+      "frames": 800,
+      "games": 9,
+      "complete_samples": 434
+    },
+    "status": "passed"
+  },
+  "official_opponent": {
+    "verified_standalone_import_and_constructor_contract": "passed with Torch/nn stub",
+    "real_pytorch_weights_inference": "not run"
+  },
+  "not_measured": [
+    "RTX 5070 training throughput",
+    "RTX 5070 CUDA/cuDNN numerical parity",
+    "GPU peak VRAM",
+    "Docker build/run",
+    "long-duration stability",
+    "policy playing strength"
+  ]
+}

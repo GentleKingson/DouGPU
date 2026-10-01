@@ -1,0 +1,3 @@
+# Default install targets the desktop RTX 5070 on Linux / Ubuntu under WSL2.
+# Python 3.12; use requirements-cpu.txt only for the CPU correctness smoke.
+-r requirements-gpu.txt

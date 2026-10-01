@@ -1,0 +1,8 @@
+# Linux x86_64 / WSL2; native Windows CUDA JAX wheels are not supported.
+# The CUDA libraries below come from Python wheels, not a system CUDA toolkit.
+# Package resolution is verifiable without a GPU; kernel performance is not.
+-r requirements-cpu.txt
+-c constraints-cuda13.txt
+jax[cuda13]==0.7.2
+jax-cuda13-plugin==0.7.2
+jax-cuda13-pjrt==0.7.2
