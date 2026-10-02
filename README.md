@@ -179,6 +179,22 @@ sum(successful optimizer updates) / sum(full_cycle_seconds)
 
 报告位于 `benchmarks/workers/summary.json`。三次重复可得到当前候选组的测量比较，不能证明全局最优或棋力提升。候选参数不自动写回正式实验。
 
+### Colab L4 同参短测
+
+用 `colab new -s dougpu-l4 --gpu L4` 创建独立会话，上传仓库快照、本地实际运行的完整配置和同一个完整 checkpoint（ZIP 与 `.ok.json`）。Colab 中使用独立 Python 3.12 环境安装现有 `requirements-gpu.txt`，不要使用 notebook 预装的不同版本 JAX，也不要套用另一份默认训练配置。
+
+在上传后的仓库根目录执行：
+
+```bash
+uv venv --python python3.12 .venv
+uv pip install --python .venv/bin/python -r requirements-gpu.txt
+.venv/bin/python scripts/colab_benchmark.py \
+  --config input.config.json --source-state input-state \
+  --run-dir benchmark --seconds 720
+```
+
+脚本复用原有导入、doctor、preflight、训练和统计流程；仅覆盖本次运行时长，断言其余配置及输入文件未变。`benchmark/summary.json` 排除前 25 个周期，保留真实采样、周期保存和配置原有的评估。预算必须足够覆盖原保存间隔，否则结果标记为不合格，不会缩短保存间隔凑数。下载日志与结果后用 `colab stop -s dougpu-l4` 释放会话。单次短测只比较该配置下的整机吞吐，不能视为纯 GPU 算力或多次重复基准。
+
 ## 6. 显存与注意力设置
 
 默认保留 BF16 主矩阵乘、FP32 参数/Adam/归一化/softmax/Q 标量投影和 loss。不会启用 FP8/FP4 或减少完整历史。
