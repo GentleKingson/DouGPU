@@ -1,5 +1,7 @@
 # DouGPU LocalServer 训练有效性验证报告
 
+本轮失败项和 manual 建议是历史状态，后续修复见[训练修复报告](training-fixes-2026-10-01.zh-CN.md)；最新预算决定及原始证据获取见[证据说明](experiment-evidence.zh-CN.md)。
+
 项目名称已统一为 DouGPU。下文保留验证当时的包名、路径、镜像与哈希，均为历史证据，不代表当前项目名或最新源码；当前入口见 [README](../README.md)。
 
 本次通过 SSH 在 LocalServer 的 RTX 5070 上验证本地仓库快照，未使用服务器已有的另一套 DouZero 代码。默认 manual 路径完成了真实自博弈、学习、保存和续训，训练后策略在独立牌局上的均衡胜率有所提升。但全套回归未通过，部分优化路径仍有问题。
