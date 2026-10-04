@@ -61,6 +61,7 @@ class TrainConfig:
     epsilon_frames: int = 1000000
     max_hours: float = 5.5
     max_cycles: int = 100000000
+    target_updates: int | None = None  # absolute successful Adam steps; None disables
     checkpoint_seconds: float = 300.0
     keep_checkpoints: int = 3
     eval_every: int = 25
@@ -108,6 +109,8 @@ class TrainConfig:
             raise ValueError("Effective batch must include all 3 roles; check exploration/replay limits")
         if self.max_cycles < 1 or self.lr <= 0 or self.grad_clip <= 0:
             raise ValueError("Invalid optimizer or cycle limit")
+        if self.target_updates is not None and (type(self.target_updates) is not int or self.target_updates < 0):
+            raise ValueError('target_updates must be a nonnegative integer or null')
         if self.max_hours <= 0 or self.checkpoint_seconds <= 0 or self.eval_deals < 1:
             raise ValueError("Invalid time or evaluation limit")
         if not 0 <= self.eval_workers <= self.workers:

@@ -78,6 +78,10 @@ def main():
             raise ValueError('Source lock mismatch on resume; do not mix rule-engine versions')
         # Operational settings may change; silently changing the objective may not.
         check_training_semantics(meta['train'], tc)
+        if tc.target_updates is not None and tc.target_updates < meta['updates']:
+            raise ValueError('target_updates is below the restored successful-update count')
+        if meta.get('algorithm_experiment') and tc.target_updates != meta['algorithm_experiment']['target_updates']:
+            raise ValueError('Cannot change the registered algorithm experiment endpoint on resume')
         if meta.get('historical_opponent_hashes', []) != historical_hashes:
             raise ValueError('Historical opponent bytes/order changed; use a new experiment')
         historical_frames[:] = meta.get('historical_frames', historical_frames)
@@ -135,8 +139,23 @@ def main():
     signal.signal(signal.SIGINT, lambda *_: stop.update(requested=True))
     signal.signal(signal.SIGTERM, lambda *_: stop.update(requested=True))
 
+    def stop_reason():
+        if tc.target_updates is not None and updates >= tc.target_updates:
+            return 'target_updates'
+        if stop['requested']:
+            return 'signal'
+        if time.monotonic()-start >= tc.max_hours*3600:
+            return 'time_limit'
+        return None
+
     def stopped():
-        return stop['requested'] or time.monotonic()-start >= tc.max_hours*3600
+        return stop_reason() is not None
+
+    def endpoint():
+        return {'target_updates': tc.target_updates,
+                'status': ('COMPLETE' if error is None and updates == tc.target_updates else 'INCOMPLETE'),
+                'stop_reason': ('error' if error is not None else stop_reason() or
+                                ('cycle_limit' if cycle >= tc.max_cycles else None))}
 
     def log(event):
         event = dict(event, session_id=session_id, wall_time=time.time(), cycle=cycle, updates=updates, frames=frames,
@@ -160,6 +179,10 @@ def main():
                 'collection_credit': collection_credit,
                 'total_seconds': prior_seconds + time.monotonic()-start, 'reason': reason,
                 'resume_scope': 'learner+optimizer+replay+main_rng; in-flight actor games restart'}
+        if saved and 'algorithm_experiment' in saved['meta']:
+            meta['algorithm_experiment'] = saved['meta']['algorithm_experiment']
+        if tc.target_updates is not None:
+            meta['update_endpoint'] = endpoint()
         path = store.save(params, opt, champion, replay if tc.save_replay else None, meta, log_path)
         last_save = time.monotonic()
         checkpoint_seconds_total += last_save-save_began
@@ -184,12 +207,13 @@ def main():
         save('session_start')
         if args.savedir and store.last_remote_ok is not True:
             raise IOError('Initial checkpoint mirror failed; check the destination before a long session')
-        seeds = rng.integers(0, 2**32-1, tc.workers, dtype=np.uint64)
-        if tc.ready_first:
-            from .ready_actors import ReadyActorPool
-            pool = ReadyActorPool(tc, seeds)
-        else:
-            pool = ActorPool(tc, seeds, packed=not tc.selfplay_kv_cache)
+        if cycle < tc.max_cycles and not stopped():
+            seeds = rng.integers(0, 2**32-1, tc.workers, dtype=np.uint64)
+            if tc.ready_first:
+                from .ready_actors import ReadyActorPool
+                pool = ReadyActorPool(tc, seeds)
+            else:
+                pool = ActorPool(tc, seeds, packed=not tc.selfplay_kv_cache)
         log({'event': 'start', 'parameters': sum(v.size for v in params.values()),
              'effective_batch': tc.batch_size, 'replay_bytes': sum(v.nbytes for v in replay.data.values()),
              'source_lock': actual_lock, 'versions': versions})
@@ -419,8 +443,7 @@ def main():
                 save('periodic')
             # Legacy train timings overlap; this wall interval includes evaluation and saves.
             log({'event': 'cycle_end', 'full_cycle_seconds': time.monotonic()-began,
-                 'stop_reason': ('signal' if stop['requested'] else
-                                 ('time_limit' if time.monotonic()-start >= tc.max_hours*3600 else None)),
+                 'stop_reason': stop_reason(),
                  'updates_planned': tc.updates_per_cycle,
                  'nonfinite_steps': nonfinite_steps_cycle,
                  'updates_completed': updates-updates_at_start,
@@ -444,8 +467,8 @@ def main():
     if error is not None:
         raise error
     log({'event': 'session_end', 'runtime_seconds': time.monotonic()-start,
-         'stop_reason': ('signal' if stop['requested'] else
-                         ('time_limit' if time.monotonic()-start >= tc.max_hours*3600 else 'cycle_limit'))})
+         'stop_reason': stop_reason() or 'cycle_limit',
+         **({'update_endpoint': endpoint()} if tc.target_updates is not None else {})})
     print(f'[DONE] cycle={cycle} updates={updates} games={games}; latest exports: {store.local}', flush=True)
     if args.savedir:
         if store.last_remote_ok:

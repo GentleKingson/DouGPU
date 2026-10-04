@@ -1,6 +1,12 @@
 # 实验报告与证据获取
 
-更新日期：2026-10-03，Asia/Hong_Kong。
+更新日期：2026-10-04，Asia/Hong_Kong。
+
+## 当前 Batch 决定
+
+Effective batch512 rejected：seed43/44/45 全部 FAIL，跨 seed REJECT，WP / ADP Balanced 等权点差均值分别为 -1.4514pp / -1.5722pp。不进入 final holdout，不加样本或第四 seed，不自动 rescue，生产默认 batch256 不变。拒绝的是本轮 batch512 方案，不是 accumulation=8。
+
+既有日志已确认 fork 后阶段 sample-update ratio（replay sampling intensity）为 baseline 约 2×，不是按更新次数定义的 UTD 翻倍；frozen-replay 梯度与 Adam 单步诊断已完成，未确定退化因果来源。报告及诊断限制见 [batch512 报告](experiments/batch512-20261004.zh-CN.md)。原始目录为 `reports/batch512-experiment-20261004/`，含冻结 `input/protocol.json`、`evaluation-output/statistics.json`、`evaluation-final-verification.json`、`diagnose_logs.py`、`log-diagnostics.json`、`frozen_probe.py`、`frozen-replay-output/` 与 `diagnostics-verification.json`；这些文件未随仓库发布。评测输出归档 SHA256 为 `d1342b9e2d3cdbcd49e98e29885c6e3e198c92e961a759aa667e3fb69b44e34d`，仅包含本轮评测输出，不是含训练 checkpoint 的完整归档。
 
 ## 当前预算决定
 
@@ -16,7 +22,7 @@
 - 后续 6h→8h 协议的地主非劣界为 -1pp，农民仍为 -3pp，不能混用两轮门槛。
 - seed43/44 的长跑均从零独立初始化，但在 4h 后完整状态恢复到 6h，不是不中断的六小时进程。早期短跑报告的“连续运行”只描述其当轮运行。
 
-发布版报告见[实验索引](experiments/README.md)，最新结论见[seed45 最终报告](experiments/eight-hours-seed45-20261003.zh-CN.md)。原始报告在仓库相对路径 `reports/eight-hours-seed45-20261003/final-report.md`。统计与跨 seed 决定分别在其 `bundle/evidence/statistics.json`、`bundle/evidence/cross-seed-summary.json`；初查在 `bundle/evidence/role-variance-initial-audit.json`。
+发布版报告见[实验索引](experiments/README.md)，预算扩张最终结论见[seed45 最终报告](experiments/eight-hours-seed45-20261003.zh-CN.md)。原始报告在仓库相对路径 `reports/eight-hours-seed45-20261003/final-report.md`。统计与跨 seed 决定分别在其 `bundle/evidence/statistics.json`、`bundle/evidence/cross-seed-summary.json`；初查在 `bundle/evidence/role-variance-initial-audit.json`。
 
 ## 获取与复核
 
