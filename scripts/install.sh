@@ -68,23 +68,15 @@ venv_python="$venv_dir/bin/python"
 
 # Avoid silently turning a pre-existing GPU environment into a claimed CPU-only
 # environment. Installation of missing GPU packages into a CPU .venv is allowed.
-if [[ "$mode" == cpu ]]; then
-  "$venv_python" - <<'PY'
+"$venv_python" - "$mode" <<'PYTHON'
 import importlib.metadata as md
+import sys
 names = {d.metadata.get("Name", "").lower().replace("_", "-") for d in md.distributions()}
-if names & {"jax-cuda12-plugin", "jax-cuda13-plugin"}:
+if sys.argv[1] == "cpu" and names & {"jax-cuda12-plugin", "jax-cuda13-plugin"}:
     raise SystemExit("This .venv already has a CUDA JAX plugin. Use a new project directory for a CPU-only install.")
-PY
-fi
-
-if [[ "$mode" == gpu ]]; then
-  "$venv_python" - <<'PY'
-import importlib.metadata as md
-names = {d.metadata.get("Name", "").lower().replace("_", "-") for d in md.distributions()}
-if "jax-cuda12-plugin" in names:
+if sys.argv[1] == "gpu" and "jax-cuda12-plugin" in names:
     raise SystemExit("This .venv has the CUDA 12 JAX plugin. Use a new project directory for the pinned CUDA 13 install.")
-PY
-fi
+PYTHON
 
 "$venv_python" -m pip install --disable-pip-version-check --only-binary=:all: \
   -r "$project_dir/requirements-$mode.txt"

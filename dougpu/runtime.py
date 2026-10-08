@@ -1,6 +1,5 @@
 """Explicit accelerator selection and local diagnostics; no JAX import at module load."""
 import importlib.metadata
-import json
 import os
 from pathlib import Path
 import platform
@@ -70,6 +69,20 @@ def package_versions():
         except importlib.metadata.PackageNotFoundError:
             pass
     return result
+
+
+def git_source(root):
+    """Best-effort session provenance, never a training or integrity gate."""
+    source = {'git_commit': 'unknown', 'git_dirty': 'unknown'}
+    for key, args in (('git_commit', ['rev-parse', 'HEAD']),
+                      ('git_dirty', ['status', '--porcelain', '--untracked-files=normal'])):
+        try:
+            value = subprocess.run(['git', '-C', str(root), *args], check=True,
+                                   capture_output=True, text=True, timeout=5).stdout.strip()
+            source[key] = bool(value) if key == 'git_dirty' else value or 'unknown'
+        except (OSError, subprocess.SubprocessError):
+            pass
+    return source
 
 
 def nvidia_info():

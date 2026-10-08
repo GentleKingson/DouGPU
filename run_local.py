@@ -81,6 +81,7 @@ def write_json(path, value):
 
 
 def archive_trainer(run):
+    """Keep the source snapshot from prepare; later sessions record their own versions."""
     destination = run/'source'/'trainer_source.zip'
     if destination.exists():
         return
@@ -99,16 +100,16 @@ def prepared(run):
         raise FileNotFoundError('Run is not prepared. Use prepare --run-dir ... --config ... first.')
     spec, mc, tc = load_config(run/'config.json')
     lock = json.loads((run/'source'/'source_lock.json').read_text())
-    from bootstrap import project_hash, verify_local_source
+    from bootstrap import verify_local_source
     if tc.engine == 'douzero':
         verify_local_source(ROOT, lock)
-    elif lock != {'engine': tc.engine, 'encoding_schema': 1, 'doutpu_sha256': project_hash(ROOT)}:
+    elif lock.get('engine') != tc.engine or lock.get('encoding_schema') != 1:
         raise ValueError('Reference-test source lock changed')
     return spec, mc, tc, lock
 
 
 def prepare_run(args):
-    from bootstrap import prepare, project_hash, PINNED_COMMIT
+    from bootstrap import prepare, PINNED_COMMIT
     run = Path(args.run_dir).resolve()
     spec, mc, tc = load_config(args.config)
     with run_lock(run):
@@ -117,9 +118,10 @@ def prepare_run(args):
         if tc.engine == 'douzero':
             cache = args.upstream_cache or (ROOT/'upstream_cache' if (ROOT/'upstream_cache').is_dir() else None)
             prepare(ROOT, run/'source', PINNED_COMMIT, cache)
+        elif (run/'source'/'source_lock.json').exists():
+            prepared(run)
         else:
-            lock = {'engine': 'reference', 'encoding_schema': 1, 'doutpu_sha256': project_hash(ROOT)}
-            write_json(run/'source'/'source_lock.json', lock)
+            write_json(run/'source'/'source_lock.json', {'engine': 'reference', 'encoding_schema': 1})
         write_json(run/'config.json', spec)
         archive_trainer(run)
         write_json(run/'run_info.json', {'project': 'DouGPU', 'run_dir': str(run),

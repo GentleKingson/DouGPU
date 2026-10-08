@@ -6,11 +6,9 @@ accelerators. A single foreground process exclusively owns the selected accelera
 import argparse
 from dataclasses import asdict
 import json
-import os
 from pathlib import Path
 import platform
 import signal
-import sys
 import time
 import traceback
 import uuid
@@ -19,7 +17,7 @@ from .config import ModelConfig, TrainConfig
 from .checkpoint import Store, atomic_bytes, json_bytes
 from .replay import Replay, ReplayPrefetch, group_history
 from .actors import ActorPool
-from .runtime import configure_runtime, verify_backend, package_versions
+from .runtime import configure_runtime, verify_backend, package_versions, git_source
 from .semantics import check_training_semantics, check_array_state
 
 
@@ -38,10 +36,7 @@ def main():
     mc, tc = ModelConfig(**spec.get('model', {})).validate(), TrainConfig(**spec.get('train', {})).validate()
     work = Path(args.workdir)
     work.mkdir(parents=True, exist_ok=True)
-    os.environ.setdefault('OMP_NUM_THREADS', '1')
-    os.environ.setdefault('OPENBLAS_NUM_THREADS', '1')
     # Directory stays local to avoid thousands of small Drive FUSE writes.
-    os.environ.setdefault('JAX_COMPILATION_CACHE_DIR', str(work / 'jax_cache'))
     configure_runtime(tc, work/'jax_cache')
     import jax
     from .model import init_params, init_optimizer, make_train_step
@@ -131,7 +126,7 @@ def main():
     atomic_bytes(work / 'resolved_config.json', json_bytes(spec))
     versions = {'python': platform.python_version(), 'jax': jax.__version__, 'numpy': np.__version__,
                 'devices': [str(d) for d in devices], 'backend': jax.default_backend(),
-                'packages': package_versions()}
+                'packages': package_versions(), **git_source(Path(__file__).resolve().parents[1])}
     session_id = uuid.uuid4().hex
     start, last_save = time.monotonic(), 0.
     checkpoint_seconds_total = 0.

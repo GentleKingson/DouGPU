@@ -1,5 +1,6 @@
 from dataclasses import asdict, replace
 import json
+import subprocess
 from types import SimpleNamespace
 import numpy as np
 import pytest
@@ -147,3 +148,39 @@ def test_additional_cycles_use_newer_verified_mirror(tmp_path, monkeypatch):
     assert actual['train']['max_cycles'] == 7
     assert called[0][0] == 'dougpu.train'
     assert str(mirror) in [str(v) for v in called[0][1]]
+
+
+@pytest.mark.parametrize('status,expected', [('', False), (' M dougpu/train.py\n', True)])
+def test_git_provenance_records_clean_and_dirty(monkeypatch, status, expected):
+    from dougpu.runtime import git_source
+    monkeypatch.setattr('dougpu.runtime.subprocess.run', lambda args, **kw:
+                        SimpleNamespace(stdout=status if 'status' in args else 'abc123\n'))
+    assert git_source('.') == {'git_commit': 'abc123', 'git_dirty': expected}
+
+
+@pytest.mark.parametrize('error', [FileNotFoundError(), subprocess.CalledProcessError(128, 'git'),
+                                  subprocess.TimeoutExpired('git', 5)])
+def test_git_provenance_unknown_is_not_clean(monkeypatch, error):
+    from dougpu.runtime import git_source
+    def unavailable(*args, **kwargs):
+        raise error
+    monkeypatch.setattr('dougpu.runtime.subprocess.run', unavailable)
+    assert git_source('.') == {'git_commit': 'unknown', 'git_dirty': 'unknown'}
+
+
+@pytest.mark.parametrize('mode,plugin,error', [
+    ('cpu', 'jax-cuda12-plugin', 'CPU-only'), ('cpu', 'jax_cuda13_plugin', 'CPU-only'),
+    ('gpu', 'jax-cuda12-plugin', 'CUDA 13 install'), ('gpu', 'jax-cuda13-plugin', None),
+    ('cpu', '', None), ('gpu', '', None),
+])
+def test_installer_dependency_scan(monkeypatch, mode, plugin, error):
+    from pathlib import Path
+    script = (Path(__file__).resolve().parents[1]/'scripts/install.sh').read_text()
+    scan = script.split("<<'PYTHON'\n", 1)[1].split('\nPYTHON', 1)[0]
+    monkeypatch.setattr('sys.argv', ['-', mode])
+    monkeypatch.setattr('importlib.metadata.distributions', lambda: [SimpleNamespace(metadata={'Name': plugin})])
+    if error:
+        with pytest.raises(SystemExit, match=error):
+            exec(scan, {})
+    else:
+        exec(scan, {})

@@ -296,7 +296,7 @@ DouGPU 的原创代码、文档及本地修改采用 [MIT License](LICENSE)，�
 
 项目名称统一为 DouGPU，硬件型号只是配置目标，不属于项目名。上游 DouZero 的名称、来源 notebook 中的 DouTPU 名称、原版权声明、历史实验路径和原始证据哈希都予以保留，它们指代第三方或历史来源，而非当前项目。`docs/TPU_ORIGINAL_*` 和 `docs/notebook_source_manifest.json` 属于原始来源记录，不随项目改名而改写。
 
-当前 Python 包名为 `dougpu`，直接调用模块时使用 `python -m dougpu.train`、`python -m dougpu.evaluate` 等命令，但推荐的工作流仍是 `run_local.py`。为保持兼容，旧源码锁和 checkpoint 中的 `doutpu_sha256` 字段名没有更改，含义仍是训练源码的哈希。改名使源码哈希发生了变化，已有实验需要先用 `prepare` 建立新目录，再按第 3 节导入完整 checkpoint；请勿通过改写旧实验的来源锁来绕过校验。Docker Compose 的镜像名统一为 `dougpu:local`。
+当前 Python 包名为 `dougpu`，推荐使用 `run_local.py`。新实验的来源锁只记录规则引擎、编码版本和固定上游来源，不记录本地训练源码哈希或 Git commit。旧实验的锁（包括历史 `doutpu_sha256`）原样保留；普通源码清理不再阻止续训，checkpoint 与实验锁仍须完整相等。每次训练的启动日志及 checkpoint `versions` 尽量记录 `git_commit` 和 `git_dirty`；Git 不可用时记录 `unknown`，不阻断启动，也不用于完整性证明。`trainer_source.zip` 仅代表 prepare 时的源码快照，后续会话以各自的版本记录为准。Docker Compose 的镜像名为 `dougpu:local`。
 
 ## 参考资料
 

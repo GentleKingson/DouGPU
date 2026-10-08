@@ -7,9 +7,7 @@ persisted before training. No branch-tip upgrade is performed during resume.
 import argparse
 import hashlib
 import json
-import os
 from pathlib import Path
-import shutil
 import subprocess
 import tempfile
 import zipfile
@@ -17,18 +15,6 @@ from dougpu.checkpoint import atomic_bytes, copy_verified, json_bytes, sha256_fi
 
 REPO = 'https://github.com/kwai/DouZero.git'
 PINNED_COMMIT = '718a5c920bf3361e34178a38f3b80458e176b351'
-
-
-def project_hash(root):
-    h = hashlib.sha256()
-    root = Path(root)
-    paths = list((root/'dougpu').glob('*.py'))
-    paths += [root / name for name in ('bootstrap.py', 'fork_run.py', 'run_local.py', 'tune_local.py')
-              if (root / name).is_file()]
-    for p in sorted(paths):
-        h.update(str(p.relative_to(root)).encode())
-        h.update(p.read_bytes())
-    return h.hexdigest()
 
 
 def safe_extract(path, dest):
@@ -50,11 +36,8 @@ def prepare(root, savedir, commit=PINNED_COMMIT, upstream_cache=None):
     vendor = root/'vendor'
     lock_path = savedir/'source_lock.json'
     archive_path = savedir/'upstream_source.zip'
-    local_hash = project_hash(root)
     if lock_path.exists():
         lock = json.loads(lock_path.read_text())
-        if lock['doutpu_sha256'] != local_hash:
-            raise RuntimeError('Local trainer source changed; use a NEW experiment folder')
         if commit and commit != lock['douzero_commit']:
             raise RuntimeError('Requested engine commit differs from saved experiment')
         if not archive_path.exists() or sha256_file(archive_path) != lock['archive_sha256']:
@@ -71,7 +54,8 @@ def prepare(root, savedir, commit=PINNED_COMMIT, upstream_cache=None):
             raise ValueError('Cached upstream commit or archive hash mismatch')
         safe_extract(source, vendor)
         verify_upstream_files(vendor, old)
-        lock = dict(old, doutpu_sha256=local_hash)
+        lock = {key: old[key] for key in
+                ('engine', 'encoding_schema', 'douzero_commit', 'archive_sha256', 'upstream_files')}
         copy_verified(source, archive_path, old['archive_sha256'])
         atomic_bytes(lock_path, json_bytes(lock))
     else:
@@ -102,15 +86,14 @@ def prepare(root, savedir, commit=PINNED_COMMIT, upstream_cache=None):
                 for p in chosen:
                     z.write(p, str(p.relative_to(checkout)))
             digest = sha256_file(packed)
-            lock = {'repository': REPO, 'douzero_commit': sha, 'archive_sha256': digest,
-                    'upstream_files': files, 'doutpu_sha256': local_hash,
+            lock = {'douzero_commit': sha, 'archive_sha256': digest,
+                    'upstream_files': files,
                     'engine': 'douzero', 'encoding_schema': 1}
             copy_verified(packed, archive_path, digest)
             # Lock is the source archive's commit marker.
             atomic_bytes(lock_path, json_bytes(lock))
             safe_extract(packed, vendor)
-    verify_upstream_files(vendor, lock)
-    atomic_bytes(root/'source_lock.json', json_bytes(lock))
+    verify_local_source(root, lock)
     print(json.dumps({'vendor': str(vendor), 'source_lock': str(lock_path),
                       'douzero_commit': lock['douzero_commit']}, indent=2), flush=True)
     return lock
@@ -159,8 +142,6 @@ def verify_local_source(root, lock):
     root = Path(root).resolve()
     if lock.get('engine') != 'douzero' or lock.get('encoding_schema') != 1:
         raise RuntimeError('Unexpected rule engine or encoding schema')
-    if lock.get('doutpu_sha256') != project_hash(root):
-        raise RuntimeError('Trainer source differs from the run lock; prepare a new run and import the checkpoint.')
     if lock.get('douzero_commit') != PINNED_COMMIT:
         raise RuntimeError('Unexpected DouZero rule commit')
     verify_upstream_files(root/'vendor', lock)

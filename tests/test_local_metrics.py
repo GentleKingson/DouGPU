@@ -270,12 +270,14 @@ def test_failed_preflight_stops_before_training_and_records_oom_without_fallback
     assert result["failure_class"] == "out_of_memory_reported; no_configuration_fallback"
 
 
-def write_checkpoint(root: Path, cycle: int):
+def write_checkpoint(root: Path, cycle: int, corrupt_member=False):
     root.mkdir(parents=True, exist_ok=True)
     meta = {"schema": 1, "cycle": cycle, "updates": cycle * 4, "source_lock": {"encoding_schema": 1}}
     files = {key: b"synthetic arrays" for key in ("params.npz", "optimizer.npz", "champion.npz", "replay.npz")}
     files["meta.json"] = json.dumps(meta).encode()
     manifest = {key: hashlib.sha256(value).hexdigest() for key, value in files.items()}
+    if corrupt_member:
+        files["params.npz"] = b"wrong member bytes"
     archive = root / f"ckpt_{cycle:09d}.zip"
     with zipfile.ZipFile(archive, "w") as bundle:
         for key, value in files.items():
@@ -303,3 +305,9 @@ def test_snapshot_verifies_manifest_and_copies_one_generation_read_only(tmp_path
     assert verify_latest(destination)["meta"]["cycle"] == 1
     with pytest.raises(FileExistsError):
         snapshot_source(source, tmp_path / "output" / "snapshot")
+
+
+def test_checkpoint_member_hash_mismatch_rejected(tmp_path):
+    write_checkpoint(tmp_path, 1, corrupt_member=True)
+    with pytest.raises(ValueError, match='entry hash mismatch: params.npz'):
+        verify_latest(tmp_path)

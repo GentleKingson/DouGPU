@@ -5,15 +5,13 @@ from pathlib import Path
 from zipfile import ZipFile
 
 import run_local
-from bootstrap import project_hash
 
 
 def test_dougpu_identity_source_lock_and_archive(tmp_path, monkeypatch):
     root = Path(__file__).resolve().parents[1]
     assert importlib.util.find_spec('dougpu.train') is not None
     assert importlib.util.find_spec('doutpu') is None
-    lock = json.loads((root / 'source_lock.json').read_text())
-    assert lock['doutpu_sha256'] == project_hash(root)
+    assert not (root / 'source_lock.json').exists()
 
     project = tmp_path / 'DouGPU'
     package = project / 'dougpu'
@@ -27,10 +25,21 @@ def test_dougpu_identity_source_lock_and_archive(tmp_path, monkeypatch):
     assert info['project'] == 'DouGPU'
     assert info['source_notebook'] == 'DouTPU_v6e1_Optimized_Final.ipynb'
     prepared_lock = json.loads((run / 'source/source_lock.json').read_text())
-    assert prepared_lock['doutpu_sha256'] == project_hash(project)
+    assert prepared_lock == {'engine': 'reference', 'encoding_schema': 1}
     with ZipFile(run / 'source/trainer_source.zip') as archive:
         assert 'dougpu/__init__.py' in archive.namelist()
         assert not any(name.startswith('doutpu/') for name in archive.namelist())
+
+    lock_path = run / 'source/source_lock.json'
+    lock_path.write_text(json.dumps(dict(prepared_lock, doutpu_sha256='historical'), indent=4))
+    before = lock_path.read_bytes()
+    snapshot = (run / 'source/trainer_source.zip').read_bytes()
+    (package / '__init__.py').write_text('VERSION = 2\n')
+    run_local.prepare_run(argparse.Namespace(
+        run_dir=run, config=root / 'configs/cpu_smoke.json', upstream_cache=''))
+    assert lock_path.read_bytes() == before
+    assert run_local.prepared(run)[3]['doutpu_sha256'] == 'historical'
+    assert (run / 'source/trainer_source.zip').read_bytes() == snapshot
 
 
 def test_replay_benchmark_accepts_current_and_original_packages(tmp_path, monkeypatch):

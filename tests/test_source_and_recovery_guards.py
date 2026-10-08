@@ -6,7 +6,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from bootstrap import (PINNED_COMMIT, project_hash, verify_local_source,
+from bootstrap import (PINNED_COMMIT, prepare, verify_local_source,
                        verify_upstream_files)
 from dougpu.checkpoint import Store
 
@@ -25,7 +25,7 @@ def source_tree(tmp_path):
     (root/'dougpu'/'__init__.py').write_text('VERSION = 1\n')
     lock = {'engine': 'douzero', 'encoding_schema': 1, 'douzero_commit': PINNED_COMMIT,
             'upstream_files': {name: hashlib.sha256(data).hexdigest() for name, data in files.items()},
-            'doutpu_sha256': project_hash(root)}
+            'doutpu_sha256': 'historical'}
     return root, vendor, lock
 
 
@@ -188,3 +188,26 @@ def test_corrupt_new_archive_and_marker_fall_back_to_older_mirror(tmp_path):
     restored = Store(local, mirror).load_latest()
     assert Path(restored['path']) == mirrored
     assert restored['meta']['cycle'] == 1
+
+
+def test_prepare_reuses_old_lock_and_copies_only_rule_identity(tmp_path):
+    root = Path(__file__).resolve().parents[1]
+    cache = root/'upstream_cache'
+    cache_before = (cache/'source_lock.json').read_bytes()
+    project, run = tmp_path/'project', tmp_path/'run'
+    lock = prepare(project, run, upstream_cache=cache)
+    assert set(lock) == {'engine', 'encoding_schema', 'douzero_commit', 'archive_sha256', 'upstream_files'}
+    assert (cache/'source_lock.json').read_bytes() == cache_before
+    assert not (project/'source_lock.json').exists()
+    lock['doutpu_sha256'] = 'historical'
+    path = run/'source_lock.json'
+    path.write_text(json.dumps(lock, indent=4))
+    before = path.read_bytes()
+    assert prepare(project, run) == lock
+    assert path.read_bytes() == before
+    (project/'vendor/douzero/env/utils.py').write_text('changed rules')
+    with pytest.raises(RuntimeError, match='hash/path mismatch'):
+        verify_local_source(project, lock)
+    (run/'upstream_source.zip').write_bytes(b'corrupt')
+    with pytest.raises(RuntimeError, match='missing/corrupt'):
+        prepare(project, run)

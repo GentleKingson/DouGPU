@@ -169,10 +169,8 @@ def verify_latest(checkpoint_dir: Path) -> dict:
                 if not isinstance(manifest, dict) or not required.issubset(manifest):
                     raise ValueError("checkpoint lacks complete optimizer/replay state")
                 for entry, expected in manifest.items():
-                    digest = hashlib.sha256()
                     with bundle.open(entry) as stream:
-                        for block in iter(lambda: stream.read(8 * 1024 * 1024), b""):
-                            digest.update(block)
+                        digest = hashlib.file_digest(stream, "sha256")
                     if digest.hexdigest() != expected:
                         raise ValueError("entry hash mismatch: " + entry)
                 meta = json.loads(bundle.read("meta.json"))

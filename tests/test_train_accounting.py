@@ -62,6 +62,12 @@ def test_training_accounts_ordered_blocking_collect_and_drain(tmp_path, monkeypa
     config.write_text(json.dumps({'model': asdict(mc), 'train': asdict(tc)}))
     work = tmp_path / 'run'
     monkeypatch.setattr(sys, 'argv', ['train', '--config', str(config), '--workdir', str(work)])
+    lock_path = tmp_path / 'source_lock.json'
+    lock = {'engine': 'reference', 'encoding_schema': 1, 'doutpu_sha256': 'historical'}
+    lock_path.write_text(json.dumps(lock))
+    monkeypatch.setattr(sys, 'argv', sys.argv + ['--source-lock', str(lock_path)])
+    provenance = {'git_commit': 'unknown', 'git_dirty': 'unknown' if ready else True}
+    monkeypatch.setattr(train, 'git_source', lambda _: provenance)
     train.main()
     saved = Store(work / 'checkpoints').load_latest()
     meta = saved['meta']
@@ -74,3 +80,24 @@ def test_training_accounts_ordered_blocking_collect_and_drain(tmp_path, monkeypa
     assert event['fresh_samples'] == event['replay_size'] == expected
     if ready:
         assert event['replay_write_seconds'] == 0
+
+    assert {k: meta['versions'][k] for k in provenance} == provenance
+    start = next(event for event in events if event['event'] == 'start')
+    assert start['versions'] == meta['versions']
+    from pathlib import Path
+    path = Path(saved['path'])
+    before = path.read_bytes()
+    monkeypatch.setattr(train, 'git_source', lambda _: {'git_commit': 'new-session', 'git_dirty': True})
+    train.main()  # Session provenance can change while the historical lock stays intact.
+    restored = Store(work / 'checkpoints').load_latest()
+    assert restored['meta']['source_lock'] == lock
+    assert restored['meta']['updates'] == meta['updates']
+    assert restored['meta']['versions']['git_commit'] == 'new-session'
+    assert restored['meta']['numpy_rng'] == meta['numpy_rng']
+    for group in ('params', 'champion', 'replay'):
+        for key in saved[group]:
+            np.testing.assert_array_equal(saved[group][key], restored[group][key])
+    for group in ('m', 'v'):
+        for key in saved['optimizer'][group]:
+            np.testing.assert_array_equal(saved['optimizer'][group][key], restored['optimizer'][group][key])
+    assert path.read_bytes() == before

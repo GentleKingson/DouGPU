@@ -6,8 +6,6 @@ Provide trusted official state_dict checkpoints; weights are not bundled.
 import argparse
 import json
 from pathlib import Path
-import os
-import numpy as np
 from .checkpoint import load_policy, sha256_file
 from .config import ModelConfig, TrainConfig
 from .runtime import configure_runtime, verify_backend, package_versions

@@ -21,7 +21,6 @@ def check_training_semantics(old_train, config):
 def check_array_state(saved, model_config):
     """Reject incomplete policy exports or malformed optimizer state without requiring JAX."""
     import numpy as np
-    from .replay import Replay
     params, opt, champion = saved['params'], saved['optimizer'], saved['champion']
     expected = expected_parameter_shapes(model_config)
     if set(params) != set(expected) or set(champion) != set(expected):

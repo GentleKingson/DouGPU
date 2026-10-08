@@ -39,9 +39,7 @@ def tokenize(s: PublicState):
         return np.frombuffer(s.history_tokens, np.uint8).copy()
     tokens = [BOS, BOTTOM] + [RANK_BASE + RANK_INDEX[r] for r in sorted(s.bottom)] + [END]
     for seat, move in s.history:
-        tokens.append(SEAT_BASE + seat)
-        tokens.extend([RANK_BASE + RANK_INDEX[r] for r in sorted(move)] if move else [PASS])
-        tokens.append(END)
+        tokens.extend(move_tokens(seat, move))
     # At most 54 non-pass moves and 2 passes between non-pass moves:
     # 6 + 54 cards + 2*54 move delimiters + 3*106 pass tokens = 486 < 512.
     if len(tokens) > MAX_SEQ:
