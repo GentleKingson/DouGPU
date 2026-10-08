@@ -17,7 +17,7 @@ from .config import ModelConfig, TrainConfig
 from .checkpoint import Store, atomic_bytes, json_bytes
 from .replay import Replay, ReplayPrefetch, group_history
 from .actors import ActorPool
-from .runtime import configure_runtime, verify_backend, package_versions, git_source
+from .runtime import configure_runtime, verify_backend, package_versions, git_source, source_identity
 from .semantics import check_training_semantics, check_array_state
 
 
@@ -51,6 +51,7 @@ def main():
     if tc.engine == 'douzero':
         from bootstrap import verify_local_source
         verify_local_source(Path(__file__).resolve().parents[1], actual_lock)
+    runtime_source = source_identity(Path(__file__).resolve().parents[1], work/'source'/'trainer_source.zip')
     store = Store(work / 'checkpoints', args.savedir or None, tc.keep_checkpoints)
     saved = store.load_latest() if tc.resume else None
     historical, historical_hashes = load_opponents(tc.historical_opponents, mc)
@@ -127,7 +128,10 @@ def main():
     versions = {'python': platform.python_version(), 'jax': jax.__version__, 'numpy': np.__version__,
                 'devices': [str(d) for d in devices], 'backend': jax.default_backend(),
                 'packages': package_versions(), **git_source(Path(__file__).resolve().parents[1])}
+    actor_start = None
     session_id = uuid.uuid4().hex
+    resume_input = ({'path': saved['path'], 'sha256': saved['sha256'],
+                     'updates': updates, 'cycle': cycle} if saved else None)
     start, last_save = time.monotonic(), 0.
     checkpoint_seconds_total = 0.
     stop = {'requested': False}
@@ -167,6 +171,8 @@ def main():
         save_began = time.monotonic()
         meta = {'model': asdict(mc), 'train': asdict(tc), 'source_lock': actual_lock,
                 'versions': versions, 'numpy_rng': rng.bit_generator.state,
+                'session_id': session_id, 'resume_input': resume_input,
+                'runtime_source': runtime_source, 'actor_start': actor_start,
                 'cycle': cycle, 'updates': updates, 'frames': frames, 'games': games,
                 'complete_samples': complete_samples, 'champion_cycle': champion_cycle,
                 'selection_seeds': sorted(selection_seeds),
@@ -209,9 +215,15 @@ def main():
                 pool = ReadyActorPool(tc, seeds)
             else:
                 pool = ActorPool(tc, seeds, packed=not tc.selfplay_kv_cache)
+            actor_start = {'worker_seeds': seeds.tolist(), 'worker_order': list(range(tc.workers)),
+                           'mode': 'ready_first' if tc.ready_first else 'ordered',
+                           'packed': not (tc.ready_first or tc.selfplay_kv_cache), 'updates': updates,
+                           'session_id': session_id}
+            log({'event': 'actor_start', **actor_start})
         log({'event': 'start', 'parameters': sum(v.size for v in params.values()),
              'effective_batch': tc.batch_size, 'replay_bytes': sum(v.nbytes for v in replay.data.values()),
-             'source_lock': actual_lock, 'versions': versions})
+             'source_lock': actual_lock, 'versions': versions, 'resume_input': resume_input,
+             'model': asdict(mc), 'train': asdict(tc), 'runtime_source': runtime_source})
         if historical:
             log({'event': 'historical_opponents', 'sha256': historical_hashes,
                  'episode_fraction': tc.historical_fraction, 'learner_landlord_probability': .5,

@@ -1,5 +1,7 @@
 # 实验报告
 
+2026-10-09，[执行证据闭环](execution-evidence-20261009.zh-CN.md)完成：**INFRASTRUCTURE_READY / TRAINING_PAUSED**。恢复 SHA256、Actor seeds 和启动源码身份已记录，两地 CPU 离线复算一致；历史 Baseline 仍 FAIL，NTP 仍 CLOSED / INVALID_PROTOCOL。
+
 2026-10-09，[协议强化离线审计](protocol-hardening-20261009.zh-CN.md)完成：三段真实历史已还原，准入 **FAIL / PROTOCOL_NOT_READY，Training PAUSED**。两地复算一致，执行证据缺口继续阻断；0 GPU、生产算法未变。
 
 2026-10-08，[NTP 消融](ntp-ablation-20261008.zh-CN.md)复核结案为 **CLOSED / INVALID_PROTOCOL**，**Training：PAUSED**。下一阶段仅为 **PROTOCOL HARDENING**，不自动重训。此前因遗漏原 Baseline 的 8-update 恢复边界而停在 500 更新；GPU 共 90.174 秒，完整中止状态已双域恢复核验，未运行棋力 A/B，不形成 NTP 效果结论。

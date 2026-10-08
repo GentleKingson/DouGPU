@@ -2,6 +2,8 @@
 
 更新日期：2026-10-09，Asia/Hong_Kong。
 
+[执行证据闭环](experiments/execution-evidence-20261009.zh-CN.md)已完成：INFRASTRUCTURE_READY / TRAINING_PAUSED；新记录可跨机器离线复核，历史缺失证据未补齐，准入仍 FAIL。
+
 **证据现状：旧实验原始数据已删除，新 Baseline 已独立归档。** 2026-10-01 至 2026-10-04 历史实验的原始目录、checkpoint、诊断文件和归档不可用，相关路径与 SHA256 仅作历史身份记录。2026-10-08 新 Baseline 的证据不受此历史缺失影响。
 
 ## 新 Baseline 独立评估

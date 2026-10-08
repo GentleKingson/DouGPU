@@ -77,5 +77,60 @@ class ProtocolGateTests(unittest.TestCase):
                 self.assertEqual(json.loads(result.stdout)['status'], 'FAIL')
 
 
+class ExecutionEvidenceTests(unittest.TestCase):
+    def setUp(self):
+        import io
+        import zipfile
+        from scripts.protocol_gate import digest
+        out = io.BytesIO()
+        with zipfile.ZipFile(out, 'w') as z:
+            z.writestr('dougpu/train.py', b'# synthetic trainer')
+        self.snapshot = out.getvalue()
+        source = dict(snapshot_sha256=digest(self.snapshot),
+                      files={'dougpu/train.py': dict(path='/fixture/dougpu/train.py',
+                             sha256=digest(b'# synthetic trainer'))},
+                      loaded_modules={'dougpu.train': 'dougpu/train.py'})
+        self.rows, sessions = [], []
+        for index, (begin, end) in enumerate(((0, 8), (8, 16))):
+            tc = asdict(TrainConfig(workers=1, target_updates=end))
+            common = dict(session_id=str(index), updates=begin)
+            resume = dict(path='/fixture/ckpt.zip', sha256='a'*64, updates=begin, cycle=1) if index else None
+            actor = dict(worker_seeds=[42 + index], worker_order=[0], mode='ordered', packed=True, **common)
+            start = dict(model=asdict(ModelConfig()), train=tc, source_lock={'engine': 'fixture'},
+                         runtime_source=deepcopy(source), resume_input=resume, **common)
+            self.rows.extend([dict(event='actor_start', **actor), dict(event='start', **start),
+                              dict(event='train', session_id=str(index), updates=end, successful_steps=end-begin)])
+            sessions.append(dict(start_updates=begin, end_updates=end,
+                model=start['model'], train=tc, source_lock=start['source_lock'],
+                source_sha256=source['snapshot_sha256'], input_checkpoint_sha256='a'*64 if index else None))
+        endpoint = dict(target_updates=16, status='COMPLETE', stop_reason='target_updates')
+        self.rows.append(dict(event='session_end', session_id='1', updates=16,
+                              stop_reason='target_updates', update_endpoint=endpoint))
+        self.meta = dict(start, updates=16, actor_start=actor, reason='session_end', update_endpoint=endpoint)
+        self.plan = dict(sessions=sessions)
+
+    def test_execution_positive_and_negative(self):
+        from scripts.protocol_gate import execution_sessions
+        self.assertEqual(len(execution_sessions(self.rows, self.meta, self.snapshot, self.plan)), 2)
+        for change in ('seed', 'resume', 'source', 'boundary', 'forged_status', 'actor_metadata', 'null_actor'):
+            rows, meta, plan = deepcopy(self.rows), deepcopy(self.meta), deepcopy(self.plan)
+            if change == 'seed':
+                del rows[3]['worker_seeds']
+            elif change == 'resume':
+                rows[4]['resume_input']['sha256'] = 'b'*64
+            elif change == 'source':
+                rows[4]['runtime_source']['files']['dougpu/train.py']['sha256'] = 'b'*64
+            elif change == 'boundary':
+                plan['sessions'].pop(0)
+            elif change == 'forged_status':
+                rows[4]['runtime_source'] = 'ATTESTED'
+            elif change == 'null_actor':
+                meta['actor_start'] = None
+            else:
+                meta['actor_start'] = {}
+            with self.subTest(change=change), self.assertRaises((ValueError, KeyError, TypeError)):
+                execution_sessions(rows, meta, self.snapshot, plan)
+
+
 if __name__ == '__main__':
     unittest.main()

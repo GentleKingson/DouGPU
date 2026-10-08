@@ -153,3 +153,39 @@ def diagnostics(config, cache_dir=None):
     if os.environ.get('LD_LIBRARY_PATH'):
         document['library_path_warning'] = 'LD_LIBRARY_PATH is set; it can override pip CUDA libraries.'
     return document
+
+
+def source_identity(root, snapshot):
+    """Check startup source bytes and loaded module paths against prepare's ZIP."""
+    import hashlib
+    import zipfile
+    from .files import sha256_file
+
+    root, snapshot = Path(root).resolve(), Path(snapshot).resolve()
+    paths = sorted([*root.glob('*.py'), *(root/'dougpu').glob('*.py')])
+    files = {str(p.relative_to(root)): {'path': str(p.resolve()), 'sha256': sha256_file(p)}
+             for p in paths}
+    loaded = {}
+    for name, module in list(sys.modules.items()):
+        if (name == 'dougpu' or name.startswith('dougpu.') or name == 'bootstrap'
+                or (name == '__main__' and getattr(module, '__file__', None)
+                    and Path(module.__file__).resolve() == root/'dougpu/train.py')):
+            path = Path(module.__file__).resolve()
+            key = str(path.relative_to(root))
+            if key not in files or files[key]['path'] != str(path):
+                raise ValueError('Loaded source outside prepared files: ' + name)
+            loaded[name] = key
+    evidence = {'files': files, 'loaded_modules': loaded, 'snapshot_path': str(snapshot),
+                'snapshot_sha256': None}
+    if snapshot.exists():
+        with zipfile.ZipFile(snapshot) as archive:
+            names = archive.namelist()
+            expected = {n for n in names if n.endswith('.py') and
+                        (len(Path(n).parts) == 1 or (n.startswith('dougpu/') and len(Path(n).parts) == 2))}
+            if len(names) != len(set(names)) or expected != set(files):
+                raise ValueError('Prepared source file set mismatch')
+            for name, record in files.items():
+                if hashlib.sha256(archive.read(name)).hexdigest() != record['sha256']:
+                    raise ValueError('Prepared source mismatch: ' + name)
+        evidence['snapshot_sha256'] = sha256_file(snapshot)
+    return evidence
