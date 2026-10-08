@@ -122,11 +122,13 @@ def prepare_run(args):
             prepared(run)
         else:
             write_json(run/'source'/'source_lock.json', {'engine': 'reference', 'encoding_schema': 1})
-        write_json(run/'config.json', spec)
+        if not (run/'config.json').exists():
+            write_json(run/'config.json', spec)
         archive_trainer(run)
-        write_json(run/'run_info.json', {'project': 'DouGPU', 'run_dir': str(run),
-                   'source_notebook': 'DouTPU_v6e1_Optimized_Final.ipynb',
-                   'default_backend': tc.backend, 'fresh_start_unless_checkpoint_imported': True})
+        if not (run/'run_info.json').exists():
+            write_json(run/'run_info.json', {'project': 'DouGPU', 'run_dir': str(run),
+                       'source_notebook': 'DouTPU_v6e1_Optimized_Final.ipynb',
+                       'default_backend': tc.backend, 'fresh_start_unless_checkpoint_imported': True})
     print('PREPARED', run, flush=True)
 
 

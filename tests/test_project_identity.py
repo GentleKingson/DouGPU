@@ -32,11 +32,19 @@ def test_dougpu_identity_source_lock_and_archive(tmp_path, monkeypatch):
 
     lock_path = run / 'source/source_lock.json'
     lock_path.write_text(json.dumps(dict(prepared_lock, doutpu_sha256='historical'), indent=4))
+    metadata = {}
+    for name in ('config.json', 'run_info.json'):
+        path = run/name
+        path.write_text(json.dumps(json.loads(path.read_text()), indent=4) + '\n')
+        metadata[name] = (path.read_bytes(), path.stat().st_mtime_ns)
     before = lock_path.read_bytes()
     snapshot = (run / 'source/trainer_source.zip').read_bytes()
     (package / '__init__.py').write_text('VERSION = 2\n')
     run_local.prepare_run(argparse.Namespace(
         run_dir=run, config=root / 'configs/cpu_smoke.json', upstream_cache=''))
+    for name, expected in metadata.items():
+        path = run/name
+        assert (path.read_bytes(), path.stat().st_mtime_ns) == expected
     assert lock_path.read_bytes() == before
     assert run_local.prepared(run)[3]['doutpu_sha256'] == 'historical'
     assert (run / 'source/trainer_source.zip').read_bytes() == snapshot

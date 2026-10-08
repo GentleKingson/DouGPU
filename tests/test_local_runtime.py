@@ -154,7 +154,8 @@ def test_additional_cycles_use_newer_verified_mirror(tmp_path, monkeypatch):
 def test_git_provenance_records_clean_and_dirty(monkeypatch, status, expected):
     from dougpu.runtime import git_source
     monkeypatch.setattr('dougpu.runtime.subprocess.run', lambda args, **kw:
-                        SimpleNamespace(stdout=status if 'status' in args else 'abc123\n'))
+                        SimpleNamespace(stdout='.' if '--show-toplevel' in args else
+                                        status if 'status' in args else 'abc123\n'))
     assert git_source('.') == {'git_commit': 'abc123', 'git_dirty': expected}
 
 
@@ -184,3 +185,15 @@ def test_installer_dependency_scan(monkeypatch, mode, plugin, error):
             exec(scan, {})
     else:
         exec(scan, {})
+
+
+def test_git_provenance_does_not_attribute_parent_repository(tmp_path):
+    from dougpu.runtime import git_source
+    subprocess.run(['git', 'init', str(tmp_path)], check=True, capture_output=True)
+    subprocess.run(['git', '-C', str(tmp_path), '-c', 'user.name=Test',
+                    '-c', 'user.email=test@example.invalid', '-c', 'commit.gpgsign=false',
+                    'commit', '--allow-empty', '-m', 'test'], check=True, capture_output=True)
+    child = tmp_path/'DouGPU'
+    child.mkdir()
+    assert git_source(tmp_path)['git_commit'] != 'unknown'
+    assert git_source(child) == {'git_commit': 'unknown', 'git_dirty': 'unknown'}
