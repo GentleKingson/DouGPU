@@ -1,5 +1,7 @@
 # 实验报告
 
+2026-10-08，[NTP 消融](ntp-ablation-20261008.zh-CN.md)在 500 更新时因协议遗漏原 Baseline 的 8-update 恢复边界而停止（**INVALID_PROTOCOL / STOP**）。GPU 共 90.174 秒，完整中止状态已双域恢复核验，未运行棋力 A/B；不形成 NTP 效果结论。
+
 2026-10-08，新 Baseline 的 2,000→20,000 更新独立强对手评估已完成，主比较为 **POSITIVE_SIGNAL**；20,000 latest 优于 best。完整输入、逐副结果与复核脚本已归档并读回校验。该单训练 seed 结果不恢复历史权重、不触发模型晋升或续训，见[本轮报告](baseline-strength-20261008.zh-CN.md)。
 
 截至 2026-10-04，effective batch512 三 seed 全部 FAIL，跨 seed 为 REJECT；不进入 final holdout，不追加样本或第四 seed，默认 batch256 不变。既有日志确认 4h→6h 阶段 sample-update ratio（replay sampling intensity）约为 baseline 的 2×，不是按更新次数定义的 UTD 翻倍；frozen-replay 梯度与 Adam 单步探针已完成，不能把本轮解释为纯梯度 batch 对照。详见 [batch512 拒绝与机制诊断](batch512-20261004.zh-CN.md)。
@@ -10,6 +12,7 @@
 
 | 阶段 | 报告 | 当轮结果 |
 |---|---|---|
+| NTP 辅助目标消融 | [协议偏差与停止记录](ntp-ablation-20261008.zh-CN.md) | INVALID_PROTOCOL / STOP，Gate 2 中止，无棋力比较 |
 | 角色学习差异 | [端点机制分析](role-mechanism-20261008.zh-CN.md) | COMPLETE / INCONCLUSIVE / STOP，未识别持续机制 |
 | 独立 Checkpoint Selection | [20k latest 对 best](checkpoint-selection-20261008.zh-CN.md) | NO_DECISION / STOP，地主非劣证据不足 |
 | 新 Baseline 2,000→20,000 更新 | [独立 WP/ADP 评估](baseline-strength-20261008.zh-CN.md) | COMPLETE / POSITIVE_SIGNAL，未晋升模型 |
