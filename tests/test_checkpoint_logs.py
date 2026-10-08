@@ -34,3 +34,7 @@ def test_log_compression_roundtrip_and_corrupt_fallback(tmp_path, log_data):
         path.write_bytes(b'broken')
     loaded = store.load_latest()
     assert loaded['meta']['cycle'] == 1 and loaded['log'] == (log_data or b'')
+
+    assert loaded['path'] == str(first)
+    assert loaded['sha256'] == hashlib.sha256(first.read_bytes()).hexdigest()
+    assert loaded['sha256'] != hashlib.sha256(second.read_bytes()).hexdigest()

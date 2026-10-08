@@ -205,7 +205,8 @@ class Store:
                 return {'params': read_npz(raw['params.npz']), 'optimizer': optimizer,
                         'champion': read_npz(raw['champion.npz']), 'meta': meta,
                         'replay': read_npz(raw['replay.npz']) if 'replay.npz' in raw else None,
-                        'log': raw.get('metrics.jsonl', b''), 'path': str(path)}
+                        'log': raw.get('metrics.jsonl', b''), 'path': str(path),
+                        'sha256': doc['sha256']}
             except Exception as exc:
                 print(f'[WARNING] Skip invalid checkpoint {path.name}: {exc}', flush=True)
         if observed_marker:
