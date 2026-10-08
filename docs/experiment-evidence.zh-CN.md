@@ -12,7 +12,7 @@
 
 此前的 [Checkpoint Selection](experiments/checkpoint-selection-20261008.zh-CN.md) 已按地主非劣门槛停止（NO_DECISION）；后续[角色机制分析](experiments/role-mechanism-20261008.zh-CN.md) 为 INCONCLUSIVE / STOP。两轮证据均已在 Mac 与 LocalServer 归档并恢复核验，入口分别为 `reports/checkpoint-selection-20261008-archive-verification.json` 和 `reports/role-mechanism-20261008-archive-verification.json`。这些结论不构成新训练的授权或地主学习缺陷的因果证明。
 
-另行获批的 [NTP 消融](experiments/ntp-ablation-20261008.zh-CN.md)因恢复边界漏核而中止于 500 更新，**INVALID_PROTOCOL / STOP**，未执行棋力比较。完整中止状态及偏差记录已双域恢复验证，回执为 `reports/ntp-ablation-20261008-archive-verification.json`；不能将恢复成功或 CPU/GPU 检查通过解释为消融实验有效。
+另行获批的 [NTP 消融](experiments/ntp-ablation-20261008.zh-CN.md)因恢复边界漏核而中止于 500 更新，复核结案为 **CLOSED / INVALID_PROTOCOL；Training：PAUSED**，未执行棋力比较。完整中止状态及偏差记录已双域恢复验证，回执为 `reports/ntp-ablation-20261008-archive-verification.json`；不能将恢复成功或 CPU/GPU 检查通过解释为消融实验有效。下一阶段仅强化以下协议准入要求，不自动重试。
 
 Effective batch512 rejected：seed43/44/45 全部 FAIL，跨 seed REJECT，WP / ADP Balanced 等权点差均值分别为 -1.4514pp / -1.5722pp。不进入 final holdout，不加样本或第四 seed，不自动 rescue，生产默认 batch256 不变。拒绝的是本轮 batch512 方案，不是 accumulation=8。
 
@@ -58,6 +58,17 @@ Effective batch512 rejected：seed43/44/45 全部 FAIL，跨 seed REJECT，WP / 
 4. **固定实际源码与清单。** checkpoint 的 `versions` 尽力记录 commit/dirty，但 `unknown` 或 dirty 状态不能单独证明源码身份；`source/trainer_source.zip` 也只代表 prepare 时的源码。每个会话保存实际 commit 对应源码（有本地修改时保存实际源码快照）、依赖记录和配置。对所有归档文件生成相对路径 SHA256 清单，并在第二份备份上重算；Linux 可用 `sha256sum`，macOS 可用 `shasum -a 256`。清单不包含自身，不删除或回写原始输入。
 5. **从备份实际恢复，再宣布闭环。** 先确认两份归档完整，不删除唯一真实副本。在隔离临时工作目录恢复配置与 `source/`，用现有 `Store(新本地目录, 镜像目录).load_latest()` 只读加载，并运行 `check_array_state`；核对实际加载 ZIP 的 SHA256，避免将回退旧代误认为恢复了指定端点。逐项比较参数、Adam m/v/step、champion、replay（含 ring 位置）、主 RNG、配置、日志和计数，确认 `Adam.step == updates`。也可使用现有 `import-checkpoint` 导入到新的 prepared run，但导入会记录 fork 来源，不应要求 fork 元数据整体不变。此步无须启动 learner 或 GPU。
 6. **独立核验外围产物。** 按外层清单核验最终策略、评估结果、源码及配置；Store 的 ZIP manifest 只覆盖 ZIP 内文件。记录恢复所用归档/端点哈希、验证命令和结果。恢复范围仍为 learner、Adam、replay 和主 RNG，actor 在途牌局会重启。只有恢复记录与两份持久归档都存在，才能批准清理工作目录。
+
+## 执行前会话历史一致性门禁
+
+适用于后续复用历史训练 Baseline 的实验；必须在任何新 GPU 预检、smoke 或训练之前完成。此要求不授权启动新实验，也不修改生产训练器。复用已归档的 `reports/ntp-ablation-20261008/audit-restarts.py` 的日志边界提取逻辑；该脚本本身是本轮失败诊断，尚不具备以下完整联合核验能力。
+
+1. **还原实际会话。** 从 `metrics.jsonl` 的 `session_id`、`successful_steps`、`updates` 还原有序会话的开始与结束更新数。核对会话内及会话间连续性、累计成功更新数，拒绝日志缺口、重复/交错会话及仅凭最终配置推断历史。checkpoint 日志可能不包含保存之后的 `session_end`，缺失部分必须由执行记录和对应状态交叉说明，不能自动忽略。
+2. **联合确认恢复来源和配置。** 对每次会话关联实际命令、退出记录、配置快照、输入/输出 checkpoint SHA256 与 metadata；核对 `Adam.step == updates`、恢复源确为上一会话指定状态、源码/规则/依赖身份一致，并验证 worker seeds 及 actor 重启的执行语义。比较每次实际解析后的 ModelConfig/TrainConfig；复用 `check_training_semantics` 检查学习字段，同时检查它未覆盖但可能影响数据轨迹的 actor、采样和执行配置。缺少某会话配置或恢复来源证据时不得用当前默认值填补。
+3. **对照事前 B 计划。** 逐会话比较成功更新边界、停止/恢复方式及配置；唯一计划学习目标差异为已声明的 NTP 权重。所有其他差异须在新协议中明确分类、给出可比性依据并冻结，不得默认为无影响。本次历史 A 的边界是 `0→8→2,000→20,000`；B 若另获授权，须从零开始匹配，不能复用已中止的 500-update 状态。
+4. **形成启动前回执。** 保存逐会话对照表、输入哈希、差异清单和明确 PASS/FAIL 结论，与新协议在两个故障域归档。任何缺失、矛盾或未经声明的学习条件变化均为 **INVALID_PROTOCOL / STOP**，禁止启动 GPU。日志提取脚本退出码 0、端点状态恢复成功或边界数字相同，均不能单独视为联合门禁通过。
+
+即使门禁通过，也只排除已核验的执行差异，不保证不同目标下自博弈轨迹逐位一致，不替代跨 seed 复现。将来的执行者应在新实验的一次性准入检查中落实这些要求，不为本轮结案新增训练功能或通用框架。
 
 ## 本轮代码级验证与启动门槛
 
