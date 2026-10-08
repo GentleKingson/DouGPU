@@ -1,6 +1,6 @@
 # 实验报告与证据获取
 
-更新日期：2026-10-08，Asia/Hong_Kong。
+更新日期：2026-10-09，Asia/Hong_Kong。
 
 **证据现状：旧实验原始数据已删除，新 Baseline 已独立归档。** 2026-10-01 至 2026-10-04 历史实验的原始目录、checkpoint、诊断文件和归档不可用，相关路径与 SHA256 仅作历史身份记录。2026-10-08 新 Baseline 的证据不受此历史缺失影响。
 
@@ -62,6 +62,8 @@ Effective batch512 rejected：seed43/44/45 全部 FAIL，跨 seed REJECT，WP / 
 6. **独立核验外围产物。** 按外层清单核验最终策略、评估结果、源码及配置；Store 的 ZIP manifest 只覆盖 ZIP 内文件。记录恢复所用归档/端点哈希、验证命令和结果。恢复范围仍为 learner、Adam、replay 和主 RNG，actor 在途牌局会重启。只有恢复记录与两份持久归档都存在，才能批准清理工作目录。
 
 ## 执行前会话历史一致性门禁
+
+2026-10-09 已执行[一次性离线联合审计](experiments/protocol-hardening-20261009.zh-CN.md)，入口为 `scripts/protocol_gate.py`。边界和完整状态核验通过，但独立执行证据不足，真实准入 FAIL；下列要求不因此放宽。
 
 适用于后续复用历史训练 Baseline 的实验；必须在任何新 GPU 预检、smoke 或训练之前完成。此要求不授权启动新实验，也不修改生产训练器。复用已归档的 `reports/ntp-ablation-20261008/audit-restarts.py` 的日志边界提取逻辑；该脚本本身是本轮失败诊断，尚不具备以下完整联合核验能力。
 

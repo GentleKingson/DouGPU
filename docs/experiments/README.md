@@ -1,5 +1,7 @@
 # 实验报告
 
+2026-10-09，[协议强化离线审计](protocol-hardening-20261009.zh-CN.md)完成：三段真实历史已还原，准入 **FAIL / PROTOCOL_NOT_READY，Training PAUSED**。两地复算一致，执行证据缺口继续阻断；0 GPU、生产算法未变。
+
 2026-10-08，[NTP 消融](ntp-ablation-20261008.zh-CN.md)复核结案为 **CLOSED / INVALID_PROTOCOL**，**Training：PAUSED**。下一阶段仅为 **PROTOCOL HARDENING**，不自动重训。此前因遗漏原 Baseline 的 8-update 恢复边界而停在 500 更新；GPU 共 90.174 秒，完整中止状态已双域恢复核验，未运行棋力 A/B，不形成 NTP 效果结论。
 
 2026-10-08，新 Baseline 的 2,000→20,000 更新独立强对手评估已完成，主比较为 **POSITIVE_SIGNAL**；20,000 latest 优于 best。完整输入、逐副结果与复核脚本已归档并读回校验。该单训练 seed 结果不恢复历史权重、不触发模型晋升或续训，见[本轮报告](baseline-strength-20261008.zh-CN.md)。
