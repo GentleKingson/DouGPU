@@ -2,15 +2,19 @@
 
 更新日期：2026-10-08，Asia/Hong_Kong。
 
-**证据现状：维护者已确认原始实验已删除。** 本页及历史报告保留当时的统计和决策，但所列原始目录、checkpoint、诊断文件和归档目前不可用，无法重新复核或用于续训。下文的路径与 SHA256 仅作历史身份记录，不是可下载地址或现存备份证明。
+**证据现状：旧实验原始数据已删除，新 Baseline 已独立归档。** 2026-10-01 至 2026-10-04 历史实验的原始目录、checkpoint、诊断文件和归档不可用，相关路径与 SHA256 仅作历史身份记录。2026-10-08 新 Baseline 的证据不受此历史缺失影响。
 
-## 当前 Batch 决定
+## 新 Baseline 独立评估
+
+2,000/20,000 更新完整状态、三份候选、WP/ADP 权重、冻结协议、24,000 局逐副 outcomes、统计及复核脚本已保存至独立归档，并完成 Drive 读回、SHA256 校验和恢复复算。主比较为 **POSITIVE_SIGNAL**；这是单训练 seed 的探索性证据，不自动晋升或续训。结果、限制、下载回执和复核命令统一见[新 Baseline 强对手评估报告](experiments/baseline-strength-20261008.zh-CN.md)。
+
+## 历史 Batch 决定
 
 Effective batch512 rejected：seed43/44/45 全部 FAIL，跨 seed REJECT，WP / ADP Balanced 等权点差均值分别为 -1.4514pp / -1.5722pp。不进入 final holdout，不加样本或第四 seed，不自动 rescue，生产默认 batch256 不变。拒绝的是本轮 batch512 方案，不是 accumulation=8。
 
 既有日志已确认 fork 后阶段 sample-update ratio（replay sampling intensity）为 baseline 约 2×，不是按更新次数定义的 UTD 翻倍；frozen-replay 梯度与 Adam 单步诊断已完成，未确定退化因果来源。报告及诊断限制见 [batch512 报告](experiments/batch512-20261004.zh-CN.md)。原始目录为 `reports/batch512-experiment-20261004/`，含冻结 `input/protocol.json`、`evaluation-output/statistics.json`、`evaluation-final-verification.json`、`diagnose_logs.py`、`log-diagnostics.json`、`frozen_probe.py`、`frozen-replay-output/` 与 `diagnostics-verification.json`；这些文件未随仓库发布，现已不可用。评测输出归档 SHA256 为 `d1342b9e2d3cdbcd49e98e29885c6e3e198c92e961a759aa667e3fb69b44e34d`，仅包含本轮评测输出，不是含训练 checkpoint 的完整归档。
 
-## 当前预算决定
+## 历史预算决定
 
 6h→8h 独立训练 seed 的最终结果为 seed44 PASS（5/5）、seed43 INCONCLUSIVE（4/5）、seed45 INCONCLUSIVE（4/5）。按 seed45 执行前冻结的跨 seed 规则，停止本轮预算扩张，保留 6h，不进入 12h，不追加第四 seed 或补抽留出。6h 是实验预算决定，不代表已修改单次会话的 `max_hours`。6h / batch256 是历史推荐配置与预算方向，不代表仍有可继续训练的 6h 权重。
 
@@ -36,7 +40,7 @@ Effective batch512 rejected：seed43/44/45 全部 FAIL，跨 seed REJECT，WP / 
 
 ## 已删除证据的处理
 
-`reports/` 被 Git 忽略，历史报告提到的原始证据、checkpoint、驱动和归档不会随 clone 获取。原先“仅保存在实验工作区、可向维护者申请”的说明已失效；目前没有已确认可用的原始备份。不以重训、参考模拟或新增牌局替代已删除的原始证据。
+`reports/` 被 Git 忽略，原始证据、checkpoint、驱动和归档不会随 clone 获取。对已删除的旧实验，原先“仅保存在实验工作区、可向维护者申请”的说明已失效，目前没有已确认可用的原始备份。不以新 Baseline、重训、参考模拟或新增牌局替代已删除的原始证据。
 
 如果将来找回独立备份，先核对该轮归档 SHA256，再按其 `evidence-manifest.json` 验证文件，执行原来的复核脚本；不能只凭报告中的哈希宣称恢复成功。seed45 最终归档历史 SHA256 为 `72550e6a32b6d7fb7dfa5281e25c57177d6f49f7575fe953fe010ef507562430`，不能用于其他轮次。旧服务器临时目录不是获取地址。
 
@@ -61,4 +65,4 @@ CPU 回归命令（使用项目现有开发环境）：
 JAX_PLATFORMS=cpu python -m pytest -q tests/test_checkpoint_logs.py tests/test_source_and_recovery_guards.py tests/test_local_runtime.py tests/test_files.py
 ```
 
-该测试使用临时目录中的合成训练状态，不执行训练，不证明跨主机故障恢复或实际备份服务可用。Store 的保存/恢复能力无需为此修改；实际不同故障域的存储选定、全产物归档和该存储上的恢复演练仍待下一轮实验前完成。新 Baseline 的 GPU 预算尚未批准，本轮结束后不启动 preflight、训练或评估，不宣称重建了过去的 6h 棋力。
+该测试使用临时目录中的合成训练状态，不执行训练，不证明跨主机故障恢复或实际备份服务可用。Store 的保存/恢复能力无需为此修改；后续新 Baseline 已另行完成真实完整状态归档、不同故障域读回及恢复演练，详见上方报告。新 Baseline 不代表重建了过去的 6h 棋力；本轮评估结束后不自动续训。
