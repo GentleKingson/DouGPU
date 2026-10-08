@@ -10,6 +10,8 @@
 
 ## 历史 Batch 决定
 
+此前的 [Checkpoint Selection](experiments/checkpoint-selection-20261008.zh-CN.md) 已按地主非劣门槛停止（NO_DECISION）；后续[角色机制分析](experiments/role-mechanism-20261008.zh-CN.md) 为 INCONCLUSIVE / STOP。两轮证据均已在 Mac 与 LocalServer 归档并恢复核验，入口分别为 `reports/checkpoint-selection-20261008-archive-verification.json` 和 `reports/role-mechanism-20261008-archive-verification.json`。这些结论不构成新训练的授权或地主学习缺陷的因果证明。
+
 Effective batch512 rejected：seed43/44/45 全部 FAIL，跨 seed REJECT，WP / ADP Balanced 等权点差均值分别为 -1.4514pp / -1.5722pp。不进入 final holdout，不加样本或第四 seed，不自动 rescue，生产默认 batch256 不变。拒绝的是本轮 batch512 方案，不是 accumulation=8。
 
 既有日志已确认 fork 后阶段 sample-update ratio（replay sampling intensity）为 baseline 约 2×，不是按更新次数定义的 UTD 翻倍；frozen-replay 梯度与 Adam 单步诊断已完成，未确定退化因果来源。报告及诊断限制见 [batch512 报告](experiments/batch512-20261004.zh-CN.md)。原始目录为 `reports/batch512-experiment-20261004/`，含冻结 `input/protocol.json`、`evaluation-output/statistics.json`、`evaluation-final-verification.json`、`diagnose_logs.py`、`log-diagnostics.json`、`frozen_probe.py`、`frozen-replay-output/` 与 `diagnostics-verification.json`；这些文件未随仓库发布，现已不可用。评测输出归档 SHA256 为 `d1342b9e2d3cdbcd49e98e29885c6e3e198c92e961a759aa667e3fb69b44e34d`，仅包含本轮评测输出，不是含训练 checkpoint 的完整归档。

@@ -10,6 +10,8 @@
 
 | 阶段 | 报告 | 当轮结果 |
 |---|---|---|
+| 角色学习差异 | [端点机制分析](role-mechanism-20261008.zh-CN.md) | COMPLETE / INCONCLUSIVE / STOP，未识别持续机制 |
+| 独立 Checkpoint Selection | [20k latest 对 best](checkpoint-selection-20261008.zh-CN.md) | NO_DECISION / STOP，地主非劣证据不足 |
 | 新 Baseline 2,000→20,000 更新 | [独立 WP/ADP 评估](baseline-strength-20261008.zh-CN.md) | COMPLETE / POSITIVE_SIGNAL，未晋升模型 |
 | 4h→6h | [seed42](six-hours-seed42-20261002.zh-CN.md) | 验证 3/5，留出 5/5，整体扩展门槛未过 |
 | 4h→6h | [seed43](six-hours-seed43-20261002.zh-CN.md) | PASS 5/5 |
