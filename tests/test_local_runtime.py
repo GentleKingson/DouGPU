@@ -93,6 +93,73 @@ def test_local_migration_preserves_full_state_and_source(tmp_path):
              {'model': asdict(model), 'train': asdict(new)}, target_lock)
 
 
+def test_full_mirror_survives_workdir_deletion_and_rejects_corruption(tmp_path):
+    import shutil
+    import zipfile
+    from pathlib import Path
+    from dougpu.checkpoint import load_policy
+    from fork_run import verify_experiment_identity
+
+    model, config, _, _ = make_state(tmp_path)
+    original = Store(tmp_path/'source').load_latest()
+    replay = Replay(config.replay_capacity)
+    replay.restore(original['replay'])
+    run, mirror = tmp_path/'run', tmp_path/'mirror'
+    run.mkdir()
+    log = run/'metrics.jsonl'
+    log.write_text('{"event":"train","updates":12,"successful_steps":4}\n')
+    meta = dict(original['meta'], total_seconds=1.,
+                versions={'git_commit': 'test-source', 'git_dirty': False})
+    store = Store(run/'checkpoints', mirror)
+    archive = store.save(original['params'], original['optimizer'], original['champion'],
+                         replay, meta, log)
+    assert store.last_remote_ok is True
+    before = store.load_latest()
+    hashes = {p.name: sha256_file(p) for p in store.local.iterdir()}
+    assert hashes == {p.name: sha256_file(mirror/p.name) for p in store.local.iterdir()}
+    assert (mirror/'metrics.jsonl').read_bytes() == before['log']
+    shutil.rmtree(run)
+    shutil.rmtree(tmp_path/'source')
+
+    recovered = Store(run/'checkpoints', mirror).load_latest()
+    assert Path(recovered['path']) == mirror/archive.name
+    check_array_state(recovered, model)
+    assert all(verify_experiment_identity(before, recovered).values())
+    assert recovered['meta'] == before['meta']
+    restored_replay = Replay(config.replay_capacity)
+    restored_replay.restore(recovered['replay'])
+    for key, value in replay.export().items():
+        np.testing.assert_array_equal(restored_replay.export()[key], value)
+    rng = np.random.default_rng()
+    rng.bit_generator.state = recovered['meta']['numpy_rng']
+    assert rng.bit_generator.state == before['meta']['numpy_rng']
+    for name, group in (('latest', 'params'), ('best', 'champion')):
+        policy, _ = load_policy(mirror/f'{name}_policy.npz')
+        for key, value in policy.items():
+            np.testing.assert_array_equal(value, recovered[group][key])
+    assert hashes == {name: sha256_file(mirror/name) for name in hashes}
+
+    # Validate both checksum layers, even if the outer marker matches a bad ZIP.
+    archive = mirror/archive.name
+    intact = archive.read_bytes()
+    archive.write_bytes(b'broken archive')
+    with pytest.raises(RuntimeError, match='not restarting silently'):
+        Store(run/'checkpoints', mirror).load_latest()
+    archive.write_bytes(intact)
+    with zipfile.ZipFile(archive) as z:
+        entries = {name: z.read(name) for name in z.namelist()}
+    entries['metrics.jsonl'] += b'changed without updating manifest\n'
+    with zipfile.ZipFile(archive, 'w') as z:
+        for name, content in entries.items():
+            z.writestr(name, content)
+    marker = archive.with_suffix('.ok.json')
+    document = json.loads(marker.read_text())
+    document['sha256'] = sha256_file(archive)
+    marker.write_text(json.dumps(document))
+    with pytest.raises(RuntimeError, match='not restarting silently'):
+        Store(run/'checkpoints', mirror).load_latest()
+
+
 def test_fork_preserves_historical_selection_seeds(tmp_path):
     model, config, lock, _ = make_state(tmp_path)
     candidate = replace(config, eval_seed=900002)
