@@ -8,11 +8,13 @@
 
 2,000/20,000 更新完整状态、三份候选、WP/ADP 权重、冻结协议、24,000 局逐副 outcomes、统计及复核脚本已保存至独立归档，并完成 Drive 读回、SHA256 校验和恢复复算。主比较为 **POSITIVE_SIGNAL**；这是单训练 seed 的探索性证据，不自动晋升或续训。结果、限制、下载回执和复核命令统一见[新 Baseline 强对手评估报告](experiments/baseline-strength-20261008.zh-CN.md)。
 
-## 历史 Batch 决定
+## 后续选优、机制分析与 NTP 结案
 
 此前的 [Checkpoint Selection](experiments/checkpoint-selection-20261008.zh-CN.md) 已按地主非劣门槛停止（NO_DECISION）；后续[角色机制分析](experiments/role-mechanism-20261008.zh-CN.md) 为 INCONCLUSIVE / STOP。两轮证据均已在 Mac 与 LocalServer 归档并恢复核验，入口分别为 `reports/checkpoint-selection-20261008-archive-verification.json` 和 `reports/role-mechanism-20261008-archive-verification.json`。这些结论不构成新训练的授权或地主学习缺陷的因果证明。
 
 另行获批的 [NTP 消融](experiments/ntp-ablation-20261008.zh-CN.md)因恢复边界漏核而中止于 500 更新，复核结案为 **CLOSED / INVALID_PROTOCOL；Training：PAUSED**，未执行棋力比较。完整中止状态及偏差记录已双域恢复验证，回执为 `reports/ntp-ablation-20261008-archive-verification.json`；不能将恢复成功或 CPU/GPU 检查通过解释为消融实验有效。下一阶段仅强化以下协议准入要求，不自动重试。
+
+## 历史 Batch 决定
 
 Effective batch512 rejected：seed43/44/45 全部 FAIL，跨 seed REJECT，WP / ADP Balanced 等权点差均值分别为 -1.4514pp / -1.5722pp。不进入 final holdout，不加样本或第四 seed，不自动 rescue，生产默认 batch256 不变。拒绝的是本轮 batch512 方案，不是 accumulation=8。
 
@@ -70,9 +72,9 @@ Effective batch512 rejected：seed43/44/45 全部 FAIL，跨 seed REJECT，WP / 
 
 即使门禁通过，也只排除已核验的执行差异，不保证不同目标下自博弈轨迹逐位一致，不替代跨 seed 复现。将来的执行者应在新实验的一次性准入检查中落实这些要求，不为本轮结案新增训练功能或通用框架。
 
-## 本轮代码级验证与启动门槛
+## 既有恢复能力测试
 
-现有测试覆盖镜像读取、较新镜像优先、损坏代回退、非法 marker 拒绝和 full-state 导入。本轮在 `tests/test_local_runtime.py` 补充一个完整状态恢复测试：保存带 replay、主 RNG、配置、来源记录和日志的镜像，删除测试本地主目录及原始状态目录，再从镜像恢复逐项比较；分别破坏 ZIP 和仅破坏 ZIP 内条目（重算外层哈希），确认两层校验均拒绝加载。
+现有测试覆盖镜像读取、较新镜像优先、损坏代回退、非法 marker 拒绝和 full-state 导入。此前在 `tests/test_local_runtime.py` 补充的完整状态恢复测试会：保存带 replay、主 RNG、配置、来源记录和日志的镜像，删除测试本地主目录及原始状态目录，再从镜像恢复逐项比较；分别破坏 ZIP 和仅破坏 ZIP 内条目（重算外层哈希），确认两层校验均拒绝加载。
 
 CPU 回归命令（使用项目现有开发环境）：
 
