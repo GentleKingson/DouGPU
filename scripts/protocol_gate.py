@@ -4,6 +4,7 @@ Usage: python scripts/protocol_gate.py BASELINE_DIRECTORY FROZEN_PLAN.json
 JSON receipt goes to stdout; only a complete joint audit exits zero.
 """
 import argparse
+from contextlib import redirect_stdout
 from dataclasses import fields
 import hashlib
 import json
@@ -232,14 +233,25 @@ def execution_sessions(rows, meta, snapshot, plan):
         own = [r for r in rows if r['session_id'] == session['session_id']]
         starts = [r for r in own if r['event'] == 'start']
         actors = [r for r in own if r['event'] == 'actor_start']
-        require(len(starts) == len(actors) == 1, 'Missing/duplicate startup evidence')
+        ends = [r for r in own if r['event'] == 'session_end']
+        require(len(starts) == len(actors) == len(ends) == 1, 'Missing/duplicate session evidence')
+        require(own[-1] == ends[0] and ends[0]['stop_reason'] == 'target_updates'
+                and ends[0]['update_endpoint'] == {
+                    'target_updates': session['end_updates'], 'status': 'COMPLETE',
+                    'stop_reason': 'target_updates'}, 'Incomplete session endpoint')
         start, actor = starts[0], actors[0]
+        require(0 <= session['start_updates'] < session['end_updates'], 'Empty or invalid session')
         for key in ('start_updates', 'end_updates'):
             require(session[key] == approved[key], 'Unapproved restart boundary: ' + key)
         require(start['updates'] == actor['updates'] == session['start_updates'], 'Wrong actor boundary')
         require(own.index(actor) < own.index(start) and
-                all(own.index(actor) < i for i, row in enumerate(own) if row['event'] == 'train'),
+                all(own.index(start) < i for i, row in enumerate(own) if row['event'] == 'train'),
                 'Actor evidence recorded after training')
+        require(start['train']['target_updates'] == session['end_updates'], 'Wrong target endpoint')
+        require({'python', 'jax', 'numpy', 'backend'} <= set(approved['versions']),
+                'Incomplete frozen runtime versions')
+        for key, value in approved['versions'].items():
+            require(start['versions'][key] == value, 'Unapproved runtime version: ' + key)
         for key in ('model', 'train', 'source_lock'):
             require(start[key] == approved[key], 'Unapproved execution config: ' + key)
         tc = TrainConfig(**start['train']).validate()
@@ -270,7 +282,7 @@ def execution_sessions(rows, meta, snapshot, plan):
     last = history[-1]
     require(meta['session_id'] == last['session_id'] and meta['updates'] == last['end_updates'],
             'Checkpoint/session mismatch')
-    for key in ('runtime_source', 'resume_input', 'model', 'train', 'source_lock'):
+    for key in ('runtime_source', 'resume_input', 'model', 'train', 'source_lock', 'versions'):
         require(meta[key] == start[key], 'Checkpoint/start disagreement: ' + key)
     require(isinstance(meta['actor_start'], dict), 'Missing checkpoint actor evidence')
     require(all(actor[k] == v for k, v in meta['actor_start'].items()) and
@@ -290,19 +302,48 @@ def audit_execution(root, plan):
     from dougpu.replay import Replay
     import numpy as np
 
-    saved = Store(root/'checkpoints').load_latest()
-    require(saved is not None and saved['sha256'] == plan['checkpoint_sha256'], 'Wrong checkpoint / fallback')
-    check_array_state(saved, ModelConfig(**saved['meta']['model']))
-    replay = Replay(saved['meta']['train']['replay_capacity'])
-    replay.restore(saved['replay'])
-    rng = np.random.default_rng()
-    rng.bit_generator.state = saved['meta']['numpy_rng']
+    snapshot = (root/'source/trainer_source.zip').read_bytes()
+    previous = None
+    verified = []
+    for index, approved in enumerate(plan['sessions']):
+        sha = approved['checkpoint_sha256']
+        require(isinstance(sha, str) and re.fullmatch('[0-9a-f]{64}', sha), 'Invalid endpoint SHA256')
+        directory = root/'endpoints'/sha
+        require(directory.is_dir(), 'Missing independent endpoint directory')
+        saved = Store(directory).load_latest()
+        require(saved is not None and saved['sha256'] == sha, 'Wrong endpoint checkpoint / fallback')
+        meta = saved['meta']
+        require(meta['session_id'] == approved['session_id'], 'Wrong endpoint session_id')
+        check_array_state(saved, ModelConfig(**meta['model']))
+        replay = Replay(meta['train']['replay_capacity'])
+        replay.restore(saved['replay'])
+        rng = np.random.default_rng()
+        rng.bit_generator.state = meta['numpy_rng']
+        require(approved['input_checkpoint_sha256'] == (previous['sha256'] if previous else None),
+                'Broken endpoint SHA256 chain')
+        if previous:
+            require(saved['log'].startswith(previous['log']), 'Restored endpoint history mismatch')
+            require(meta['resume_input']['cycle'] == previous['meta']['cycle'], 'Wrong resume cycle')
+            rng.bit_generator.state = previous['meta']['numpy_rng']
+        else:
+            rng = np.random.default_rng(meta['train']['seed'])
+        expected_seeds = rng.integers(0, 2**32-1, meta['train']['workers'], dtype=np.uint64).tolist()
+        require(isinstance(meta['actor_start'], dict) and
+                meta['actor_start']['worker_seeds'] == expected_seeds, 'Actor seeds disagree with input RNG')
+        rows = [json.loads(line) for line in saved['log'].splitlines()]
+        history = execution_sessions(rows, meta, snapshot, dict(sessions=plan['sessions'][:index+1]))
+        verified.append(dict(history[-1], checkpoint_sha256=sha))
+        previous = saved
+    require(previous is not None and previous['sha256'] == plan['checkpoint_sha256'], 'Wrong final endpoint')
     raw = (root/'metrics.jsonl').read_bytes()
-    require(raw.startswith(saved['log']), 'Checkpoint/external log disagreement')
-    history = execution_sessions([json.loads(line) for line in raw.splitlines()], saved['meta'],
-                                 (root/'source/trainer_source.zip').read_bytes(), plan)
-    return dict(status='PASS', training='PAUSED', GPU_work=0, sessions=history,
-                checkpoint_sha256=saved['sha256'], scope='execution evidence only; no experiment authorization')
+    require(raw.startswith(previous['log']), 'Checkpoint/external log disagreement')
+    # The operational save receipt follows termination; it is never completion evidence.
+    tail = [json.loads(line) for line in raw[len(previous['log']):].splitlines()]
+    require(len(tail) <= 1 and all(r['event'] == 'checkpoint' and r['reason'] == 'session_end'
+            and r['session_id'] == previous['meta']['session_id']
+            and r['updates'] == previous['meta']['updates'] for r in tail), 'Unexpected external log tail')
+    return dict(status='PASS', training='PAUSED', GPU_work=0, sessions=verified,
+                checkpoint_sha256=previous['sha256'], scope='execution evidence only; no experiment authorization')
 
 
 def main():
@@ -313,7 +354,8 @@ def main():
     args = parser.parse_args()
     try:
         raw = args.plan.read_bytes()
-        result = (audit_execution if args.execution else audit)(args.baseline, json.loads(raw))
+        with redirect_stdout(sys.stderr):
+            result = (audit_execution if args.execution else audit)(args.baseline, json.loads(raw))
         result['plan_sha256'] = digest(raw)
     except (OSError, ValueError, KeyError, TypeError, RuntimeError, ImportError, zipfile.BadZipFile) as exc:
         result = {'status': 'FAIL', 'training': 'PAUSED', 'failures': [str(exc)], 'GPU_work': 0}

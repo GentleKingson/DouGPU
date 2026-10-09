@@ -85,6 +85,8 @@ def test_training_accounts_ordered_blocking_collect_and_drain(tmp_path, monkeypa
     events = [json.loads(line) for line in saved['log'].splitlines()]
     event = next(event for event in events if event['event'] == 'train')
     assert event['fresh_samples'] == event['replay_size'] == expected
+    assert 'cumulative_sample_update_ratio' not in event
+    assert event['sample_update_ratio'] == tc.batch_size/expected
     if ready:
         assert event['replay_write_seconds'] == 0
 
@@ -103,8 +105,17 @@ def test_training_accounts_ordered_blocking_collect_and_drain(tmp_path, monkeypa
     assert start['resume_input'] is meta['resume_input'] is None
     assert start['session_id'] == meta['session_id']
     from scripts.protocol_gate import audit_execution
+    import shutil
+    frozen = work/'endpoints'/saved['sha256']
+    frozen.mkdir(parents=True)
+    path = Path(saved['path'])
+    shutil.copy2(path, frozen/path.name)
+    shutil.copy2(path.with_suffix('.ok.json'), frozen/path.with_suffix('.ok.json').name)
+    assert events[-1]['event'] == 'session_end'
     plan = {'checkpoint_sha256': saved['sha256'], 'sessions': [dict(
         start_updates=0, end_updates=1, input_checkpoint_sha256=None,
+        checkpoint_sha256=saved['sha256'], session_id=meta['session_id'],
+        versions={k: meta['versions'][k] for k in ('python', 'jax', 'numpy', 'backend')},
         source_sha256=meta['runtime_source']['snapshot_sha256'],
         model=meta['model'], train=meta['train'], source_lock=lock)]}
     assert audit_execution(work, plan)['status'] == 'PASS'
@@ -115,7 +126,7 @@ def test_training_accounts_ordered_blocking_collect_and_drain(tmp_path, monkeypa
     (portable/'approved-plan.json').write_text(json.dumps(plan))
     assert audit_execution(portable, plan)['status'] == 'PASS'
     plan['sessions'][0]['input_checkpoint_sha256'] = '0' * 64
-    with pytest.raises(ValueError, match='resume input'):
+    with pytest.raises(ValueError, match='SHA256 chain'):
         audit_execution(work, plan)
     path = Path(saved['path'])
     before = path.read_bytes()

@@ -183,3 +183,53 @@ def test_incomplete_or_invalid_endpoint(tmp_path, monkeypatch, limit):
         assert saved['meta']['updates'] == 7
         assert saved['meta']['update_endpoint']['status'] == 'INCOMPLETE'
         assert saved['meta']['update_endpoint']['stop_reason'] == limit+'_limit'
+
+
+@pytest.mark.parametrize('failure', ['save', 'actor_close', 'signal'])
+def test_termination_is_not_a_commit(tmp_path, monkeypatch, failure):
+    from dougpu import train
+    import signal
+    tc = TrainConfig(engine='reference', backend='cpu', require_tpu=False, replay_capacity=16,
+                     target_updates=7 if failure == 'save' else 12, max_cycles=3, max_hours=1)
+    mc, _, _ = parent_state(tmp_path, tc)
+    spec = tmp_path/'config.json'
+    spec.write_text(json.dumps({'model': asdict(mc), 'train': asdict(tc)}))
+    work = tmp_path/'run'
+    monkeypatch.setattr(sys, 'argv', ['train', '--config', str(spec), '--workdir', str(work),
+                                    '--savedir', str(tmp_path/'parent')])
+
+    class Pool:
+        def __init__(self, *args, **kwargs):
+            signal.getsignal(signal.SIGTERM)(signal.SIGTERM, None)
+
+        def close(self):
+            if failure == 'actor_close':
+                raise RuntimeError('actor close failed')
+
+    monkeypatch.setattr(train, 'ActorPool', Pool)
+    original_save = Store.save
+
+    def save(self, params, opt, champion, replay, meta, log):
+        if failure == 'save' and meta['reason'] == 'session_end':
+            raise OSError('final save failed')
+        return original_save(self, params, opt, champion, replay, meta, log)
+
+    monkeypatch.setattr(Store, 'save', save)
+    if failure == 'signal':
+        train.main()
+    else:
+        with pytest.raises((OSError, RuntimeError), match='failed'):
+            train.main()
+    saved = Store(work/'checkpoints').load_latest()
+    assert saved['meta']['update_endpoint']['status'] == ('COMPLETE' if failure == 'save' else 'INCOMPLETE')
+    events = [json.loads(line) for line in saved['log'].splitlines()]
+    if failure == 'save':
+        assert saved['meta']['reason'] == 'session_start'
+        assert b'session_end' in (work/'metrics.jsonl').read_bytes()
+        assert not any(row.get('event') == 'session_end' for row in events)
+    elif failure == 'actor_close':
+        assert saved['meta']['reason'] == 'error'
+        assert saved['meta']['update_endpoint']['stop_reason'] == 'error'
+    else:
+        assert events[-1]['event'] == 'session_end'
+        assert saved['meta']['update_endpoint']['stop_reason'] == 'signal'

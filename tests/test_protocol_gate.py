@@ -76,6 +76,30 @@ class ProtocolGateTests(unittest.TestCase):
                 self.assertEqual(result.returncode, 1)
                 self.assertEqual(json.loads(result.stdout)['status'], 'FAIL')
 
+    def test_chain_intent_check_survives_optimized_python(self):
+        script = Path(__file__).resolve().parents[1] / 'scripts/check_session_chain.py'
+        from scripts.protocol_gate import digest
+        intent = dict(sessions=[dict(start_updates=0)])
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            raw = json.dumps(intent).encode()
+            (root/'frozen-intent.json').write_bytes(raw)
+            for case, message in (('hash', 'hash mismatch'), ('count', 'session count mismatch'),
+                                  ('config', 'session mismatch')):
+                plan = dict(intent_sha256=digest(raw), sessions=deepcopy(intent['sessions']))
+                if case == 'hash':
+                    plan['intent_sha256'] = '0'*64
+                elif case == 'count':
+                    plan['sessions'] = []
+                else:
+                    plan['sessions'][0]['start_updates'] = 1
+                (root/'execution-plan.json').write_text(json.dumps(plan))
+                for flags in ([], ['-O']):
+                    result = subprocess.run([sys.executable, *flags, str(script), str(root)],
+                                            capture_output=True, text=True)
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertIn('Frozen intent ' + message, result.stderr)
+
 
 class ExecutionEvidenceTests(unittest.TestCase):
     def setUp(self):
@@ -96,34 +120,42 @@ class ExecutionEvidenceTests(unittest.TestCase):
             common = dict(session_id=str(index), updates=begin)
             resume = dict(path='/fixture/ckpt.zip', sha256='a'*64, updates=begin, cycle=1) if index else None
             actor = dict(worker_seeds=[42 + index], worker_order=[0], mode='ordered', packed=True, **common)
-            start = dict(model=asdict(ModelConfig()), train=tc, source_lock={'engine': 'fixture'},
+            versions = dict(python='fixture', jax='fixture', numpy='fixture', backend='cpu')
+            start = dict(versions=versions, model=asdict(ModelConfig()), train=tc, source_lock={'engine': 'fixture'},
                          runtime_source=deepcopy(source), resume_input=resume, **common)
             self.rows.extend([dict(event='actor_start', **actor), dict(event='start', **start),
                               dict(event='train', session_id=str(index), updates=end, successful_steps=end-begin)])
-            sessions.append(dict(start_updates=begin, end_updates=end,
+            endpoint = dict(target_updates=end, status='COMPLETE', stop_reason='target_updates')
+            self.rows.append(dict(event='session_end', session_id=str(index), updates=end,
+                                  stop_reason='target_updates', update_endpoint=endpoint))
+            sessions.append(dict(versions=versions, start_updates=begin, end_updates=end,
                 model=start['model'], train=tc, source_lock=start['source_lock'],
                 source_sha256=source['snapshot_sha256'], input_checkpoint_sha256='a'*64 if index else None))
         endpoint = dict(target_updates=16, status='COMPLETE', stop_reason='target_updates')
-        self.rows.append(dict(event='session_end', session_id='1', updates=16,
-                              stop_reason='target_updates', update_endpoint=endpoint))
         self.meta = dict(start, updates=16, actor_start=actor, reason='session_end', update_endpoint=endpoint)
         self.plan = dict(sessions=sessions)
 
     def test_execution_positive_and_negative(self):
         from scripts.protocol_gate import execution_sessions
         self.assertEqual(len(execution_sessions(self.rows, self.meta, self.snapshot, self.plan)), 2)
-        for change in ('seed', 'resume', 'source', 'boundary', 'forged_status', 'actor_metadata', 'null_actor'):
+        for change in ('seed', 'resume', 'source', 'boundary', 'forged_status', 'actor_metadata', 'null_actor', 'missing_middle_end', 'incomplete_middle', 'version'):
             rows, meta, plan = deepcopy(self.rows), deepcopy(self.meta), deepcopy(self.plan)
-            if change == 'seed':
-                del rows[3]['worker_seeds']
+            if change == 'missing_middle_end':
+                rows.pop(3)
+            elif change == 'incomplete_middle':
+                rows[3]['update_endpoint']['status'] = 'INCOMPLETE'
+            elif change == 'version':
+                rows[1]['versions']['jax'] = 'other'
+            elif change == 'seed':
+                del rows[4]['worker_seeds']
             elif change == 'resume':
-                rows[4]['resume_input']['sha256'] = 'b'*64
+                rows[5]['resume_input']['sha256'] = 'b'*64
             elif change == 'source':
-                rows[4]['runtime_source']['files']['dougpu/train.py']['sha256'] = 'b'*64
+                rows[5]['runtime_source']['files']['dougpu/train.py']['sha256'] = 'b'*64
             elif change == 'boundary':
                 plan['sessions'].pop(0)
             elif change == 'forged_status':
-                rows[4]['runtime_source'] = 'ATTESTED'
+                rows[5]['runtime_source'] = 'ATTESTED'
             elif change == 'null_actor':
                 meta['actor_start'] = None
             else:

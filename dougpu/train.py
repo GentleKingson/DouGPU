@@ -391,8 +391,8 @@ def main():
                  'replay_write_seconds': replay_write_seconds, 'sample_seconds': sample_seconds,
                  'history_buckets': history_buckets,
                  'learner_shapes': learner_shapes,
+                 # Sample uses per newly completed sample in this cycle (denominator floored at 1).
                  'sample_update_ratio': learned*tc.batch_size/max(fresh, 1),
-                 'cumulative_sample_update_ratio': updates*tc.batch_size/max(complete_samples, 1),
                  'padding': last_stats,
                  'padding_cycle': merge_inference_stats(cycle_inference_stats)})
             if historical:
@@ -463,9 +463,18 @@ def main():
         error = exc
         traceback.print_exc()
     finally:
-        if pool is not None:
-            pool.close()
         try:
+            if pool is not None:
+                pool.close()
+        except BaseException as exc:
+            if error is None:
+                error = exc
+        try:
+            if error is None:
+                # This records termination, not a successful checkpoint commit.
+                log({'event': 'session_end', 'runtime_seconds': time.monotonic()-start,
+                     'stop_reason': stop_reason() or 'cycle_limit',
+                     **({'update_endpoint': endpoint()} if tc.target_updates is not None else {})})
             save('error' if error else 'session_end')
         except BaseException as exc:
             print(f'[ERROR] Final checkpoint failed: {exc}', flush=True)
@@ -473,9 +482,6 @@ def main():
                 error = exc
     if error is not None:
         raise error
-    log({'event': 'session_end', 'runtime_seconds': time.monotonic()-start,
-         'stop_reason': stop_reason() or 'cycle_limit',
-         **({'update_endpoint': endpoint()} if tc.target_updates is not None else {})})
     print(f'[DONE] cycle={cycle} updates={updates} games={games}; latest exports: {store.local}', flush=True)
     if args.savedir:
         if store.last_remote_ok:
