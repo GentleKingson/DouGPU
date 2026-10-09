@@ -48,6 +48,8 @@ class DouZeroOpponent:
             # Do not fall back to unsafe arbitrary pickle loading.
             state = torch.load(file, map_location='cpu', weights_only=True)
             net.load_state_dict(state, strict=True)
+            if any(not torch.isfinite(value).all().item() for value in net.state_dict().values()):
+                raise ValueError(f'Non-finite opponent weight: {file}')
             self.models[position] = net.eval()
             self.hashes[position] = sha256_file(file)
 

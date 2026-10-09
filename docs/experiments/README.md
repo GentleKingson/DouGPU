@@ -1,5 +1,7 @@
 # 实验报告
 
+2026-10-09，[B1_READINESS_AUDIT 零 GPU 结案](b1-readiness-audit-20261009.zh-CN.md)：**PASS_WITH_BLOCKERS / TRAINING_PAUSED**。P1–P5 按序验收，22 项回归通过、两地封存读回一致；设备/驱动/镜像 GPU 能力 NOT_VERIFIED，可申请受限 preflight 审批，完整训练仍阻断，B1/B2 未进入。
+
 2026-10-09，[新 Baseline 方向性复现 B0 协议草案](baseline-replication-protocol-20261009.zh-CN.md)已审阅修订：**PROTOCOL_DRAFT / TRAINING_PAUSED**。原始配方与固定 WP/ADP 字节已核对，预定三条 0→8→2k→20k 链；B1/B2 未进入，获准 GPU 预算为 0，三 seed 筛查不提供总体显著性结论。
 
 2026-10-09，[冻结 Replay 跨端点研究 R0–R2](cross-replay-20261009.zh-CN.md)结案：**R0_PASS；R1 数值执行 PASS；R2=RESEARCH_SCREEN_INCONCLUSIVE / STOP**。仅探索性数值观察，G_NOT_ENTERED / TRAINING_PAUSED。

@@ -8,6 +8,7 @@ from pathlib import Path
 import sys
 from types import ModuleType
 
+import numpy as np
 import pytest
 
 from dougpu.checkpoint import sha256_file
@@ -28,10 +29,14 @@ def torch_stub(monkeypatch):
             self.stub_eval = True
             return self
 
+        def state_dict(self):
+            return self.stub_state
+
     nn.Module = Module
     nn.LSTM = nn.Linear = lambda *args, **kwargs: (args, kwargs)
     torch.nn = nn
     torch.set_num_threads = calls['threads'].append
+    torch.isfinite = np.isfinite
 
     def load(path, **kwargs):
         calls['loads'].append((Path(path), kwargs))
@@ -71,6 +76,15 @@ def test_real_model_file_resolves_all_roles_without_parent_package(torch_stub):
     assert calls['trainer_imports'] == []
     assert 'douzero.dmc' not in sys.modules
     assert before == {str(path): sha256_file(path) for path in paths}
+
+
+@pytest.mark.parametrize('value', [np.nan, np.inf, -np.inf])
+def test_opponent_rejects_nonfinite_weights(tmp_path, torch_stub, monkeypatch, value):
+    for role in POSITIONS:
+        (tmp_path/(role+'.ckpt')).write_bytes(b'placeholder read only by the torch stub')
+    monkeypatch.setattr(sys.modules['torch'], 'load', lambda *args, **kwargs: {'stub_weight': value})
+    with pytest.raises(ValueError, match='Non-finite opponent weight'):
+        DouZeroOpponent(tmp_path)
 
 
 def test_opponent_constructor_uses_standalone_loader_and_safe_cpu_weight_flags(tmp_path, torch_stub):

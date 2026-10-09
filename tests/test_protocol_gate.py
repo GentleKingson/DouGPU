@@ -115,7 +115,7 @@ class ExecutionEvidenceTests(unittest.TestCase):
                              sha256=digest(b'# synthetic trainer'))},
                       loaded_modules={'dougpu.train': 'dougpu/train.py'})
         self.rows, sessions = [], []
-        for index, (begin, end) in enumerate(((0, 8), (8, 16))):
+        for index, (begin, end) in enumerate(((0, 8), (8, 2000), (2000, 20000))):
             tc = asdict(TrainConfig(workers=1, target_updates=end))
             common = dict(session_id=str(index), updates=begin)
             resume = dict(path='/fixture/ckpt.zip', sha256='a'*64, updates=begin, cycle=1) if index else None
@@ -131,13 +131,13 @@ class ExecutionEvidenceTests(unittest.TestCase):
             sessions.append(dict(versions=versions, start_updates=begin, end_updates=end,
                 model=start['model'], train=tc, source_lock=start['source_lock'],
                 source_sha256=source['snapshot_sha256'], input_checkpoint_sha256='a'*64 if index else None))
-        endpoint = dict(target_updates=16, status='COMPLETE', stop_reason='target_updates')
-        self.meta = dict(start, updates=16, actor_start=actor, reason='session_end', update_endpoint=endpoint)
+        endpoint = dict(target_updates=20000, status='COMPLETE', stop_reason='target_updates')
+        self.meta = dict(start, updates=20000, actor_start=actor, reason='session_end', update_endpoint=endpoint)
         self.plan = dict(sessions=sessions)
 
     def test_execution_positive_and_negative(self):
         from scripts.protocol_gate import execution_sessions
-        self.assertEqual(len(execution_sessions(self.rows, self.meta, self.snapshot, self.plan)), 2)
+        self.assertEqual(len(execution_sessions(self.rows, self.meta, self.snapshot, self.plan)), 3)
         for change in ('seed', 'resume', 'source', 'boundary', 'forged_status', 'actor_metadata', 'null_actor', 'missing_middle_end', 'incomplete_middle', 'version'):
             rows, meta, plan = deepcopy(self.rows), deepcopy(self.meta), deepcopy(self.plan)
             if change == 'missing_middle_end':

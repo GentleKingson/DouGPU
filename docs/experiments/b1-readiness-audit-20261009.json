@@ -1,0 +1,258 @@
+{
+  "B1": "NOT_ENTERED",
+  "B2": "NOT_ENTERED",
+  "G": "NOT_ENTERED",
+  "GPU_budget_seconds": 0,
+  "GPU_processes_launched": 0,
+  "audit_intent_sha256": "721b767200c12ee933c76399af99cad13311a6d46b22635faa1ea0b662e26f20",
+  "base_commit": "2553aa354be36b2831a984a76668e8b45dcaea9e",
+  "completed_utc": "2026-10-09T13:15:46.815381+00:00",
+  "date": "2026-10-09",
+  "formal_evaluation": false,
+  "limits": [
+    "Synthetic checkpoints and session IDs are test fixtures; they are not trained models or real execution receipts.",
+    "CPU image startup does not verify GPU image operation.",
+    "P2 covers working Docker/SSH and simulated Python processes; real per-block archiving and deadline commands must be frozen before execution.",
+    "Mac reader uses NumPy 2.3.5, server uses 2.5.3; observed offline outputs match, not a general version-equivalence claim.",
+    "Mounted CPU dependencies are reused read-only; entire image and dependency directories are not exported in this small audit archive.",
+    "The official weight release identity remains NOT_VERIFIED.",
+    "At the evidence seal, no git commit or push had been performed; subsequent authorized source publication is separate."
+  ],
+  "next_approval": {
+    "authorized_seconds": 0,
+    "automatic_start": false,
+    "full_training": "BLOCKED_PENDING_REAL_PREFLIGHT_AND_APPROVED_INTENT",
+    "limited_preflight": "MAY_REQUEST_AFTER_SOURCE_REVIEW_AND_FREEZE",
+    "proposed_B1_seconds": 10800,
+    "proposed_B2_seconds": 1800
+  },
+  "not_verified": [
+    "GPU device availability",
+    "GPU driver/runtime compatibility",
+    "GPU kernel execution in recorded image",
+    "future production trainer_source.zip and clean publication commit",
+    "final per-stage production supervision commands and receipts",
+    "real 8/2000/20000 endpoints and policy identities",
+    "actual evaluation deals and their identity/overlap",
+    "official authentication of user-provided WP/ADP"
+  ],
+  "phases": {
+    "P1": {
+      "image": "sha256:464175f20cb5460e34e42cd295bf0c9f6629796600b32d9f514243384a55621e",
+      "independent_seeds": 3,
+      "model_fields": 9,
+      "source_lock": {
+        "archive_sha256": "de638d431c0752c7a09869afb3bd6ff1f8d95a178ea1fea263a2e8ad40b7c527",
+        "douzero_commit": "718a5c920bf3361e34178a38f3b80458e176b351",
+        "encoding_schema": 1,
+        "engine": "douzero",
+        "upstream_files": {
+          "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "douzero/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "douzero/dmc/__init__.py": "bbda6d31bc598ece6fcdef5f466989e2e9d713331bbfcbe7e6866b4e335143ea",
+          "douzero/dmc/models.py": "3ad5483bf3d82b3a4174ee3a8893891dafcd635590e9cd7372fabe5988e8a190",
+          "douzero/env/__init__.py": "c26c0a9c028dcbe0a14dfe3c5c0ddd1bd93caadc3ea46f470fd203b542c33589",
+          "douzero/env/env.py": "43012a3b7672e054b81212dc5b2456b7648ad1d46ebb1217363d897f74233330",
+          "douzero/env/game.py": "09e76db9d90eb8dffbb747325fdd5ac86d7fc00873e6c862e3dd3dbadd4d0e96",
+          "douzero/env/move_detector.py": "d1a264e4084138b870c5dbb31ce723347164047653b872737bd511eb10cc4cfe",
+          "douzero/env/move_generator.py": "157cb79cccc89110b6b6c49700e4860bf09b287b5356811ea7a1f81552649685",
+          "douzero/env/move_selector.py": "40aa53c9284617a606d89168cc70fc9581ce66f6ced131dcfba3f4cf1df16c38",
+          "douzero/env/utils.py": "c4dab1343fa9e189c0f66a24363c5fa80f5bc3f1517dc0e45ef419367be5d48c"
+        }
+      },
+      "status": "PASS_KNOWN_IDENTITIES",
+      "train_fields": 53
+    },
+    "P2": {
+      "cases": [
+        {
+          "exitcode": 0,
+          "mode": "normal",
+          "timeout": false,
+          "wall_seconds": 0.5618381400126964,
+          "workload_status": "SIMULATION_ONLY"
+        },
+        {
+          "exitcode": 137,
+          "mode": "preflight_hang",
+          "timeout": true,
+          "wall_seconds": 9.086760382982902,
+          "workload_status": "TIMEOUT_FAIL"
+        },
+        {
+          "exitcode": 137,
+          "mode": "learner_hang",
+          "timeout": true,
+          "wall_seconds": 9.108790767961182,
+          "workload_status": "TIMEOUT_FAIL"
+        },
+        {
+          "exitcode": 0,
+          "mode": "orphan_actor",
+          "timeout": false,
+          "wall_seconds": 0.5915073709911667,
+          "workload_status": "SIMULATION_ONLY"
+        },
+        {
+          "exitcode": 0,
+          "mode": "signal_complete",
+          "timeout": true,
+          "wall_seconds": 7.11400311201578,
+          "workload_status": "TIMEOUT_FAIL"
+        }
+      ],
+      "exhausted_budget": "REJECTED",
+      "process_tree_cleanup": "PASS",
+      "status": "PASS_SIMULATION_ONLY"
+    },
+    "P3": {
+      "existing_real_cpu_negatives": 9,
+      "extra_negatives": {
+        "fallback": "Wrong endpoint checkpoint / fallback",
+        "intent_config": "Frozen intent session mismatch",
+        "intent_count": "Frozen intent session count mismatch",
+        "intent_hash": "Frozen intent hash mismatch",
+        "missing_replay": "'NoneType' object is not subscriptable",
+        "wrong_adam": "Adam step and successful-update count disagree"
+      },
+      "mac_readback": "MATCH",
+      "optimized_reader": "PASS",
+      "status": "PASS_OFFLINE_ONLY",
+      "synthetic_boundaries": [
+        0,
+        8,
+        2000,
+        20000
+      ],
+      "synthetic_negatives": 9,
+      "unit_tests": 8
+    },
+    "P4": {
+      "decision_boundaries": {
+        "CI_crosses_zero": "DIRECTIONAL_SIGNAL_ONLY",
+        "below_minus_5pp": "INCONCLUSIVE_STOP",
+        "equal_minus_5pp": "DIRECTIONAL_SIGNAL_ONLY",
+        "missing": "TECHNICAL_FAIL",
+        "mixed": "INCONCLUSIVE_STOP",
+        "positive": "DIRECTIONAL_SIGNAL_ONLY",
+        "zero": "INCONCLUSIVE_STOP"
+      },
+      "first_regression": "1 failure due to read-only cache; record retained",
+      "mac_statistics": "MATCH",
+      "opponent_rejections": {
+        "hash_mismatch": "Opponent SHA mismatch",
+        "inf": "Non-finite opponent weight: /tmp/tmprfx6dtf7/landlord.ckpt",
+        "missing_key": "Error(s) in loading state_dict for LandlordLstmModel:",
+        "missing_role": "Required trusted official weight: /tmp/tmpnl82onzi/landlord_up.ckpt",
+        "nan": "Non-finite opponent weight: /tmp/tmp_cercrvg/landlord.ckpt",
+        "negative_inf": "Non-finite opponent weight: /tmp/tmp8k22i3cv/landlord.ckpt",
+        "wrong_role": "Error(s) in loading state_dict for LandlordLstmModel:"
+      },
+      "outcome_rejections": {
+        "deals": "Paired differences require identical evaluation deals",
+        "fraction": "Invalid paired outcomes",
+        "inf": "Invalid paired outcomes",
+        "nan": "Invalid paired outcomes",
+        "seed": "Paired differences require identical evaluation deals",
+        "selection_seed": "REJECTED",
+        "shape": "Invalid paired outcomes"
+      },
+      "regression": "22 passed in 1.51s",
+      "safe_cpu_weights": 6,
+      "status": "PASS_CPU_INPUTS_AND_SYNTHETIC_STATISTICS"
+    },
+    "P5": {
+      "remaining_audit_containers": 0,
+      "status": "PASS_ARCHIVED_READBACK",
+      "final_zip_readback": {
+        "mac": {
+          "status": "PASS",
+          "archive_sha256": "844dbe822e9e4832d89c70ab470795ee57e9c620f2e56e82ef6dec0d7d5497b4",
+          "verified_manifest_files": 77,
+          "readers": {
+            "synthetic": {
+              "status": "PASS",
+              "rejected_negatives": 9
+            },
+            "synthetic_optimized": {
+              "status": "PASS",
+              "rejected_negatives": 9
+            },
+            "existing_cpu": {
+              "status": "PASS",
+              "rejected_negatives": 9
+            },
+            "existing_cpu_optimized": {
+              "status": "PASS",
+              "rejected_negatives": 9
+            }
+          },
+          "real_training_updates": 0,
+          "real_games": 0,
+          "GPU_work": 0,
+          "receipt_sha256": "1421b7d8a8a1ee97334abc3c91e889c5782174e23db3f59824bb14ef9c74ef33"
+        },
+        "server": {
+          "status": "PASS",
+          "archive_sha256": "844dbe822e9e4832d89c70ab470795ee57e9c620f2e56e82ef6dec0d7d5497b4",
+          "verified_manifest_files": 77,
+          "readers": {
+            "synthetic": {
+              "status": "PASS",
+              "rejected_negatives": 9
+            },
+            "synthetic_optimized": {
+              "status": "PASS",
+              "rejected_negatives": 9
+            },
+            "existing_cpu": {
+              "status": "PASS",
+              "rejected_negatives": 9
+            },
+            "existing_cpu_optimized": {
+              "status": "PASS",
+              "rejected_negatives": 9
+            }
+          },
+          "real_training_updates": 0,
+          "real_games": 0,
+          "GPU_work": 0,
+          "receipt_sha256": "1421b7d8a8a1ee97334abc3c91e889c5782174e23db3f59824bb14ef9c74ef33"
+        }
+      }
+    }
+  },
+  "real_games": 0,
+  "real_training_updates": 0,
+  "status": "B1_READINESS_AUDIT_PASS_WITH_BLOCKERS",
+  "tested_source_delta": {
+    "dougpu/evaluate.py": "8aef0a2e3fc2c283682331586405736752951f655ed67ea11b4c383204ed87d7",
+    "tests/test_official_opponent_import.py": "1752152777d39707aa544d0556ef3a27e38494bb047af2ddda808f65a5333fbf",
+    "tests/test_protocol_gate.py": "854e61b85f3bcdb52bf92e39c44761a10e1f62d590b3aac4ec80dbf7797a9b19"
+  },
+  "tested_tracked_files": 133,
+  "timezone": "Asia/Hong_Kong",
+  "training": "PAUSED",
+  "evidence_archive": {
+    "path": "reports/b1-readiness-audit-20261009.zip",
+    "sha256": "844dbe822e9e4832d89c70ab470795ee57e9c620f2e56e82ef6dec0d7d5497b4",
+    "bytes": 1759552,
+    "manifest_files": 77,
+    "locations": [
+      "Mac workspace reports/",
+      "LocalServer /var/tmp/dougpu-b1-readiness-20261009-2553aa3/"
+    ],
+    "git_ignored": true,
+    "public_download_url": null,
+    "full_image_dependencies_weights_included": false
+  },
+  "publication_scope": [
+    "dougpu/evaluate.py",
+    "tests/test_official_opponent_import.py",
+    "tests/test_protocol_gate.py",
+    "docs/experiments/b1-readiness-audit-20261009.zh-CN.md",
+    "docs/experiments/b1-readiness-audit-20261009.json",
+    "docs/experiments/README.md"
+  ],
+  "publication_note": "Original evidence receipt records pre-publication facts; this repository summary adds final ZIP readback. Commit/push are separately authorized by the user and do not authorize training."
+}
