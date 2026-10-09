@@ -2,7 +2,9 @@
 
 日期：2026-10-09，Asia/Hong_Kong。状态：**PROTOCOL_DRAFT / TRAINING_PAUSED；B1_NOT_ENTERED / B2_NOT_ENTERED / G_NOT_ENTERED**。
 
-源码基线：`8f9bfcf6f6b7d2afa15b8feec466fd6075ff88a5`。本轮开始时 HEAD、origin/main 与实时远端 main 一致，工作区干净。本文件是待审阅的设计冻结草案，尚非获准执行的预注册；**当前获准 GPU 预算=0 秒，实际使用=0 秒**。不申请预算，不执行 B1/B2，不提交 Git。本轮只新增此文件，不修改配置、算法、依赖、框架或旧结案。
+本轮审阅源码基线：`d1f2a7c97bfae66ef426b316fe80d146987911d2`。开始时 HEAD、origin/main 与 `git ls-remote origin refs/heads/main` 一致，工作区干净。附件计划基于前一提交 `8f9bfcf6f6b7d2afa15b8feec466fd6075ff88a5`；现有 B0 草案已在 d1f2a7c 入库，本次复用、修订并改为附件指定文件名，补实验索引，不建立第二份协议。
+
+用户请求为“审阅方案并执行任务”；附件中的 Agent 提示词作为待审阅的方案内容。按其阶段范围，本轮完成 B0 文档工作，尚非获准执行的预注册；**当前获准 GPU 预算=0 秒，实际使用=0 秒，新训练/新牌局=0**。不执行 B1/B2，不提交 Git，不修改配置、算法、依赖、框架或旧结案。
 
 ## 1. 科学问题与范围
 
@@ -21,9 +23,11 @@
 
 B0 仅做本草案。为避免授权歧义，本文件把可能的未来 B1 定义为输入资格、正式执行意向冻结与三条新训练链，把 B2 定义为独立强对手评估和统计闭环；两者均须另行明确批准范围与预算，当前不启动。
 
+审阅结论：方案的阶段顺序和研究边界可保留；已有草案的 18 项校正置信界规则与附件的描述性方向筛查不同，本次在接触任何新结果前按第 6 节修订。B0 文档任务完成，B1/B2 执行资格仍未完成；现有审计器也不替代预算监督、对手资格或科研裁决。
+
 ## 2. 实际配置来源与唯一候选
 
-先读取 `reports/baseline-20261008-seed20261009/` 的原始三阶段 ZIP，重算外层 SHA256，并检查内层 manifest 对 `run/resolved_config.json`、`run/session_config.json` 的哈希；两份配置相等。只读 ZIP/JSON，不装载参数、Replay 或优化器。本次不是重新执行完整历史门禁。
+读取 `reports/baseline-20261008-seed20261009/` 的原始三阶段 ZIP，重算外层 SHA256，并检查外层 `evidence-manifest.json` 对 `run/resolved_config.json`、`run/session_config.json` 的哈希；每段两份配置相等，三段学习及执行字段除 max_hours/target_updates 外相等。只读 ZIP/JSON，不装载参数、Replay 或优化器。本次不是重新执行完整历史门禁。
 
 | 阶段 | 外层 ZIP SHA256 | 归档内 resolved_config SHA256 |
 |---|---|---|
@@ -56,13 +60,15 @@ B0 仅做本草案。为避免授权歧义，本文件把可能的未来 B1 定�
 | lr / weight_decay / grad_clip | 0.0001 / 0.00001 / 1.0 |
 | ntp_weight / belief_weight | 0.02 / 0.05 |
 | epsilon_start / epsilon_end / epsilon_frames | 0.10 / 0.03 / 1000000 |
-| max_hours / max_cycles / target_updates | 1.0（每会话内部次级限时）/ 100000000 / 8、2000、20000 |
+| max_hours / max_cycles / target_updates | 1.0（每会话内部次级限时） / 100000000 / 8、2000、20000 |
 | checkpoint_seconds / keep_checkpoints / save_replay / resume | 300 / 3 / true / true |
 | eval_every / eval_deals / eval_workers | 25 / 256 / 4 |
 | promotion_role_margin / eval_bucket_batch / eval_kv_cache | 0.05 / true / false |
 | worker_timeout / log_every | 300.0 / 25 |
 
 此配方与 [rtx5070_throughput.json](../../configs/rtx5070_throughput.json) 的差异仅是 seed、eval_seed、max_hours、target_updates 和默认字段展开；不能误用 balanced 配置或 TrainConfig 的其他默认执行参数。该已跟踪配置 SHA256 为 `b3d547dda91518cb8f7bd32f750ca5de8402dc2cfcf29ee55fd0cf4cef1bf484`。
+
+三段原始 `run/source/source_lock.json` 的 SHA256 均为 `40f47b2cd94a76fe7112140d41b85af0b7462b6c35197241fe71fc506348e1ac`；规则为 `kwai/DouZero@718a5c920bf3361e34178a38f3b80458e176b351`、encoding_schema=1，上游 ZIP SHA256 为 `de638d431c0752c7a09869afb3bd6ff1f8d95a178ea1fea263a2e8ad40b7c527`。本轮缓存 ZIP 及 vendor 中清单的 11 个文件字节均匹配。缓存 `upstream_cache/source_lock.json` SHA256 为 `8159ea7b7339f1e643ef75173b9948a675ce3d7cc5d9eb023e2a40ebd4d3ccf6`，比实际运行锁多 repository/doutpu_sha256 字段；`bootstrap.prepare` 的缓存复用分支只保留运行锁所需五类字段。未来应冻结实际生成的运行锁，不能把缓存文件哈希冒充运行锁哈希；本轮未执行 prepare 或完整规则导入路径检查。
 
 来源运行的 Python/JAX/NumPy 为 `3.12.14 / 0.7.2 / 2.5.3`；配置 backend 为 `cuda`，JAX 实际 `versions.backend` 为 **`gpu`**，门禁应冻结后者，不能误填 `cuda`。拟复用既有 RTX 5070 单 GPU 和报告中的镜像 `sha256:464175f20cb5460e34e42cd295bf0c9f6629796600b32d9f514243384a55621e`；本轮未探测机器或镜像。未来须核对完整包版本、驱动、硬件、CPU Torch 及镜像可用性，不许隐式升级或回退 CPU。完整新环境身份目前 **NOT_VERIFIED**。
 
@@ -76,6 +82,15 @@ B0 仅做本草案。为避免授权歧义，本文件把可能的未来 B1 定�
 | [protocol_gate.py](../../scripts/protocol_gate.py)：audit_execution / execution_sessions | 使用 `--execution` 语义，核查三段事件、完整配置、版本、源码、Actor 顺序/seeds、恢复 SHA、Adam.step、Replay/主 RNG 和独立端点。旧 audit/compare 是历史 NTP 专用，不能拿它审新 Baseline |
 | [runtime.py](../../dougpu/runtime.py)：source_identity | 核对根目录及 dougpu 的 Python 字节和已装载模块路径；不能将 git unknown 当来源证明。还需外层冻结 scripts、配置、依赖与规则锁；不是所有执行组件都有运行时装载证明 |
 | [check_session_chain.py](../../scripts/check_session_chain.py)：check | 除 execution gate 外，还比对事前意向 SHA 与事后回执的全部冻结字段。`audit_execution` 单独不验证意向链接，也不代表训练授权；该脚本的 `--train` 是 CPU 0→1→2 验收，不能用于本草案的 GPU 三段运行 |
+
+E/F 实现身份为 `c849e78a1cbf82654731acac80b738e3cb76b43e`；从该提交到本轮基线仅有文档变化。以下按当前磁盘字节重算 SHA256，既有 PASS 沿用[发布回执](ef-publication-20261009.json)，本轮未重跑工程验收或 F 数值诊断：
+
+| 审计材料 | SHA256 |
+|---|---|
+| scripts/protocol_gate.py | `738d87551ae9a9e7d7b45bb3401d05eacab6d898309ab4fc43ae20583a62f4b6` |
+| scripts/check_session_chain.py | `9f41a1a6cf9fbd7b360823f073876d2acf814ea692682e42500742834458018e` |
+| scripts/mechanism_diagnostics.py | `8e3218f366acd033e9059c6fed3adc8804ac69a465d43591d8c72278c99057ac` |
+| docs/experiments/ef-publication-20261009.json | `28158e61d1ce80d3df0e4a1d9f0a73ef55875bd11c5a113ba0bada789f4d50ee` |
 
 每个新 seed 独立新目录；三段仅在该目录内恢复，不 `import-checkpoint`，不 fork 旧 seed。`resume=true` 仍要求第一段目录及镜像没有旧代际；第一段 `resume_input=null`，参数由本 seed 初始化、Adam.step=0、Replay 空，主 RNG 从本 seed 开始。
 
@@ -91,7 +106,7 @@ B0 仅做本草案。为避免授权歧义，本文件把可能的未来 B1 定�
 
 ## 4. 候选 seed 与数据隔离
 
-下面整数为本草案新指定的候选，不是旧结果筛出来的。已在可访问 `docs/configs/reports/dougpu/scripts/run_local.py` 的 JSON、JSONL、Markdown、Python 中用 `rg --no-ignore` 检索，未见匹配；未扫描压缩包内部、已删除数据或其他机器，不能宣称全球未用过。B1 前任何已用证据或碰撞均阻断，不能运行后换 seed。
+下面整数沿用 d1f2a7c 草案的候选，不是旧结果筛出来的。本轮在可访问 `docs/configs/reports/dougpu/scripts/run_local.py` 的 JSON、JSONL、Markdown、Python 中用 `rg --no-ignore` 检索，除协议自身外未见匹配；未扫描压缩包内部、已删除数据或其他机器，不能宣称全球未用过。B1 前任何已用证据或碰撞均阻断，不能运行后换 seed。
 
 | 新链 | train.seed | 训练 selection eval_seed | B2 预检 seed | B2 正式 seed |
 |---|---:|---:|---:|---:|
@@ -135,18 +150,18 @@ B2 候选执行设置沿用旧强对手评估：DouZero 引擎，候选 CUDA、B
 
 每 seed、每对手、每副牌先计算 `d_L = win20k_L − win2k_L`、`d_F = win20k_F − win2k_F`，以及 `d_B=(d_L+d_F)/2`。报告各自均值×100（百分点）。同一副两角色及两端点必须作为一个配对单元，不能把农民两位当独立观察。
 
-每 seed 分别使用既有 `paired_difference` 的 2000 次完整 deal bootstrap、RNG=`formal_seed+12345`；名义 95% CI 仅作描述。未来分析对同一重采样分布取**单侧 alpha=0.05/18** 的下/上界：18 项=3 seed×2对手×3指标。这样对正向筛选使用的 18 个下界统一校正；上界另作同样校正的负向筛选，不把两族合称联合双侧 95% CI。2000 次下极端分位数约由第 6 个排序值决定，尾部精度有限；不因结果临界而追加 bootstrap 或牌局。
+每 seed 分别使用既有 `paired_difference` 的 2000 次完整 deal bootstrap、RNG=`formal_seed+12345`；名义 95% CI 仅描述该 seed 内的发牌不确定性，未作多重比较校正，不参与下列方向筛查决策。helper 返回的 `promotion_lower_bounds` 也不用作本实验门槛。本次删除原草案额外的 18 项校正界要求，采用附件 B2 的点差方向筛查，不能将两套规则混用或在看到结果后切换。
 
-跨 seed 等权报告 WP/ADP 各自的三项均值、三 seed 标准差、范围及每 seed 完整结果；不能按局数加权、把三链 Replay 行或 48000 局当训练重复。**训练 seed 总体 CI 与检验力 NOT_ESTIMATED**：3 seed 不支持可靠估计总体分布，本草案不伪造总体显著性。以下 POSITIVE_SIGNAL 只称“在预定三个新 seed 上重复观察到”，不等于总体稳定提升。
+跨 seed 等权报告 WP/ADP 各自的三项均值、三 seed 样本标准差（ddof=1）、范围及每 seed 完整结果；不能按局数加权、把三链 Replay 行或 48000 局当训练重复。**训练 seed 总体 CI=NOT_ESTIMABLE（本设计不提供），检验力=NOT_ESTIMATED**。有限运行数的不确定性和统计功效需另外设计，见 [Agarwal 等](https://proceedings.neurips.cc/paper/2021/hash/f514cec81cb148559cf475e7426eed5e-Abstract.html)、[Colas 等](https://arxiv.org/abs/1806.08295)。本草案只描述预定三个 seed，不给总体显著性结论。
 
 决策按优先级一次作出，所有差值为 20k−2k：
 
-1. 资格缺失、任一链不完整或任一正式 outcome 缺失：`INVALID_PROTOCOL / STOP`；不在幸存 seed 上改成 n=2 分析。
-2. 任一 seed、任一对手的 Balanced 校正上界 <0，或任一角色校正上界 <−5pp：`NEGATIVE_SIGNAL / STOP`。−5pp 沿用配方中 promotion_role_margin=0.05 作为本草案预先指定的容忍线，不是已证明合理的业务损失阈值。
-3. 仅当六个 seed×对手 Balanced 校正下界全部 >0，且十二个角色下界全部 ≥−5pp：`REPEATED_POSITIVE_SIGNAL / STOP`。不自动晋升、不进入 G、不追加预算。
-4. 其余完整情形：`INCONCLUSIVE / STOP`。不换 seed、不加第 4 seed、不补抽、延长训练或改 LR/NTP/belief/batch。
+1. 资格缺失、任一链不完整、超时、任一正式 outcome 缺失或第 8 节工程 STOP 触发：`TECHNICAL_FAIL / STOP`；协议缺失同时记录 `INVALID_PROTOCOL`，不在幸存 seed 上改成 n=2 分析。
+2. 任一 seed、任一对手的地主或农民团队**点差 <−5pp**，触发角色风险：`INCONCLUSIVE_STOP`，逐项披露退化。−5pp 沿用配方中 promotion_role_margin=0.05 作为事前设计容忍线，不是统计非劣证明或已认证的业务损失阈值；等于 −5pp 不触发。
+3. 仅当六个 seed×对手 Balanced **点差全部 >0**，且无上述角色风险，标 `DIRECTIONAL_REPLICATION_SIGNAL`，结案 `DIRECTIONAL_SIGNAL_ONLY / STOP`。即使名义区间跨零也仅披露方向，不声称已显著改善；不自动晋升、不进入 G、不追加预算。
+4. 其余完整情形（含任一 Balanced 点差为零、负值或混合方向）：`INCONCLUSIVE_STOP`。不换 seed、不加第 4 seed、不补抽、延长训练或改 LR/NTP/belief/batch。
 
-没有功效保证，也不使用旧 +6.625/+7.000pp 点估计当作真实效应来承诺通过。样本量 2000 副/seed 来自已运行评估规模，是预算受限的设计选择。现有 helper 不直接提供上述 18 项校正界或跨 seed 汇总；未来需先冻结一个最小离线统计入口并留下配对/分位数自检，本 B0 不新增代码、不假装已经实现或验证。
+没有功效保证，也不使用旧 +6.625/+7.000pp 点估计当作真实效应来承诺通过。样本量 2000 副/seed 来自已运行评估规模，是预算受限的设计选择。未来复用既有配对统计，冻结最小离线汇总与自检即可；若需要确认性主张，必须在新结果前另行设计跨训练 seed 的功效及多重比较方案。本 B0 不新增统计代码、不假装已经实现或验证。
 
 ## 7. 预估成本与未批准的硬上限
 
@@ -162,7 +177,7 @@ B2 候选执行设置沿用旧强对手评估：DouZero 引擎，候选 CUDA、B
 | 每 seed：8→2k 块 | 900 秒 |
 | 每 seed：2k→20k 块 | 2100 秒 |
 | 三 seed B1 合计 | 10800 秒（3 小时） |
-| B2 全部预检、12 组正式评估及退出 | 1800 秒（30 分钟） |
+| B2 全部预检、12 组正式评估、退出及双域归档读回 | 1800 秒（30 分钟） |
 | 总计 | **12600 秒（3.5 单 GPU 小时），未批准** |
 
 单 GPU 串行，块间不能挪用剩余额度。每块从首次设备进程启动前开始计时，内部校验/传输和安全退出计入上限；最后 90 秒预留停止与保存，不能用 grace 延长硬截止。预算余额不足则不启动下一块；达到限时或非 target 终止均为失败，不缩小正式规模来凑完成。
@@ -179,7 +194,7 @@ B2 候选执行设置沿用旧强对手评估：DouZero 引擎，候选 CUDA、B
 | 原始配置片段与六权重字节哈希匹配 | 权重官方发布认证；新运行装载、有限性与接口验收未做 |
 | 当前 main 和所追踪源码 | 新 trainer_source.zip、执行意向及其 SHA、完整环境快照、镜像/设备可用性未核验 |
 | 事前输出/输入身份应如何串联 | 未来 UUID、worker seeds、checkpoint/政策/牌序 SHA 均未产生；执行前值与事后回执须分开 |
-| 新候选 seed 在指定可访问文本中无匹配 | 压缩包内部、删除历史、远端未扫描；无全历史唯一性保证 |
+| 候选 seed 在指定可访问文本中仅有协议自身匹配 | 压缩包内部、删除历史、远端未扫描；无全历史唯一性保证 |
 | 旧配方耗时与保守候选上限 | 新运行成本、外部硬预算监督和最小统计入口未验收 |
 | 有限三 seed 的重复性决策 | 训练 seed 总体显著性/功效没有估计，不据此推断机制或更广棋力 |
 
@@ -187,10 +202,10 @@ B2 候选执行设置沿用旧强对手评估：DouZero 引擎，候选 CUDA、B
 
 ## 9. 本轮检查与证据可达性
 
-本轮仅读源码、Markdown、JSON、ZIP 中的文本成员以及权重原始字节。历史包配置 manifest 检查、六权重 SHA256 检查、候选 seed 文本检索已执行；首次尝试把外层配置当实际值的断言因 max_hours 差异失败，随后按归档实值更正，未掩盖差异。没有导入项目模块、JAX/Torch，未创建运行目录、配置或执行意向。
+本轮读取四份方案所列报告、原 B0 草案及执行源码，追踪启动、恢复、停止、保存、端点审计与配对评估路径。使用标准库重算三份外层 ZIP SHA、配置/运行锁 manifest、六权重 SHA、成本来源 SHA、规则缓存 ZIP/11 个 vendor 文件和 E/F 审计材料身份。没有导入项目模块、JAX/Torch，未创建运行目录、配置或执行意向。E/F、历史 INVALID_PROTOCOL 和旧棋力结果均沿用已归档结论，本轮不冒充重验。
 
 `reports/` 原始材料被 Git 忽略，不随克隆发布；旧报告提供归档获取与恢复说明。上述身份只说明本次可访问本地字节，完整旧证据链不在 B0 重验。源码引用均相对于本文，绑定页首 main；原始配置 SHA 和权重 SHA 已直接写入本文，便于独立审阅。
 
-最小检查仅限本文的 UTF-8、表格/链接、字段覆盖、预算与对局数算术、空白及单文件差异范围。检查结果不构成执行准入；**PROTOCOL_DRAFT / TRAINING_PAUSED，当前 GPU 预算和使用均为 0。**
+附件论文入口已检查，作为实验设计背景；Nature 页面此次读取失败，Ataraxos 沿用既有 NO_GO，不声称重新核查其权重发布状态。标准库静态检查退出码 0：9 个 ModelConfig、53 个 TrainConfig 字段及历史配方值完整，14 个本地链接、表格列数、12 个不同候选 seed、48000/192 局及 12600 秒预算算术、决策边界和文件名/索引均通过。候选 seed 在指定文本中除本文外无匹配。
 
-实际结果：标准库静态检查退出码 0；9 个 model 字段、53 个 train 字段覆盖完整，13 个本地链接有效，表格列数及预算/对局数算术通过。`git diff --check` 退出码 0；新文件 `git diff --no-index --check /dev/null <本文>` 退出码 1（文件有差异），无空白诊断。tracked diff 与暂存区均空，唯一未跟踪文件为本文。未运行训练、前向、反向、新牌局、门禁执行器或应用测试。
+`git diff --check` 退出码 0；新路径用 `git diff --no-index --check /dev/null <本文>` 检查，无空白诊断（退出码 1 表示文件有差异）。最终改动仅为原 B0 草案改名修订和实验索引，暂存区为空；没有 Python/配置/依赖改动，未运行应用测试、训练、前后向、新牌局或门禁执行器。**PROTOCOL_DRAFT / TRAINING_PAUSED，当前 GPU 预算和使用均为 0。**
