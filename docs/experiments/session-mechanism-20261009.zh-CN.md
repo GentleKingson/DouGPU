@@ -118,3 +118,14 @@ What this change does: Preserve each session's termination event in its checkpoi
 过期排除为零只描述该端点在当前阈值下的过滤结果，不证明策略滞后无影响。历史 Baseline 的数值可读取不改变其 INVALID_PROTOCOL 标记。停止增加诊断数量和实验基础设施；G=NOT_ENTERED，TRAINING_PAUSED。
 
 入库前补跑：同一无 GPU、无网络、4 CPU / 4 GiB 容器中，原 73 项加优化模式校验回归，共 **74 passed in 16.69s**；Mac 门禁单测 **8 passed**。`git diff --check` 通过。`python -O scripts/check_session_chain.py` 对原归档解包目录的输出与原回执完全一致，原 ZIP SHA 不变。此次是同一 Agent 的差异复审，隔离进程/干净检出验收不等于第三方代码审计。
+
+
+### 已提交源码的可恢复性验收
+
+E/F 实现、测试及本报告已作为 `c849e78a1cbf82654731acac80b738e3cb76b43e` 推送 GitHub main。随后从 GitHub 全新浅克隆该提交，确认工作树干净，以该克隆的读取器重新解包原 ZIP 到临时目录；LocalServer 使用同一干净提交的 git archive，源码与原证据 ZIP 只读挂载。未用归档内的旧读取器替代已提交版本。
+
+两地均校验 35 个文件，0→1→2 正例 PASS、9 项篡改负例拒绝；普通与 `python -O` 读取器一致，`protocol_gate --execution` PASS。Replay、消耗、nonfinite 三类 NumPy 结果与旧结果相同；完整读回回执两地完全一致，均未导入 JAX。历史三段原件通过干净源码重新读取仍 FAIL。原归档 SHA 保持 `d81399f4dbecfd9d7cb441414fd95020b6cfcae8a776bce68d08689590bcffea`，没有覆盖或补写。
+
+机器可读闭环回执：[ef-publication-20261009.json](ef-publication-20261009.json)。原始新回执、CPU 测试日志、精确提交源码和复核脚本位于 `reports/ef-publication-20261009/`；恢复补充包 `reports/ef-publication-20261009.zip` 的 SHA256 为 `11fa9321859bd5d522cf20a5e9005d46073142a0cdd51abda26b252bac3e3073`，与原证据 ZIP 一起保存。LocalServer 副本位于 `/var/tmp/dougpu-ef-review-20261009/ef-publication-20261009.zip`。
+
+本节及 JSON 为仅文档的后续提交，未改变已验收的 Python 源码。E/F 标记为 **ENGINEERING_CLOSED**；G=NOT_ENTERED，TRAINING_PAUSED。没有扩大梯度探针、调整 Replay age、恢复 batch512/NTP 或追加训练 seed。

@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-09",
+  "timezone": "Asia/Hong_Kong",
+  "status": "ENGINEERING_CLOSED",
+  "E": "PASS",
+  "F": "PASS_OBSERVATIONAL",
+  "G": "NOT_ENTERED",
+  "training": "PAUSED",
+  "GPU_work": 0,
+  "implementation_commit": "c849e78a1cbf82654731acac80b738e3cb76b43e",
+  "baseline_commit": "cf396b77df403e713ffb82a52a040513f1cfd52a",
+  "review": {
+    "scope": "Full tracked diff and all new implementation/tests/report files; callers traced",
+    "reviewer": "Same agent follow-up review; not a third-party independent code audit",
+    "finding": "Frozen intent asserts could disappear under python -O",
+    "resolution": "Reused require for frozen intent, CPU and endpoint checks; regression covers normal and optimized modes",
+    "outstanding_blockers": [],
+    "unchanged": [
+      "model",
+      "optimizer",
+      "Actor behavior",
+      "main RNG",
+      "Store fallback",
+      "production configuration defaults"
+    ]
+  },
+  "tests": {
+    "cpu": "74 passed in 16.69s",
+    "mac_protocol": "8 passed",
+    "diff_check": "PASS",
+    "command": "python -m pytest -q -p no:cacheprovider tests/test_train_accounting.py tests/test_batch_dose_experiment.py tests/test_protocol_gate.py tests/test_checkpoint_logs.py tests/test_local_metrics.py tests/test_mechanism_diagnostics.py tests/test_core.py::test_optimizer_updates_and_skips_nonfinite tests/test_history_groups.py"
+  },
+  "recovery": {
+    "source": "Fresh GitHub main clone at implementation_commit; clean git status",
+    "server_source": "git archive of the same clean GitHub clone, mounted read-only",
+    "archive": "reports/session-mechanism-20261009.zip",
+    "archive_sha256": "d81399f4dbecfd9d7cb441414fd95020b6cfcae8a776bce68d08689590bcffea",
+    "archive_unchanged": true,
+    "files_verified_per_domain": 35,
+    "two_domain_receipts_identical": true,
+    "positive_chain": "0 -> 1 -> 2",
+    "rejected_mutations": 9,
+    "optimized_reader": "PASS",
+    "execution_cli": "PASS",
+    "offline_diagnostics": [
+      "replay",
+      "consumption",
+      "nonfinite"
+    ],
+    "JAX_imported": false,
+    "historical_gate": "FAIL (3 original baseline stages read; legacy evidence gaps retained)"
+  },
+  "evidence_classification": {
+    "OBSERVED": [
+      "endpoint Replay distribution and exclusion rate",
+      "four minibatch gradient variance ratios",
+      "logged nonfinite skips"
+    ],
+    "NOT_MEASURED": [
+      "production duplicate-draw rate",
+      "policy KL",
+      "cross-batch comparison",
+      "calibrated gradient uncertainty",
+      "comparable numerical-path inputs"
+    ],
+    "INCONCLUSIVE": [
+      "effect of policy lag",
+      "optimal batch",
+      "comprehensive numerical stability"
+    ]
+  },
+  "historical_baseline": "INVALID_PROTOCOL: readable numerical state is not experimental validity",
+  "historical_NTP": "CLOSED / INVALID_PROTOCOL",
+  "receipt_files": {
+    "clean-mac.json": "bd8914f70a9fa37b2f05fef906b33e1dfdd686d2e43744f4a72000ba90dde1da",
+    "clean-server.json": "bd8914f70a9fa37b2f05fef906b33e1dfdd686d2e43744f4a72000ba90dde1da",
+    "committed-source.tar.gz": "d3392598ebeacdc3044900ae2ecae99344b1a835db1603d6a423e80524f39531",
+    "cpu-regression.txt": "3aca5c8e2bc8044e7088eb2f66c2516dcb2f674addc57edf277a43d91a45417a",
+    "precommit-chain.json": "7f1edcd9babeff9afa32a8b51041cb30292e9d404a3ebf650e0708761dc52291",
+    "verify.py": "59aaffd442d9089b657cd41645f9691eef944d64ed84c66eb670a18ea89d2b75",
+    "clean-historical.json": "1474983fe4154257f0ac28bc349d7357cbb4adb1e482be53142c90da694ae5d5"
+  },
+  "limits": [
+    "No full-repository tests, GPU work, new production training, strength evaluation or new gradient probes in this closure.",
+    "Archive verification is not WORM or third-party attestation."
+  ]
+}
