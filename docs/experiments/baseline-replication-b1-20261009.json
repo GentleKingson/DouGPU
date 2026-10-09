@@ -1,0 +1,391 @@
+{
+  "status": "B1_COMPLETE_ARCHIVED_READBACK_PASS",
+  "training": "PAUSED",
+  "B1": "COMPLETE",
+  "B2": "NOT_ENTERED",
+  "G": "NOT_ENTERED",
+  "authorized_seconds": 10800,
+  "source_commit": "e4fd3d421f56c5f341fc34b5e30a27824c98dcd7",
+  "execution_intent_sha256": "ad151b84ad8e3a6646a110115744b595070128bf6620fc6ae6956cef271ad6ae",
+  "trainer_source_sha256": "2956a5848b999f655a9ddf8320ec4a1fefb58365eb215bc0b073e16a4389e9fe",
+  "real_successful_training_updates": 60000,
+  "GPU_phase_process_seconds": 2144.240026805899,
+  "wall_seconds_prepare_through_final_endpoint_readback": 2372.843983411789,
+  "preflight_synthetic_updates": 48,
+  "formal_evaluation": false,
+  "strength_result": "NOT_EVALUATED",
+  "GPU_device_driver_image": "VERIFIED_THIS_RUN_CONFIGURATION",
+  "official_WP_ADP": "NOT_VERIFIED",
+  "formal_deals": "NOT_GENERATED",
+  "cleanup": "PASS",
+  "initialization_readback_sha256": "db8920f8f8a03a220638bb3b790b931160b4b84d20931ac4bf81f64bacc6e605",
+  "timing_note": "First controller block excludes prepare-to-launch wait; adjusted from the actual setup timestamp. Supplemental global watchdog tightens the original 10800-second bound; original receipts retained.",
+  "qualified_utc": 1791555668.336168,
+  "wall_seconds_prepare_through_final_archive_readback": 2846.9687452316284,
+  "blocks": [
+    {
+      "status": "PASS",
+      "candidate": "C0-S1",
+      "index": 0,
+      "cap_seconds": 600,
+      "wall_seconds": 246.6364734172821,
+      "ended_utc": 1791553419.1226702,
+      "updates": 8,
+      "controller_only_wall_seconds": 56.85334508300002,
+      "includes_prepare_to_launch_wait": true
+    },
+    {
+      "status": "PASS",
+      "candidate": "C0-S1",
+      "index": 1,
+      "cap_seconds": 900,
+      "wall_seconds": 101.20914325000194,
+      "ended_utc": 1791553520.3332632,
+      "updates": 2000
+    },
+    {
+      "status": "PASS",
+      "candidate": "C0-S1",
+      "index": 2,
+      "cap_seconds": 2100,
+      "wall_seconds": 618.0026833330048,
+      "ended_utc": 1791554138.336948,
+      "updates": 20000
+    },
+    {
+      "status": "PASS",
+      "candidate": "C0-S2",
+      "index": 0,
+      "cap_seconds": 600,
+      "wall_seconds": 19.51799820800079,
+      "ended_utc": 1791554157.8563762,
+      "updates": 8
+    },
+    {
+      "status": "PASS",
+      "candidate": "C0-S2",
+      "index": 1,
+      "cap_seconds": 900,
+      "wall_seconds": 85.54166333399189,
+      "ended_utc": 1791554243.398449,
+      "updates": 2000
+    },
+    {
+      "status": "PASS",
+      "candidate": "C0-S2",
+      "index": 2,
+      "cap_seconds": 2100,
+      "wall_seconds": 603.6300878750044,
+      "ended_utc": 1791554847.029849,
+      "updates": 20000
+    },
+    {
+      "status": "PASS",
+      "candidate": "C0-S3",
+      "index": 0,
+      "cap_seconds": 600,
+      "wall_seconds": 19.505579083997873,
+      "ended_utc": 1791554866.53602,
+      "updates": 8
+    },
+    {
+      "status": "PASS",
+      "candidate": "C0-S3",
+      "index": 1,
+      "cap_seconds": 900,
+      "wall_seconds": 81.96492104099889,
+      "ended_utc": 1791554948.5013492,
+      "updates": 2000
+    },
+    {
+      "status": "PASS",
+      "candidate": "C0-S3",
+      "index": 2,
+      "cap_seconds": 2100,
+      "wall_seconds": 596.8263074589922,
+      "ended_utc": 1791555545.3287349,
+      "updates": 20000
+    }
+  ],
+  "chains": {
+    "C0-S1": {
+      "seed": 2026101101,
+      "selection_seed": 2026101201,
+      "updates": 20000,
+      "selfplay_games": 255566,
+      "frames": 10250752,
+      "complete_samples": 10240102,
+      "collection_credit": 102.0,
+      "replay_size": 65536,
+      "replay_role_counts": [
+        22646,
+        21627,
+        21263
+      ],
+      "recorded_nonfinite_steps": 0,
+      "policies": {
+        "2000": {
+          "checkpoint_sha256": "54346127d66d8686174f7ed22ce072ed605c353f35a31f3f92ecd5e474d3d52b",
+          "latest_policy_sha256": "08fde85a272649dbf92fa83231ef82ded2ad614dc57143cb66db30833ef7ffa3"
+        },
+        "20000": {
+          "checkpoint_sha256": "356b9c66cfb5e1dc64c1bd98e74bbbcf38a99668af032c004c3f7ed60a4f7faa",
+          "latest_policy_sha256": "175f3f7b58d73bc3e18774cb74be6d6240cd13cb5cb64ebed628236c60f91316"
+        }
+      },
+      "preflight_sha256": "46b671f744132758a81be6e6907317ec4c7e6cc3c6cb8405e749eed38809a854",
+      "preflight_seconds": 42.286657395015936,
+      "preflight_synthetic_updates": 16,
+      "frozen_intent_sha256": "ab72f793f171ac7a7a7266d7b48a9dc7521d99019ab16b188f53ed9481e62369",
+      "initialization": {
+        "seed": 2026101101,
+        "initial_checkpoint_sha256": "e4ab944cfd5ba74dbc34c77eabe37c10bb6fc8d5776af30c78f6d8ad190f15d5",
+        "embedding_sha256": "047b7a19238876779ee7a64c2c2b0b03198098c54060b7f8e501e2fa3e7aa0ad",
+        "updates": 0,
+        "replay_size": 0,
+        "Adam_m_v_zero": true,
+        "champion_equals_initial": true
+      },
+      "sessions": [
+        {
+          "session_id": "e1dfabb107bb433a8f19f2d3244cbf11",
+          "start_updates": 0,
+          "end_updates": 8,
+          "checkpoint_sha256": "e0cb6fd19943724ec00f7bd4f15e7e447fecb87bbf5b01dad3f6516d8e025b5f",
+          "input_checkpoint_sha256": null
+        },
+        {
+          "session_id": "67d9596057614d62b265b525d380ecbc",
+          "start_updates": 8,
+          "end_updates": 2000,
+          "checkpoint_sha256": "54346127d66d8686174f7ed22ce072ed605c353f35a31f3f92ecd5e474d3d52b",
+          "input_checkpoint_sha256": "e0cb6fd19943724ec00f7bd4f15e7e447fecb87bbf5b01dad3f6516d8e025b5f"
+        },
+        {
+          "session_id": "696f6fc0dddd43a9a49fccca6ba66b5a",
+          "start_updates": 2000,
+          "end_updates": 20000,
+          "checkpoint_sha256": "356b9c66cfb5e1dc64c1bd98e74bbbcf38a99668af032c004c3f7ed60a4f7faa",
+          "input_checkpoint_sha256": "54346127d66d8686174f7ed22ce072ed605c353f35a31f3f92ecd5e474d3d52b"
+        }
+      ]
+    },
+    "C0-S2": {
+      "seed": 2026101102,
+      "selection_seed": 2026101202,
+      "updates": 20000,
+      "selfplay_games": 264448,
+      "frames": 10248192,
+      "complete_samples": 10240116,
+      "collection_credit": 116.0,
+      "replay_size": 65536,
+      "replay_role_counts": [
+        22632,
+        21679,
+        21225
+      ],
+      "recorded_nonfinite_steps": 0,
+      "policies": {
+        "2000": {
+          "checkpoint_sha256": "128343d3d6675d75737948de21c919098dba1e2599cc186bb1011da09c20254b",
+          "latest_policy_sha256": "19d04b3a57f9510d45526fb7cd1610f4bfa0b5151b9179c4bd4b8e9bea62d41f"
+        },
+        "20000": {
+          "checkpoint_sha256": "fc5e44530d90495cffc508395e077ae702fa633532d83e5dd20f1789234d49b0",
+          "latest_policy_sha256": "7c8015c1946904be923b5bc7e33a035214ccb49cab0f7cb9bb1f9a07e713b567"
+        }
+      },
+      "preflight_sha256": "e7c47e281461b008671e4a4ced49c8ffd7e089b06117e1386398808deeef1823",
+      "preflight_seconds": 10.409224313974846,
+      "preflight_synthetic_updates": 16,
+      "frozen_intent_sha256": "42025e9213fcc09a3e8d2217ec695dc8463fc015c5971ee6e465fb450adf21b9",
+      "initialization": {
+        "seed": 2026101102,
+        "initial_checkpoint_sha256": "3793e31393d457af13fc6d56d1dc45ab7967bee8649b7ad72e94c42b4f0051d2",
+        "embedding_sha256": "4c5c9b291b449718d965bb1d733d6b02aff811515ef346d09d74cc62034e57e5",
+        "updates": 0,
+        "replay_size": 0,
+        "Adam_m_v_zero": true,
+        "champion_equals_initial": true
+      },
+      "sessions": [
+        {
+          "session_id": "b431666bf1c44a13a7bb15e6cfe61341",
+          "start_updates": 0,
+          "end_updates": 8,
+          "checkpoint_sha256": "9ce795267bd0c6fb769b9e5a9ac048b370abb40c3d452d3ee21397165ab90a28",
+          "input_checkpoint_sha256": null
+        },
+        {
+          "session_id": "d4c02f9e6c6c4a1ba3482b46f469aee9",
+          "start_updates": 8,
+          "end_updates": 2000,
+          "checkpoint_sha256": "128343d3d6675d75737948de21c919098dba1e2599cc186bb1011da09c20254b",
+          "input_checkpoint_sha256": "9ce795267bd0c6fb769b9e5a9ac048b370abb40c3d452d3ee21397165ab90a28"
+        },
+        {
+          "session_id": "afe3c760c3f94912b12b8009f14c7c30",
+          "start_updates": 2000,
+          "end_updates": 20000,
+          "checkpoint_sha256": "fc5e44530d90495cffc508395e077ae702fa633532d83e5dd20f1789234d49b0",
+          "input_checkpoint_sha256": "128343d3d6675d75737948de21c919098dba1e2599cc186bb1011da09c20254b"
+        }
+      ]
+    },
+    "C0-S3": {
+      "seed": 2026101103,
+      "selection_seed": 2026101203,
+      "updates": 20000,
+      "selfplay_games": 287219,
+      "frames": 10248448,
+      "complete_samples": 10240003,
+      "collection_credit": 3.0,
+      "replay_size": 65536,
+      "replay_role_counts": [
+        22784,
+        21587,
+        21165
+      ],
+      "recorded_nonfinite_steps": 0,
+      "policies": {
+        "2000": {
+          "checkpoint_sha256": "b588473b824635ecacc5df335dc354fbe04ef75a87b04e0de5a9f1f204ea8d2a",
+          "latest_policy_sha256": "f1003d321604c9b240d1e59037aa88325f4132ffcc3b022466609293536a6207"
+        },
+        "20000": {
+          "checkpoint_sha256": "cbf45197f9d4c100f5c8e5a6c382fb047b6663c35a73ececc117169be8b3c104",
+          "latest_policy_sha256": "b6745810ad3aace417092ef7041a3bd410f9ae331f24eb0b881ff169b40b0bfa"
+        }
+      },
+      "preflight_sha256": "5ebfcd07077c11cff85e68cf8097c6b261e272e2aa6ec52b6ccfc71993981a04",
+      "preflight_seconds": 10.441084726015106,
+      "preflight_synthetic_updates": 16,
+      "frozen_intent_sha256": "4d772f289380ecf5e3cf5af345cf1d50ff29fd684192c06ca8ceee54bc68ead6",
+      "initialization": {
+        "seed": 2026101103,
+        "initial_checkpoint_sha256": "75300b5fb78fa4bb5ff799c6810a08033f57da8f673c20be36ee6d0a8705a920",
+        "embedding_sha256": "0c7587fb7d9c6b51f91cd30be2cadebdef0812734bb65dd9832d1926417e65c3",
+        "updates": 0,
+        "replay_size": 0,
+        "Adam_m_v_zero": true,
+        "champion_equals_initial": true
+      },
+      "sessions": [
+        {
+          "session_id": "4dd33c1b5aee47b4ae62b6c68741a889",
+          "start_updates": 0,
+          "end_updates": 8,
+          "checkpoint_sha256": "06a956af8a457e7a05eef1e411eeb04e1852b37a254d1bd34ca2e3eaf2a8d96a",
+          "input_checkpoint_sha256": null
+        },
+        {
+          "session_id": "9db2a9c355b243ca9af72728bf9ada44",
+          "start_updates": 8,
+          "end_updates": 2000,
+          "checkpoint_sha256": "b588473b824635ecacc5df335dc354fbe04ef75a87b04e0de5a9f1f204ea8d2a",
+          "input_checkpoint_sha256": "06a956af8a457e7a05eef1e411eeb04e1852b37a254d1bd34ca2e3eaf2a8d96a"
+        },
+        {
+          "session_id": "46cc2e253c914816852cb1f34ccb06ee",
+          "start_updates": 2000,
+          "end_updates": 20000,
+          "checkpoint_sha256": "cbf45197f9d4c100f5c8e5a6c382fb047b6663c35a73ececc117169be8b3c104",
+          "input_checkpoint_sha256": "b588473b824635ecacc5df335dc354fbe04ef75a87b04e0de5a9f1f204ea8d2a"
+        }
+      ]
+    }
+  },
+  "selfplay_games": 807233,
+  "selfplay_count_scope": "Learner self-play counter only; excludes in-training selection evaluation and synthetic preflight updates.",
+  "runtime": {
+    "backend": "gpu",
+    "jax": "0.7.2",
+    "numpy": "2.5.3",
+    "packages": {
+      "jax": "0.7.2",
+      "jax-cuda13-pjrt": "0.7.2",
+      "jax-cuda13-plugin": "0.7.2",
+      "jaxlib": "0.7.2",
+      "ml_dtypes": "0.6.0",
+      "numpy": "2.5.3",
+      "nvidia-cublas": "13.1.0.3",
+      "nvidia-cuda-nvcc": "13.0.88",
+      "nvidia-cuda-runtime": "13.0.96",
+      "nvidia-cudnn-cu13": "9.18.1.3",
+      "nvidia-cusolver": "12.0.4.66",
+      "scipy": "1.18.1"
+    },
+    "python": "3.12.14"
+  },
+  "image_id": "sha256:464175f20cb5460e34e42cd295bf0c9f6629796600b32d9f514243384a55621e",
+  "GPU_identity": {
+    "name": "NVIDIA GeForce RTX 5070",
+    "uuid": "GPU-46dce763-982c-cb97-2004-b7770ccdd7eb",
+    "driver": "595.91.07",
+    "status": "VERIFIED_THIS_RUN_CONFIGURATION"
+  },
+  "postrun_identity": {
+    "source_files": 135,
+    "dependency_files": 14522,
+    "status": "RECORDED_FILES_UNCHANGED"
+  },
+  "archive": {
+    "path": "reports/b1-training-20261009-e4fd3d4.zip",
+    "sha256": "4d86e41e0a178f458ae3580f0d53f69453f91141850455d50ab795b28acf1480",
+    "bytes": 401337416,
+    "manifest_files": 161,
+    "locations": [
+      "Mac workspace reports/",
+      "LocalServer /var/tmp/dougpu-b1-training-20261009-e4fd3d4/"
+    ],
+    "git_ignored": true,
+    "image_dependencies_and_WP_ADP_bytes_included": false
+  },
+  "archive_readback": {
+    "status": "PASS",
+    "archive_sha256": "4d86e41e0a178f458ae3580f0d53f69453f91141850455d50ab795b28acf1480",
+    "manifest_files": 161,
+    "source_files": 135,
+    "chains": {
+      "C0-S1": {
+        "status": "PASS",
+        "sessions": 3,
+        "checkpoint_sha256": "356b9c66cfb5e1dc64c1bd98e74bbbcf38a99668af032c004c3f7ed60a4f7faa",
+        "optimized_reader": "PASS"
+      },
+      "C0-S2": {
+        "status": "PASS",
+        "sessions": 3,
+        "checkpoint_sha256": "fc5e44530d90495cffc508395e077ae702fa633532d83e5dd20f1789234d49b0",
+        "optimized_reader": "PASS"
+      },
+      "C0-S3": {
+        "status": "PASS",
+        "sessions": 3,
+        "checkpoint_sha256": "cbf45197f9d4c100f5c8e5a6c382fb047b6663c35a73ececc117169be8b3c104",
+        "optimized_reader": "PASS"
+      }
+    },
+    "GPU_work": 0,
+    "formal_evaluation": false
+  },
+  "next_phase": {
+    "may_request_B2_approval": true,
+    "B2_authorized_seconds": 0,
+    "automatic_start": false,
+    "requirements": [
+      "Frozen policies/deals/opponents/config/runtime identities",
+      "Actual ordered deal generation and overlap checks",
+      "Explicit B2 scope and budget approval"
+    ],
+    "official_WP_ADP": "NOT_VERIFIED_USER_PROVIDED_FIXED_WEIGHTS"
+  },
+  "limits": [
+    "Observed execution/identity qualification only, no playing-strength conclusion.",
+    "Original first-block controller timing excludes prepare-to-launch wait; adjusted actual elapsed is disclosed; supplemental global watchdog started during B1, never extends authorization.",
+    "Normal Docker/SSH and recorded device conditions only; no guarantee for daemon or host failures.",
+    "Final archive does not export the full Docker image, CPU dependency tree, or previous opponent weights.",
+    "Mac NumPy 2.3.5 and server NumPy 2.5.3 observed readbacks agree; no general version-equivalence claim.",
+    "Old INVALID_PROTOCOL experiments are not requalified."
+  ]
+}
