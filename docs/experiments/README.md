@@ -1,5 +1,7 @@
 # 实验报告
 
+2026-10-09，[冻结 Replay 跨端点研究 R0–R2](cross-replay-20261009.zh-CN.md)结案：**R0_PASS；R1 数值执行 PASS；R2=RESEARCH_SCREEN_INCONCLUSIVE / STOP**。仅探索性数值观察，G_NOT_ENTERED / TRAINING_PAUSED。
+
 2026-10-09，[执行证据闭环](execution-evidence-20261009.zh-CN.md)完成：**INFRASTRUCTURE_READY / TRAINING_PAUSED**。恢复 SHA256、Actor seeds 和启动源码身份已记录，两地 CPU 离线复算一致；历史 Baseline 仍 FAIL，NTP 仍 CLOSED / INVALID_PROTOCOL。
 
 2026-10-09，[协议强化离线审计](protocol-hardening-20261009.zh-CN.md)完成：三段真实历史已还原，准入 **FAIL / PROTOCOL_NOT_READY，Training PAUSED**。两地复算一致，执行证据缺口继续阻断；0 GPU、生产算法未变。
@@ -16,6 +18,7 @@
 
 | 阶段 | 报告 | 当轮结果 |
 |---|---|---|
+| 冻结 Replay 跨端点 R0–R2 | [资格、数值比较与结案](cross-replay-20261009.zh-CN.md) | R0_PASS；R1 PASS；R2 INCONCLUSIVE / STOP，G_NOT_ENTERED |
 | NTP 辅助目标消融 | [协议偏差与结案记录](ntp-ablation-20261008.zh-CN.md) | CLOSED / INVALID_PROTOCOL，Training PAUSED，无棋力比较 |
 | 角色学习差异 | [端点机制分析](role-mechanism-20261008.zh-CN.md) | COMPLETE / INCONCLUSIVE / STOP，未识别持续机制 |
 | 独立 Checkpoint Selection | [20k latest 对 best](checkpoint-selection-20261008.zh-CN.md) | NO_DECISION / STOP，地主非劣证据不足 |
