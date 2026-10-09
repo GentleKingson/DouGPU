@@ -1,0 +1,783 @@
+{
+  "cost_review": {
+    "status": "B2_R0_COST_REVIEW_COMPLETE",
+    "original_B2": "TECHNICAL_FAIL / STOP",
+    "GPU_seconds": 0,
+    "new_games": 0,
+    "outcome_values_parsed": false,
+    "win_rates_used": false,
+    "original_archive_sha256": "380968e70fadb1dd36a3cd43535a37bf8a1e84f88580efa3bed78b96587d5291",
+    "original_manifest_files": 206,
+    "original_protocol_sha256": "fdcbf9d555aa6f666fe1abe431a79058f93cd08874742a8fe62d2f587fd360c5",
+    "original_seal_sha256": "2f008af1a404f68f449c998349a6089d7bf721f7fe0cf6e583b31af233d65c33",
+    "original_STOP_sha256": "f90d5d13f18b8aa484b676f73ec17dd84eae6171f0206a86402cbf4df46ed38e",
+    "original_control_sha256": {
+      "control/controller.py": "20790ba9997629a50fe355ce7a0e30bdbcb0e3686b9e3c91fdf68ea9d629c2cb",
+      "control/freeze.py": "f6ab10a4bad38c376692abfb1c74f1b1dabc5435901f865930e4393d7928226e",
+      "control/evaluate.py": "2c310a9f353d9015d34d88ff092a9543fa2ed8bd01dac86172a922c8cdaa87b3",
+      "control/statistics.py": "e4dc5dc0482a30778242688e67009240f345f86f753991bd0dcc115739aa414c",
+      "control/readback.py": "6546b64dfab4a6276465672408fa338fa9a901208552a330403703b03a80f8e8",
+      "control/supervise.py": "29697db652eb1e20ac659a46eb70181fbeec4613bcab072bf9de44da413a2a21",
+      "control/history.py": "96918647e8f70503cd3ae873262940426e0836319c6eb54d8f8eef7a647795f6"
+    },
+    "rows": [
+      {
+        "chain": "C0-S1",
+        "opponent": "WP",
+        "policy": "C0-S1-2000-latest",
+        "first_seconds": 6.630016811017413,
+        "warmed_seconds": 0.17855722404783592,
+        "signed_first_minus_repeat_seconds": 6.451459586969577,
+        "games": 8,
+        "formal_games": 4000,
+        "projected_raw_seconds": 89.27861202391796
+      },
+      {
+        "chain": "C0-S1",
+        "opponent": "WP",
+        "policy": "C0-S1-20000-latest",
+        "first_seconds": 0.15964850201271474,
+        "warmed_seconds": 0.15493362897541374,
+        "signed_first_minus_repeat_seconds": 0.004714873037301004,
+        "games": 8,
+        "formal_games": 4000,
+        "projected_raw_seconds": 77.46681448770687
+      },
+      {
+        "chain": "C0-S1",
+        "opponent": "ADP",
+        "policy": "C0-S1-2000-latest",
+        "first_seconds": 0.1805916220182553,
+        "warmed_seconds": 0.17780070402659476,
+        "signed_first_minus_repeat_seconds": 0.0027909179916605353,
+        "games": 8,
+        "formal_games": 4000,
+        "projected_raw_seconds": 88.90035201329738
+      },
+      {
+        "chain": "C0-S1",
+        "opponent": "ADP",
+        "policy": "C0-S1-20000-latest",
+        "first_seconds": 0.16928681504214182,
+        "warmed_seconds": 0.16556565498467535,
+        "signed_first_minus_repeat_seconds": 0.003721160057466477,
+        "games": 8,
+        "formal_games": 4000,
+        "projected_raw_seconds": 82.78282749233767
+      },
+      {
+        "chain": "C0-S2",
+        "opponent": "WP",
+        "policy": "C0-S2-2000-latest",
+        "first_seconds": 0.18341964395949617,
+        "warmed_seconds": 0.18139493698254228,
+        "signed_first_minus_repeat_seconds": 0.002024706976953894,
+        "games": 8,
+        "formal_games": 4000,
+        "projected_raw_seconds": 90.69746849127114
+      },
+      {
+        "chain": "C0-S2",
+        "opponent": "WP",
+        "policy": "C0-S2-20000-latest",
+        "first_seconds": 0.17876544396858662,
+        "warmed_seconds": 0.18056311598047614,
+        "signed_first_minus_repeat_seconds": -0.0017976720118895173,
+        "games": 8,
+        "formal_games": 4000,
+        "projected_raw_seconds": 90.28155799023807
+      },
+      {
+        "chain": "C0-S2",
+        "opponent": "ADP",
+        "policy": "C0-S2-2000-latest",
+        "first_seconds": 0.1717638610280119,
+        "warmed_seconds": 0.17367362696677446,
+        "signed_first_minus_repeat_seconds": -0.0019097659387625754,
+        "games": 8,
+        "formal_games": 4000,
+        "projected_raw_seconds": 86.83681348338723
+      },
+      {
+        "chain": "C0-S2",
+        "opponent": "ADP",
+        "policy": "C0-S2-20000-latest",
+        "first_seconds": 0.18625042802887037,
+        "warmed_seconds": 0.1862422549747862,
+        "signed_first_minus_repeat_seconds": 8.173054084181786e-06,
+        "games": 8,
+        "formal_games": 4000,
+        "projected_raw_seconds": 93.1211274873931
+      },
+      {
+        "chain": "C0-S3",
+        "opponent": "WP",
+        "policy": "C0-S3-2000-latest",
+        "first_seconds": 0.17471908498555422,
+        "warmed_seconds": 0.17786708002677187,
+        "signed_first_minus_repeat_seconds": -0.003147995041217655,
+        "games": 8,
+        "formal_games": 4000,
+        "projected_raw_seconds": 88.93354001338594
+      },
+      {
+        "chain": "C0-S3",
+        "opponent": "WP",
+        "policy": "C0-S3-20000-latest",
+        "first_seconds": 0.16260430600959808,
+        "warmed_seconds": 0.16089696798007935,
+        "signed_first_minus_repeat_seconds": 0.0017073380295187235,
+        "games": 8,
+        "formal_games": 4000,
+        "projected_raw_seconds": 80.44848399003968
+      },
+      {
+        "chain": "C0-S3",
+        "opponent": "ADP",
+        "policy": "C0-S3-2000-latest",
+        "first_seconds": 0.17837238300126046,
+        "warmed_seconds": 0.20816121000098065,
+        "signed_first_minus_repeat_seconds": -0.029788826999720186,
+        "games": 8,
+        "formal_games": 4000,
+        "projected_raw_seconds": 104.08060500049032
+      },
+      {
+        "chain": "C0-S3",
+        "opponent": "ADP",
+        "policy": "C0-S3-20000-latest",
+        "first_seconds": 0.19831819902174175,
+        "warmed_seconds": 0.1973670509760268,
+        "signed_first_minus_repeat_seconds": 0.0009511480457149446,
+        "games": 8,
+        "formal_games": 4000,
+        "projected_raw_seconds": 98.6835254880134
+      }
+    ],
+    "forecasts": {
+      "weighted_raw_seconds": 1071.5117279614788,
+      "weighted_with_safety_seconds": 1667.2675919422181,
+      "worst_raw_seconds": 1248.9672600058839,
+      "worst_with_safety_seconds": 1933.4508900088258
+    },
+    "warmed_distribution": {
+      "mean_seconds": 0.17858528799357978,
+      "median_seconds": 0.1782121520373039,
+      "sample_sd_seconds": 0.014662785103374534,
+      "min_seconds": 0.15493362897541374,
+      "max_seconds": 0.20816121000098065,
+      "interpretation": "Across 12 different workloads; one warmed observation per workload, no same-workload timing variance estimate"
+    },
+    "timing_phases": {
+      "recorded_24_call_seconds": 10.716780556016602,
+      "first_calls_seconds": 8.573757100093644,
+      "repeat_calls_seconds": 2.1430234559229575,
+      "first_call_cold_excess_seconds": 6.451459586969577,
+      "unassigned_process_residual_seconds": 2.843374745978508,
+      "remote_start_to_gate_seconds": 13.197122677986044,
+      "evaluation_process_seconds": 13.56015530199511,
+      "startup_compile_transfer": "NOT_SEPARATELY_MEASURED; first-call excess is descriptive only",
+      "CPU_Torch": "NOT_SEPARATELY_MEASURED",
+      "JAX_execution_and_sync": "NOT_SEPARATELY_MEASURED",
+      "archive_write_transfer_and_mac_readback": "NOT_SEPARATELY_MEASURED",
+      "server_normal_failure_readback_seconds": 0.37689072103239596,
+      "earlier_server_preaudit_readback_seconds": 0.7277260450064205,
+      "authorization_to_four_failure_readbacks_seconds": 228.625718,
+      "post_process_unassigned_envelope_seconds": 214.4646876755287
+    },
+    "planning": {
+      "new_candidate_seconds": 3000,
+      "new_closure_reserve_seconds": 500,
+      "TERM_grace_seconds": 90,
+      "cleanup_seconds": 10,
+      "nominal_minimum_seconds": 2546.648012686812,
+      "nominal_minimum_rounded_up_seconds": 2547,
+      "eligibility_buffer_seconds": 10,
+      "effective_minimum_rounded_up_seconds": 2557,
+      "authorized_seconds": 0,
+      "note": "2547 includes a proposed 500s closure reserve (old 300s). Strict < gate, integer timeout and 10s eligibility buffer require more; neither is a measured runtime lower bound."
+    },
+    "limitations": [
+      "Tiny four-deal/eight-game runs do not calibrate 2000-deal scaling, unseen compilation, game-length variation or full statistics/archive costs",
+      "Cold excess combines compilation/execution/transfers and cannot identify individual component costs",
+      "Failure closure envelope includes human/orchestration waits; not a measured successful archival duration"
+    ],
+    "selfcheck": "PASS weighting, safety factor and invalid-count rejection"
+  },
+  "revision": {
+    "status": "B2_R1_FROZEN_CANDIDATE_NOT_AUTHORIZED",
+    "revision_id": "B2-R1-20261010-v1",
+    "execution_id": "B2-R2-20261010-v1",
+    "protocol_sha256": "2eff2acdb4a4fd4ffdb69cfb2b57db233ee2afd5d218efbe30b3d4cf9b2ae50f",
+    "seal_sha256": "8d9ef4b1ac1cdb24e5f3d5fcde88885eb40f82259d16762a071234a2b98469ff",
+    "parent_failure_archive_sha256": "380968e70fadb1dd36a3cd43535a37bf8a1e84f88580efa3bed78b96587d5291",
+    "source_commit": "d7e6e124229a056f936596d26e4b452f45aff064",
+    "unchanged_scientific_fields": [
+      "candidates",
+      "pairs",
+      "opponents",
+      "rule_lock",
+      "rule_lock_sha256",
+      "engine",
+      "role_assignment",
+      "execution",
+      "deal_lists",
+      "formal_games",
+      "preflight_games",
+      "statistics",
+      "forbidden"
+    ],
+    "source_bytes_unchanged": true,
+    "original_STOP_unchanged": true,
+    "original_controls_unchanged": true,
+    "formal_games_played": 0,
+    "new_games": 0,
+    "GPU_seconds": 0,
+    "authorization": {
+      "required_scope": "B2_R2_ONLY",
+      "candidate_seconds": 3000,
+      "authorized_seconds": 0,
+      "old_B2_approval_reusable": false,
+      "B1_balance_reusable": false
+    },
+    "preflight_reuse": "Original qualification arrays will be repeated only if R2 separately authorized; already observed, not unseen holdout",
+    "formal_arrays": "Original ordered arrays unchanged; formal outcomes still unseen",
+    "opponent_official_authenticity": "NOT_VERIFIED_USER_PROVIDED",
+    "state": "TRAINING_PAUSED / STRENGTH_NOT_EVALUATED / G_NOT_ENTERED",
+    "changes": "Only new execution identity, budget envelopes and explicit cost-method documentation; evaluator, pairing, sample and decision unchanged",
+    "budget_split": {
+      "candidate_total_seconds": 3000,
+      "evaluation_container_deadline_seconds": 2500,
+      "closure_reserve_seconds": 500,
+      "TERM_grace_seconds": 90,
+      "cleanup_seconds": 10,
+      "eligibility_buffer_seconds": 10,
+      "evaluator_soft_deadline_seconds": 2390
+    },
+    "local_checks": [
+      "scientific-field equality and all-source byte identity",
+      "all input/control SHA equality",
+      "normal/-O statistics boundary selfcheck",
+      "supervisor CPU/GPU timeout-envelope selfcheck",
+      "remote CPU input audit with no GPU request and no live PID",
+      "latest remote seal verification"
+    ],
+    "cost_review_sha256": "15e13a192f27c54f834d770692c2c5df8b0dd2a439dc5d4271bf194dc339316f"
+  },
+  "revision_archive": {
+    "sha256": "b95c5214fac1c0345349806c9e612d4009c39d6e54f7cecccfd04cb9659d1cfb",
+    "bytes": 22337072,
+    "manifest_files": 170,
+    "status": "R1_PREPARATION_ONLY_NOT_EVALUATED"
+  },
+  "readback": {
+    "status": "PASS",
+    "archive_sha256": "b95c5214fac1c0345349806c9e612d4009c39d6e54f7cecccfd04cb9659d1cfb",
+    "manifest_files": 170,
+    "statistics_modes": [
+      "normal",
+      "optimized"
+    ],
+    "decisions": [
+      "NOT_EVALUATED",
+      "NOT_EVALUATED"
+    ],
+    "GPU_seconds": 0
+  },
+  "local_archive": "/Users/kingson/GitHub/DouGPU/reports/b2-r2-candidate-20261010/revision-evidence.zip",
+  "remote_archive": "LocalServer:/var/tmp/dougpu-b2-r2-candidate-20261010/revision-evidence.zip",
+  "old_1800_seconds_approval_applies_only_to_original_failed_B2": true,
+  "technical_sources": [
+    "https://google.github.io/benchmark/user_guide.html",
+    "https://docs.jax.dev/en/latest/benchmarking.html",
+    "https://github.com/GentleKingson/DouGPU/blob/main/dougpu/evaluation.py"
+  ],
+  "frozen_protocol": {
+    "status": "B2_R1_FROZEN_CANDIDATE_NOT_AUTHORIZED",
+    "source_commit": "d7e6e124229a056f936596d26e4b452f45aff064",
+    "source_tar_sha256": "0d651ea0028d7272e881eee64495368e895f5321a744701cb2450e8483979d45",
+    "B1_archive_sha256": "4d86e41e0a178f458ae3580f0d53f69453f91141850455d50ab795b28acf1480",
+    "candidates": {
+      "C0-S1-2000-latest": {
+        "path": "policies/C0-S1-2000-latest.npz",
+        "sha256": "08fde85a272649dbf92fa83231ef82ded2ad614dc57143cb66db30833ef7ffa3",
+        "metadata": {
+          "metadata": {
+            "cycle": 500,
+            "selection": "latest_not_selected",
+            "selection_seeds": [
+              2026101201
+            ]
+          },
+          "model": {
+            "bf16": true,
+            "ffn": 512,
+            "heads": 2,
+            "layers": 3,
+            "max_seq": 512,
+            "q_hidden": 256,
+            "remat": true,
+            "vocab": 32,
+            "width": 128
+          },
+          "schema": 1
+        },
+        "checkpoint_sha256": "54346127d66d8686174f7ed22ce072ed605c353f35a31f3f92ecd5e474d3d52b",
+        "train_seed": 2026101101,
+        "updates": 2000
+      },
+      "C0-S1-20000-latest": {
+        "path": "policies/C0-S1-20000-latest.npz",
+        "sha256": "175f3f7b58d73bc3e18774cb74be6d6240cd13cb5cb64ebed628236c60f91316",
+        "metadata": {
+          "metadata": {
+            "cycle": 5000,
+            "selection": "latest_not_selected",
+            "selection_seeds": [
+              2026101201
+            ]
+          },
+          "model": {
+            "bf16": true,
+            "ffn": 512,
+            "heads": 2,
+            "layers": 3,
+            "max_seq": 512,
+            "q_hidden": 256,
+            "remat": true,
+            "vocab": 32,
+            "width": 128
+          },
+          "schema": 1
+        },
+        "checkpoint_sha256": "356b9c66cfb5e1dc64c1bd98e74bbbcf38a99668af032c004c3f7ed60a4f7faa",
+        "train_seed": 2026101101,
+        "updates": 20000
+      },
+      "C0-S2-2000-latest": {
+        "path": "policies/C0-S2-2000-latest.npz",
+        "sha256": "19d04b3a57f9510d45526fb7cd1610f4bfa0b5151b9179c4bd4b8e9bea62d41f",
+        "metadata": {
+          "metadata": {
+            "cycle": 500,
+            "selection": "latest_not_selected",
+            "selection_seeds": [
+              2026101202
+            ]
+          },
+          "model": {
+            "bf16": true,
+            "ffn": 512,
+            "heads": 2,
+            "layers": 3,
+            "max_seq": 512,
+            "q_hidden": 256,
+            "remat": true,
+            "vocab": 32,
+            "width": 128
+          },
+          "schema": 1
+        },
+        "checkpoint_sha256": "128343d3d6675d75737948de21c919098dba1e2599cc186bb1011da09c20254b",
+        "train_seed": 2026101102,
+        "updates": 2000
+      },
+      "C0-S2-20000-latest": {
+        "path": "policies/C0-S2-20000-latest.npz",
+        "sha256": "7c8015c1946904be923b5bc7e33a035214ccb49cab0f7cb9bb1f9a07e713b567",
+        "metadata": {
+          "metadata": {
+            "cycle": 5000,
+            "selection": "latest_not_selected",
+            "selection_seeds": [
+              2026101202
+            ]
+          },
+          "model": {
+            "bf16": true,
+            "ffn": 512,
+            "heads": 2,
+            "layers": 3,
+            "max_seq": 512,
+            "q_hidden": 256,
+            "remat": true,
+            "vocab": 32,
+            "width": 128
+          },
+          "schema": 1
+        },
+        "checkpoint_sha256": "fc5e44530d90495cffc508395e077ae702fa633532d83e5dd20f1789234d49b0",
+        "train_seed": 2026101102,
+        "updates": 20000
+      },
+      "C0-S3-2000-latest": {
+        "path": "policies/C0-S3-2000-latest.npz",
+        "sha256": "f1003d321604c9b240d1e59037aa88325f4132ffcc3b022466609293536a6207",
+        "metadata": {
+          "metadata": {
+            "cycle": 500,
+            "selection": "latest_not_selected",
+            "selection_seeds": [
+              2026101203
+            ]
+          },
+          "model": {
+            "bf16": true,
+            "ffn": 512,
+            "heads": 2,
+            "layers": 3,
+            "max_seq": 512,
+            "q_hidden": 256,
+            "remat": true,
+            "vocab": 32,
+            "width": 128
+          },
+          "schema": 1
+        },
+        "checkpoint_sha256": "b588473b824635ecacc5df335dc354fbe04ef75a87b04e0de5a9f1f204ea8d2a",
+        "train_seed": 2026101103,
+        "updates": 2000
+      },
+      "C0-S3-20000-latest": {
+        "path": "policies/C0-S3-20000-latest.npz",
+        "sha256": "b6745810ad3aace417092ef7041a3bd410f9ae331f24eb0b881ff169b40b0bfa",
+        "metadata": {
+          "metadata": {
+            "cycle": 5000,
+            "selection": "latest_not_selected",
+            "selection_seeds": [
+              2026101203
+            ]
+          },
+          "model": {
+            "bf16": true,
+            "ffn": 512,
+            "heads": 2,
+            "layers": 3,
+            "max_seq": 512,
+            "q_hidden": 256,
+            "remat": true,
+            "vocab": 32,
+            "width": 128
+          },
+          "schema": 1
+        },
+        "checkpoint_sha256": "cbf45197f9d4c100f5c8e5a6c382fb047b6663c35a73ececc117169be8b3c104",
+        "train_seed": 2026101103,
+        "updates": 20000
+      }
+    },
+    "pairs": {
+      "C0-S1": {
+        "train_seed": 2026101101,
+        "selection_seed": 2026101201,
+        "preflight_seed": 2026101301,
+        "formal_seed": 2026101401,
+        "reference": "C0-S1-2000-latest",
+        "candidate": "C0-S1-20000-latest"
+      },
+      "C0-S2": {
+        "train_seed": 2026101102,
+        "selection_seed": 2026101202,
+        "preflight_seed": 2026101302,
+        "formal_seed": 2026101402,
+        "reference": "C0-S2-2000-latest",
+        "candidate": "C0-S2-20000-latest"
+      },
+      "C0-S3": {
+        "train_seed": 2026101103,
+        "selection_seed": 2026101203,
+        "preflight_seed": 2026101303,
+        "formal_seed": 2026101403,
+        "reference": "C0-S3-2000-latest",
+        "candidate": "C0-S3-20000-latest"
+      }
+    },
+    "opponents": [
+      {
+        "family": "WP",
+        "role": "landlord",
+        "drive_id": "16_ilJ6VCU-6uY3uDkcvHqZci-IAUM81N",
+        "path": "reports/independent-strength-20261008/inputs/WP/landlord.ckpt",
+        "sha256": "132e26479fcb69f457ddbf1ad32a7bdc3aa73cde80a28cc91f29a62c6075955a"
+      },
+      {
+        "family": "WP",
+        "role": "landlord_up",
+        "drive_id": "1GWyHguO8K7MYqFRQ-RDG7HNp0vMgzL7N",
+        "path": "reports/independent-strength-20261008/inputs/WP/landlord_up.ckpt",
+        "sha256": "b849ea518e66f088d635d3a29956da880f7b5ca89fabc5f70fc356c106ca6a15"
+      },
+      {
+        "family": "WP",
+        "role": "landlord_down",
+        "drive_id": "1RMXLj_2gxNiZK-oo-EkxIZBKlKiV_zBP",
+        "path": "reports/independent-strength-20261008/inputs/WP/landlord_down.ckpt",
+        "sha256": "964720faf583f4905662c94aaf73b1a97352b76ae3686fcc949beabbacdd95d1"
+      },
+      {
+        "family": "ADP",
+        "role": "landlord",
+        "drive_id": "1k3pKAynRLX4vUWPfborKvvPaJv33T3R8",
+        "path": "reports/independent-strength-20261008/inputs/ADP/landlord.ckpt",
+        "sha256": "6f2971813495e9c509cbd4a101213c49587472942fa0f018d04c139a6a647c2d"
+      },
+      {
+        "family": "ADP",
+        "role": "landlord_up",
+        "drive_id": "1lhG3g_lczgJV57Wiz_ZuGoIc2sXB_3gY",
+        "path": "reports/independent-strength-20261008/inputs/ADP/landlord_up.ckpt",
+        "sha256": "7fb7c495ff095db2ddadd8f9f8fd53cad840211578dabc83bbcc8d75085f843e"
+      },
+      {
+        "family": "ADP",
+        "role": "landlord_down",
+        "drive_id": "1gOh9a0YsWRmCvugiDD6wqCncvNljPb5N",
+        "path": "reports/independent-strength-20261008/inputs/ADP/landlord_down.ckpt",
+        "sha256": "c173dbe30258f19b6392c30ab1e330b6b3090bbd9ccdc89a9b18123a6ab6e2d9"
+      }
+    ],
+    "rule_lock": {
+      "archive_sha256": "de638d431c0752c7a09869afb3bd6ff1f8d95a178ea1fea263a2e8ad40b7c527",
+      "douzero_commit": "718a5c920bf3361e34178a38f3b80458e176b351",
+      "encoding_schema": 1,
+      "engine": "douzero",
+      "upstream_files": {
+        "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+        "douzero/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "douzero/dmc/__init__.py": "bbda6d31bc598ece6fcdef5f466989e2e9d713331bbfcbe7e6866b4e335143ea",
+        "douzero/dmc/models.py": "3ad5483bf3d82b3a4174ee3a8893891dafcd635590e9cd7372fabe5988e8a190",
+        "douzero/env/__init__.py": "c26c0a9c028dcbe0a14dfe3c5c0ddd1bd93caadc3ea46f470fd203b542c33589",
+        "douzero/env/env.py": "43012a3b7672e054b81212dc5b2456b7648ad1d46ebb1217363d897f74233330",
+        "douzero/env/game.py": "09e76db9d90eb8dffbb747325fdd5ac86d7fc00873e6c862e3dd3dbadd4d0e96",
+        "douzero/env/move_detector.py": "d1a264e4084138b870c5dbb31ce723347164047653b872737bd511eb10cc4cfe",
+        "douzero/env/move_generator.py": "157cb79cccc89110b6b6c49700e4860bf09b287b5356811ea7a1f81552649685",
+        "douzero/env/move_selector.py": "40aa53c9284617a606d89168cc70fc9581ce66f6ced131dcfba3f4cf1df16c38",
+        "douzero/env/utils.py": "c4dab1343fa9e189c0f66a24363c5fa80f5bc3f1517dc0e45ef419367be5d48c"
+      }
+    },
+    "rule_lock_sha256": "40f47b2cd94a76fe7112140d41b85af0b7462b6c35197241fe71fc506348e1ac",
+    "engine": "douzero",
+    "role_assignment": [
+      "candidate landlord vs opponent down/up",
+      "candidate down/up team vs opponent landlord"
+    ],
+    "execution": {
+      "backend": "cuda",
+      "attention_impl": "manual",
+      "batch": 64,
+      "action_chunk": 2048,
+      "workers": 0,
+      "kv_cache": false,
+      "bf16": true
+    },
+    "deal_lists": {
+      "C0-S1-formal": {
+        "seed": 2026101401,
+        "deals": 2000,
+        "path": "deals/C0-S1-formal.npy",
+        "dtype": "<i2",
+        "shape": [
+          2000,
+          54
+        ],
+        "file_sha256": "39dabc275e3d41219fcf8d2d348e36da40b948c8c69630341b963d8da741c215",
+        "array_sha256": "77b5c7e1467204a7df32e65c44372d71e342c1a64cf301c21e25c2078a468e52"
+      },
+      "C0-S1-preflight": {
+        "seed": 2026101301,
+        "deals": 4,
+        "path": "deals/C0-S1-preflight.npy",
+        "dtype": "<i2",
+        "shape": [
+          4,
+          54
+        ],
+        "file_sha256": "4051996b9ba289b96854a914b50dc5a552772bb21e08e7a22dffecb53079a95b",
+        "array_sha256": "38cc015241d4999529c570577df3e03f9a7d406d6ee011606605dad3a8633d99"
+      },
+      "C0-S1-selection": {
+        "seed": 2026101201,
+        "deals": 256,
+        "path": "deals/C0-S1-selection.npy",
+        "dtype": "<i2",
+        "shape": [
+          256,
+          54
+        ],
+        "file_sha256": "b5741ec5927aee33f4bbf175f34983ebb5b78c19f8c137de30f4c37c1c02eb90",
+        "array_sha256": "b601f860141274b26c196945899813541da6e468c29e58b8a8bec23e3f50406d"
+      },
+      "C0-S2-formal": {
+        "seed": 2026101402,
+        "deals": 2000,
+        "path": "deals/C0-S2-formal.npy",
+        "dtype": "<i2",
+        "shape": [
+          2000,
+          54
+        ],
+        "file_sha256": "0162d1518d73db90493e292c9ce197ed2706104040e70fd59c6638dd2bae66a9",
+        "array_sha256": "40985621caf9122755cdd3960dc9a8fb28c7b015bb87464bf4016ef02f7f9fec"
+      },
+      "C0-S2-preflight": {
+        "seed": 2026101302,
+        "deals": 4,
+        "path": "deals/C0-S2-preflight.npy",
+        "dtype": "<i2",
+        "shape": [
+          4,
+          54
+        ],
+        "file_sha256": "ed16134d6df414ca8f68af9183a607a7d4690aab60da52ed0e62d6c14d760f2e",
+        "array_sha256": "2366c09c760fd09f03c8976978bc7fdf5df795ad1fb0f0b2d282a967afe57089"
+      },
+      "C0-S2-selection": {
+        "seed": 2026101202,
+        "deals": 256,
+        "path": "deals/C0-S2-selection.npy",
+        "dtype": "<i2",
+        "shape": [
+          256,
+          54
+        ],
+        "file_sha256": "c718bfe8b0e76b9437a59bbb2ab4c6ced4aaa42d320fd459a33cb9cfa03d583f",
+        "array_sha256": "e9782189fae8c4100010a615f4daa675be552e14c802d06718e6c97afe2f4c52"
+      },
+      "C0-S3-formal": {
+        "seed": 2026101403,
+        "deals": 2000,
+        "path": "deals/C0-S3-formal.npy",
+        "dtype": "<i2",
+        "shape": [
+          2000,
+          54
+        ],
+        "file_sha256": "c7ece5cfd11d9f4eae932be7cadb4c922f727e0262596c3ced10da479f162596",
+        "array_sha256": "5e4ddde4f5eb1a9ce49384e61b0e8b775a8cfb25283eaaec4c2113e5f2f149c9"
+      },
+      "C0-S3-preflight": {
+        "seed": 2026101303,
+        "deals": 4,
+        "path": "deals/C0-S3-preflight.npy",
+        "dtype": "<i2",
+        "shape": [
+          4,
+          54
+        ],
+        "file_sha256": "cb053743497b538e050dfb3dd79f52bbba6dcbc0e3c5862d474831edcb90f102",
+        "array_sha256": "5644118613dd8d55b2c347fec9c022d897bd6342c16e53e1ddbe767531f9152a"
+      },
+      "C0-S3-selection": {
+        "seed": 2026101203,
+        "deals": 256,
+        "path": "deals/C0-S3-selection.npy",
+        "dtype": "<i2",
+        "shape": [
+          256,
+          54
+        ],
+        "file_sha256": "f5928dfe4f202d072ed4666a345f804bd9a6ac18df120eadd56064db87e79f18",
+        "array_sha256": "796ccb72d010bccbb6f82ce0fe439b15f487c95d72016f5a0e63186cffd6bb60"
+      }
+    },
+    "formal_games": 48000,
+    "preflight_games": 192,
+    "authorized_seconds": 0,
+    "requested_seconds": 3000,
+    "budget_scope": "One new independently authorized B2_R2_ONLY block: controller startup, fixed 192-game preflight, 48000 formal games, exit, statistics, archive and two-location readback; no B1/original B2 balance",
+    "official_WP_ADP": "NOT_VERIFIED_USER_PROVIDED",
+    "statistics": {
+      "bootstrap": 2000,
+      "CI": "nominal 95% per training seed; descriptive only",
+      "decision": "All six Balanced >0 and all 12 role differences >=-5pp => DIRECTIONAL_SIGNAL_ONLY / STOP; otherwise INCONCLUSIVE_STOP; any technical failure => TECHNICAL_FAIL / STOP",
+      "seed_aggregation": "equal mean, sample SD ddof=1 and range",
+      "training_seed_population_CI": "NOT_ESTIMABLE",
+      "power": "NOT_ESTIMATED"
+    },
+    "forbidden": [
+      "training",
+      "promotion",
+      "G",
+      "fourth_seed",
+      "more_deals",
+      "configuration_change",
+      "retry_after_failure"
+    ],
+    "revision_id": "B2-R1-20261010-v1",
+    "execution_id": "B2-R2-20261010-v1",
+    "parent_protocol_sha256": "fdcbf9d555aa6f666fe1abe431a79058f93cd08874742a8fe62d2f587fd360c5",
+    "parent_seal_sha256": "2f008af1a404f68f449c998349a6089d7bf721f7fe0cf6e583b31af233d65c33",
+    "parent_failure_archive_sha256": "380968e70fadb1dd36a3cd43535a37bf8a1e84f88580efa3bed78b96587d5291",
+    "cost_method": {
+      "gate": "unchanged slowest warmed eight-game rate * 48000 * 1.5 + 60s",
+      "diagnostics": "report all 12 warmed timings and formal-game-count weighted cost; no retrospective gate replacement",
+      "same_workload_variance": "NOT_ESTIMATED: only one warmed observation per workload"
+    },
+    "budget_split": {
+      "candidate_total_seconds": 3000,
+      "evaluation_container_deadline_seconds": 2500,
+      "closure_reserve_seconds": 500,
+      "TERM_grace_seconds": 90,
+      "cleanup_seconds": 10,
+      "eligibility_buffer_seconds": 10,
+      "evaluator_soft_deadline_seconds": 2390
+    },
+    "new_authorization_required": true,
+    "formal_result_seen": false,
+    "change_scope": [
+      "independent identity/output directory",
+      "candidate budget/time allocation and consistent soft deadline"
+    ],
+    "unchanged": [
+      "three training seeds",
+      "six policies and source checkpoints",
+      "WP/ADP bytes",
+      "formal and preflight ordered arrays",
+      "48000 formal games",
+      "192 fixed repeat preflight games",
+      "evaluation algorithm and settings",
+      "statistics and STOP rules"
+    ],
+    "cost_review_sha256": "15e13a192f27c54f834d770692c2c5df8b0dd2a439dc5d4271bf194dc339316f"
+  },
+  "frozen_seal": {
+    "input_files": {
+      "source-manifest.json": "8057d8fba7098c45f7b1fb0bfbf6c846ea92531499df2b12b1c9fe4eb3f966ed",
+      "deps-manifest.json": "f3b912bc6cbad3a3dd383339a4c935496db50f0333a071e92d605a1c9f9fbc90",
+      "execution-commands.json": "950a476050b4693c15cbee81b4ad2b9ec2f617d45bcf0da24172b9152e29c151",
+      "deal-audit.json": "c3d0d93b6af6975ac9c651f1582652d7dee45a37c9ba2daa7a07e95331037896",
+      "expected-environment.json": "7041e375b3f7ab0acd015a8a20d0f80cb259ec1836fe425f962e772042109370",
+      "cost-review.json": "15e13a192f27c54f834d770692c2c5df8b0dd2a439dc5d4271bf194dc339316f",
+      "protocol.json": "2eff2acdb4a4fd4ffdb69cfb2b57db233ee2afd5d218efbe30b3d4cf9b2ae50f",
+      "deals/C0-S2-preflight.npy": "ed16134d6df414ca8f68af9183a607a7d4690aab60da52ed0e62d6c14d760f2e",
+      "deals/C0-S3-selection.npy": "f5928dfe4f202d072ed4666a345f804bd9a6ac18df120eadd56064db87e79f18",
+      "deals/C0-S1-preflight.npy": "4051996b9ba289b96854a914b50dc5a552772bb21e08e7a22dffecb53079a95b",
+      "deals/C0-S2-formal.npy": "0162d1518d73db90493e292c9ce197ed2706104040e70fd59c6638dd2bae66a9",
+      "deals/C0-S1-formal.npy": "39dabc275e3d41219fcf8d2d348e36da40b948c8c69630341b963d8da741c215",
+      "deals/C0-S2-selection.npy": "c718bfe8b0e76b9437a59bbb2ab4c6ced4aaa42d320fd459a33cb9cfa03d583f",
+      "deals/C0-S3-preflight.npy": "cb053743497b538e050dfb3dd79f52bbba6dcbc0e3c5862d474831edcb90f102",
+      "deals/C0-S3-formal.npy": "c7ece5cfd11d9f4eae932be7cadb4c922f727e0262596c3ced10da479f162596",
+      "deals/C0-S1-selection.npy": "b5741ec5927aee33f4bbf175f34983ebb5b78c19f8c137de30f4c37c1c02eb90",
+      "policies/C0-S3-2000-latest.npz": "f1003d321604c9b240d1e59037aa88325f4132ffcc3b022466609293536a6207",
+      "policies/C0-S1-20000-latest.npz": "175f3f7b58d73bc3e18774cb74be6d6240cd13cb5cb64ebed628236c60f91316",
+      "policies/C0-S2-2000-latest.npz": "19d04b3a57f9510d45526fb7cd1610f4bfa0b5151b9179c4bd4b8e9bea62d41f",
+      "policies/C0-S2-20000-latest.npz": "7c8015c1946904be923b5bc7e33a035214ccb49cab0f7cb9bb1f9a07e713b567",
+      "policies/C0-S3-20000-latest.npz": "b6745810ad3aace417092ef7041a3bd410f9ae331f24eb0b881ff169b40b0bfa",
+      "policies/C0-S1-2000-latest.npz": "08fde85a272649dbf92fa83231ef82ded2ad614dc57143cb66db30833ef7ffa3"
+    },
+    "control_sha256": {
+      "control/controller.py": "2149021a912e72c0e40922dedba5f2db317f86142312cccfa76f1e5c24c4c47b",
+      "control/evaluate.py": "7c2de525843cf544fbca5a0f18218615de10c7ac222fbb8ac8f3c36d5db43286",
+      "control/statistics.py": "a10ee212d04e3321d998ceaa3020a240dfa4b13c5fa9446e3298d47ba201f724",
+      "control/readback.py": "6546b64dfab4a6276465672408fa338fa9a901208552a330403703b03a80f8e8",
+      "control/supervise.py": "8ef37ba71a62cb38b7e39c14782aa1b24501fdc86ad097e8fba5a0d146dae84f"
+    },
+    "authorization": "NOT_AUTHORIZED; fresh B2_R2_ONLY approval required",
+    "revision_id": "B2-R1-20261010-v1",
+    "execution_id": "B2-R2-20261010-v1",
+    "parent_failure_archive_sha256": "380968e70fadb1dd36a3cd43535a37bf8a1e84f88580efa3bed78b96587d5291",
+    "image": "sha256:464175f20cb5460e34e42cd295bf0c9f6629796600b32d9f514243384a55621e"
+  },
+  "git_publication_scope": "Reports, machine JSON and experiment index only; evidence archives and controls remain in ignored reports storage"
+}

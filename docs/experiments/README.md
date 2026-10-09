@@ -1,5 +1,11 @@
 # 实验报告
 
+2026-10-10，[B2-R0 成本复核与 R1 候选](baseline-replication-b2-cost-review-20261010.zh-CN.md)：**R0_COMPLETE / R1_FROZEN_NOT_AUTHORIZED**。零 GPU、新对局 0；加权预测 1,667.27 秒，原最慢门禁 1,933.45 秒。独立冻结 3,000 秒候选，两地 CPU 回读一致；原 B2 STOP 不变，R2 未启动。
+
+2026-10-10，[B2 独立评估结案](baseline-replication-b2-20261010.zh-CN.md)：**TECHNICAL_FAIL / STOP，棋力 NOT_EVALUATED**。独立获准 1,800 秒，192 局预检重复一致；预测 1,933.45 秒超过剩余 1,486.80 秒，按冻结门禁停止，正式对局为 0。GPU 进程 13.56 秒，含两地普通/优化读回 228.63 秒；失败证据封存一致，无晋升、续训或 G。
+
+2026-10-10，[B2 零 GPU 输入预审](baseline-replication-b2-preaudit-20261010.zh-CN.md)：**PASS / AWAITING_SEPARATE_AUTHORIZATION**。六份 latest、六份 WP/ADP、规则/环境、真实牌序交集及完整命令冻结；两地封存读回一致。GPU/新对局均为 0，1,800 秒须独立批准，B2/G 未进入。
+
 2026-10-09，[新 Baseline B1 三 seed 训练结案](baseline-replication-b1-20261009.zh-CN.md)：**B1_COMPLETE / EXECUTION_QUALIFIED / TRAINING_PAUSED**。获批 LocalServer B1 最多 10,800 秒，三条 0→8→2k→20k 链及两地封存读回全部 PASS；含最终读回 47.45 分钟，60,000 次成功更新。B2/G 未进入，尚无棋力结论。
 
 2026-10-09，[B1_READINESS_AUDIT 零 GPU 结案](b1-readiness-audit-20261009.zh-CN.md)：**PASS_WITH_BLOCKERS / TRAINING_PAUSED**。P1–P5 按序验收，22 项回归通过、两地封存读回一致；设备/驱动/镜像 GPU 能力 NOT_VERIFIED，可申请受限 preflight 审批，完整训练仍阻断，B1/B2 未进入。

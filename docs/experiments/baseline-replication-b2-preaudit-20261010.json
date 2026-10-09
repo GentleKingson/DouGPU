@@ -1,0 +1,469 @@
+{
+  "status": "B2_INPUT_PREAUDIT_PASS_AWAITING_AUTHORIZATION",
+  "date": "2026-10-10",
+  "timezone": "Asia/Hong_Kong",
+  "B2": "NOT_ENTERED",
+  "G": "NOT_ENTERED",
+  "training": "PAUSED",
+  "authorized_GPU_seconds": 0,
+  "actual_GPU_seconds": 0,
+  "new_games": 0,
+  "new_training_updates": 0,
+  "source_commit": "d7e6e124229a056f936596d26e4b452f45aff064",
+  "protocol_sha256": "fdcbf9d555aa6f666fe1abe431a79058f93cd08874742a8fe62d2f587fd360c5",
+  "seal_sha256": "2f008af1a404f68f449c998349a6089d7bf721f7fe0cf6e583b31af233d65c33",
+  "six_latest_policies": "PASS: exact SHA, finite, CPU-matched corresponding full checkpoint deployment parameters, endpoint differences",
+  "six_WP_ADP_weights": "PASS: exact SHA, CPU weights_only=True strict=True finite; no forward",
+  "official_WP_ADP": "NOT_VERIFIED_USER_PROVIDED",
+  "B1_archive_sha256": "4d86e41e0a178f458ae3580f0d53f69453f91141850455d50ab795b28acf1480",
+  "rule_lock_sha256": "40f47b2cd94a76fe7112140d41b85af0b7462b6c35197241fe71fc506348e1ac",
+  "image": "sha256:464175f20cb5460e34e42cd295bf0c9f6629796600b32d9f514243384a55621e",
+  "GPU_identity_readonly": "NVIDIA GeForce RTX 5070, GPU-46dce763-982c-cb97-2004-b7770ccdd7eb, 595.91.07",
+  "CPU_python": "3.12.14 (main, Sep 19 2026, 01:05:48) [GCC 12.2.0]",
+  "packages": {
+    "pluggy": "1.6.0",
+    "packaging": "26.3",
+    "networkx": "3.7",
+    "Jinja2": "3.1.6",
+    "filelock": "4.0.7",
+    "MarkupSafe": "3.0.3",
+    "pytest": "8.4.2",
+    "mpmath": "1.3.0",
+    "torch": "2.8.0+cpu",
+    "fsspec": "2026.9.0",
+    "typing_extensions": "4.16.0",
+    "sympy": "1.14.0",
+    "iniconfig": "2.3.0",
+    "Pygments": "2.21.0",
+    "pip": "25.0.1",
+    "nvidia-cuda-nvrtc": "13.1.115",
+    "nvidia-cusparse": "12.6.3.3",
+    "nvidia-cuda-runtime": "13.0.96",
+    "scipy": "1.18.1",
+    "nvidia-cufft": "12.0.0.61",
+    "jax": "0.7.2",
+    "nvidia-cublas": "13.1.0.3",
+    "jaxlib": "0.7.2",
+    "nvidia-cuda-crt": "13.0.88",
+    "nvidia-cuda-nvcc": "13.0.88",
+    "jax-cuda13-pjrt": "0.7.2",
+    "nvidia-nvshmem-cu13": "3.3.24",
+    "nvidia-cudnn-cu13": "9.18.1.3",
+    "ml_dtypes": "0.6.0",
+    "jax-cuda13-plugin": "0.7.2",
+    "numpy": "2.5.3",
+    "nvidia-nccl-cu13": "2.27.7",
+    "nvidia-cuda-cupti": "13.0.85",
+    "nvidia-nvjitlink": "13.0.88",
+    "opt_einsum": "3.4.0",
+    "nvidia-cusolver": "12.0.4.66",
+    "nvidia-nvvm": "13.0.88"
+  },
+  "dependency_files": 14522,
+  "CPU_audit": {
+    "returncode": 0,
+    "wall_seconds": 1.7809308629948646,
+    "device_requests": null,
+    "runtime": "runc",
+    "state_pid": 0
+  },
+  "deal_lists": {
+    "C0-S1-formal": {
+      "seed": 2026101401,
+      "deals": 2000,
+      "path": "deals/C0-S1-formal.npy",
+      "dtype": "<i2",
+      "shape": [
+        2000,
+        54
+      ],
+      "file_sha256": "39dabc275e3d41219fcf8d2d348e36da40b948c8c69630341b963d8da741c215",
+      "array_sha256": "77b5c7e1467204a7df32e65c44372d71e342c1a64cf301c21e25c2078a468e52"
+    },
+    "C0-S1-preflight": {
+      "seed": 2026101301,
+      "deals": 4,
+      "path": "deals/C0-S1-preflight.npy",
+      "dtype": "<i2",
+      "shape": [
+        4,
+        54
+      ],
+      "file_sha256": "4051996b9ba289b96854a914b50dc5a552772bb21e08e7a22dffecb53079a95b",
+      "array_sha256": "38cc015241d4999529c570577df3e03f9a7d406d6ee011606605dad3a8633d99"
+    },
+    "C0-S1-selection": {
+      "seed": 2026101201,
+      "deals": 256,
+      "path": "deals/C0-S1-selection.npy",
+      "dtype": "<i2",
+      "shape": [
+        256,
+        54
+      ],
+      "file_sha256": "b5741ec5927aee33f4bbf175f34983ebb5b78c19f8c137de30f4c37c1c02eb90",
+      "array_sha256": "b601f860141274b26c196945899813541da6e468c29e58b8a8bec23e3f50406d"
+    },
+    "C0-S2-formal": {
+      "seed": 2026101402,
+      "deals": 2000,
+      "path": "deals/C0-S2-formal.npy",
+      "dtype": "<i2",
+      "shape": [
+        2000,
+        54
+      ],
+      "file_sha256": "0162d1518d73db90493e292c9ce197ed2706104040e70fd59c6638dd2bae66a9",
+      "array_sha256": "40985621caf9122755cdd3960dc9a8fb28c7b015bb87464bf4016ef02f7f9fec"
+    },
+    "C0-S2-preflight": {
+      "seed": 2026101302,
+      "deals": 4,
+      "path": "deals/C0-S2-preflight.npy",
+      "dtype": "<i2",
+      "shape": [
+        4,
+        54
+      ],
+      "file_sha256": "ed16134d6df414ca8f68af9183a607a7d4690aab60da52ed0e62d6c14d760f2e",
+      "array_sha256": "2366c09c760fd09f03c8976978bc7fdf5df795ad1fb0f0b2d282a967afe57089"
+    },
+    "C0-S2-selection": {
+      "seed": 2026101202,
+      "deals": 256,
+      "path": "deals/C0-S2-selection.npy",
+      "dtype": "<i2",
+      "shape": [
+        256,
+        54
+      ],
+      "file_sha256": "c718bfe8b0e76b9437a59bbb2ab4c6ced4aaa42d320fd459a33cb9cfa03d583f",
+      "array_sha256": "e9782189fae8c4100010a615f4daa675be552e14c802d06718e6c97afe2f4c52"
+    },
+    "C0-S3-formal": {
+      "seed": 2026101403,
+      "deals": 2000,
+      "path": "deals/C0-S3-formal.npy",
+      "dtype": "<i2",
+      "shape": [
+        2000,
+        54
+      ],
+      "file_sha256": "c7ece5cfd11d9f4eae932be7cadb4c922f727e0262596c3ced10da479f162596",
+      "array_sha256": "5e4ddde4f5eb1a9ce49384e61b0e8b775a8cfb25283eaaec4c2113e5f2f149c9"
+    },
+    "C0-S3-preflight": {
+      "seed": 2026101303,
+      "deals": 4,
+      "path": "deals/C0-S3-preflight.npy",
+      "dtype": "<i2",
+      "shape": [
+        4,
+        54
+      ],
+      "file_sha256": "cb053743497b538e050dfb3dd79f52bbba6dcbc0e3c5862d474831edcb90f102",
+      "array_sha256": "5644118613dd8d55b2c347fec9c022d897bd6342c16e53e1ddbe767531f9152a"
+    },
+    "C0-S3-selection": {
+      "seed": 2026101203,
+      "deals": 256,
+      "path": "deals/C0-S3-selection.npy",
+      "dtype": "<i2",
+      "shape": [
+        256,
+        54
+      ],
+      "file_sha256": "f5928dfe4f202d072ed4666a345f804bd9a6ac18df120eadd56064db87e79f18",
+      "array_sha256": "796ccb72d010bccbb6f82ce0fe439b15f487c95d72016f5a0e63186cffd6bb60"
+    }
+  },
+  "historical_streams": 51,
+  "unique_original_historical_arrays": 21,
+  "original_historical_deals": 62112,
+  "historical_scan_documents": {
+    "mac": 1599,
+    "server": 6317
+  },
+  "forbidden_intersections": 0,
+  "formal_games": 48000,
+  "preflight_games": 192,
+  "requested_independent_seconds": 1800,
+  "execution_commands": "input/execution-commands.json",
+  "statistics_selfcheck": "PASS normal and -O; no real outcomes",
+  "first_CPU_attempt": "Exit125 before Python started: missing read-only source .cache mountpoint; original log/inspect retained, corrected by mkdir only",
+  "limitations": [
+    "Deleted history and tar-only unextracted records cannot be exhausted; no claim all training games are disjoint",
+    "Current GPU kernel/inference readiness to be checked only in separately authorized B2 preflight",
+    "Nominal within-seed CI only; training seed population CI NOT_ESTIMABLE; no promotion or further training"
+  ],
+  "no_automatic_actions": [
+    "training",
+    "promotion",
+    "G",
+    "extra_seed",
+    "extra_deals",
+    "budget_extension"
+  ],
+  "preaudit_archive": {
+    "sha256": "141840f61f2877797d7b1fdd9296a9293e092c9aaf42826811b93166b37a1bd6",
+    "bytes": 25082244,
+    "manifest_files": 199
+  },
+  "two_location_readback": {
+    "status": "PASS",
+    "archive_sha256": "141840f61f2877797d7b1fdd9296a9293e092c9aaf42826811b93166b37a1bd6",
+    "manifest_files": 199,
+    "statistics_modes": [
+      "normal",
+      "optimized"
+    ],
+    "decisions": [
+      "NOT_EVALUATED",
+      "NOT_EVALUATED"
+    ],
+    "GPU_seconds": 0
+  },
+  "six_policies": {
+    "C0-S1-2000-latest": {
+      "train_seed": 2026101101,
+      "updates": 2000,
+      "sha256": "08fde85a272649dbf92fa83231ef82ded2ad614dc57143cb66db30833ef7ffa3",
+      "checkpoint_sha256": "54346127d66d8686174f7ed22ce072ed605c353f35a31f3f92ecd5e474d3d52b"
+    },
+    "C0-S1-20000-latest": {
+      "train_seed": 2026101101,
+      "updates": 20000,
+      "sha256": "175f3f7b58d73bc3e18774cb74be6d6240cd13cb5cb64ebed628236c60f91316",
+      "checkpoint_sha256": "356b9c66cfb5e1dc64c1bd98e74bbbcf38a99668af032c004c3f7ed60a4f7faa"
+    },
+    "C0-S2-2000-latest": {
+      "train_seed": 2026101102,
+      "updates": 2000,
+      "sha256": "19d04b3a57f9510d45526fb7cd1610f4bfa0b5151b9179c4bd4b8e9bea62d41f",
+      "checkpoint_sha256": "128343d3d6675d75737948de21c919098dba1e2599cc186bb1011da09c20254b"
+    },
+    "C0-S2-20000-latest": {
+      "train_seed": 2026101102,
+      "updates": 20000,
+      "sha256": "7c8015c1946904be923b5bc7e33a035214ccb49cab0f7cb9bb1f9a07e713b567",
+      "checkpoint_sha256": "fc5e44530d90495cffc508395e077ae702fa633532d83e5dd20f1789234d49b0"
+    },
+    "C0-S3-2000-latest": {
+      "train_seed": 2026101103,
+      "updates": 2000,
+      "sha256": "f1003d321604c9b240d1e59037aa88325f4132ffcc3b022466609293536a6207",
+      "checkpoint_sha256": "b588473b824635ecacc5df335dc354fbe04ef75a87b04e0de5a9f1f204ea8d2a"
+    },
+    "C0-S3-20000-latest": {
+      "train_seed": 2026101103,
+      "updates": 20000,
+      "sha256": "b6745810ad3aace417092ef7041a3bd410f9ae331f24eb0b881ff169b40b0bfa",
+      "checkpoint_sha256": "cbf45197f9d4c100f5c8e5a6c382fb047b6663c35a73ececc117169be8b3c104"
+    }
+  },
+  "formal_seed_pairs": {
+    "C0-S1": {
+      "train_seed": 2026101101,
+      "selection_seed": 2026101201,
+      "preflight_seed": 2026101301,
+      "formal_seed": 2026101401,
+      "reference": "C0-S1-2000-latest",
+      "candidate": "C0-S1-20000-latest"
+    },
+    "C0-S2": {
+      "train_seed": 2026101102,
+      "selection_seed": 2026101202,
+      "preflight_seed": 2026101302,
+      "formal_seed": 2026101402,
+      "reference": "C0-S2-2000-latest",
+      "candidate": "C0-S2-20000-latest"
+    },
+    "C0-S3": {
+      "train_seed": 2026101103,
+      "selection_seed": 2026101203,
+      "preflight_seed": 2026101303,
+      "formal_seed": 2026101403,
+      "reference": "C0-S3-2000-latest",
+      "candidate": "C0-S3-20000-latest"
+    }
+  },
+  "commands": {
+    "audit": [
+      "ssh",
+      "LocalServer",
+      "python3",
+      "/var/tmp/dougpu-b2-preaudit-20261010/control/supervise.py",
+      "audit"
+    ],
+    "local_authorized_controller": [
+      "python3",
+      "/Users/kingson/GitHub/DouGPU/reports/b2-preaudit-20261010/control/controller.py"
+    ],
+    "remote_authorized_entry": [
+      "ssh",
+      "LocalServer",
+      "python3",
+      "/var/tmp/dougpu-b2-preaudit-20261010/control/supervise.py",
+      "run"
+    ],
+    "CPU_statistics": [
+      "python",
+      "/control/statistics.py",
+      "/experiment"
+    ],
+    "readback": [
+      "python",
+      "/control/readback.py",
+      "/experiment/evidence.zip",
+      "/experiment/server-readback.json",
+      "<actual_archive_sha256>"
+    ],
+    "formal_order": [
+      "C0-S1/WP/2000_latest",
+      "C0-S1/WP/20000_latest",
+      "C0-S1/ADP/2000_latest",
+      "C0-S1/ADP/20000_latest",
+      "C0-S2/WP/2000_latest",
+      "C0-S2/WP/20000_latest",
+      "C0-S2/ADP/2000_latest",
+      "C0-S2/ADP/20000_latest",
+      "C0-S3/WP/2000_latest",
+      "C0-S3/WP/20000_latest",
+      "C0-S3/ADP/2000_latest",
+      "C0-S3/ADP/20000_latest"
+    ],
+    "GPU_timeout": "deadline is B2 start+1500s; TERM limit=remaining-90s grace-10s cleanup; closure reserve=300s inside 1800s",
+    "GPU_docker_argv": [
+      "docker",
+      "run",
+      "--init",
+      "--name",
+      "dougpu-b2-evaluation",
+      "--runtime",
+      "runc",
+      "--network",
+      "none",
+      "--memory",
+      "24g",
+      "--shm-size",
+      "2g",
+      "--read-only",
+      "--tmpfs",
+      "/tmp",
+      "--gpus",
+      "device=0",
+      "-e",
+      "JAX_PLATFORMS=cuda",
+      "-e",
+      "CUDA_VISIBLE_DEVICES=0",
+      "-e",
+      "NVIDIA_VISIBLE_DEVICES=0",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "-e",
+      "PYTHONPATH=/app:/app/vendor:/deps",
+      "-e",
+      "JAX_COMPILATION_CACHE_DIR=/app/.cache/jax",
+      "-e",
+      "XLA_PYTHON_CLIENT_MEM_FRACTION=0.70",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-v",
+      "/var/tmp/dougpu-b2-preaudit-20261010/source:/app:ro",
+      "-v",
+      "/var/tmp/dougpu-b2-preaudit-20261010/cache:/app/.cache",
+      "-v",
+      "/var/tmp/dougpu-b2-preaudit-20261010/control:/control:ro",
+      "-v",
+      "/var/tmp/dougpu-b2-preaudit-20261010/input:/input:ro",
+      "-v",
+      "/var/tmp/dougpu-b2-preaudit-20261010/output:/output",
+      "-v",
+      "/var/tmp/dougpu-b2-preaudit-20261010:/experiment",
+      "-v",
+      "/root/dougpu-independent-strength-20261008/deps:/deps:ro",
+      "-v",
+      "/root/dougpu-independent-strength-20261008/input/inputs:/weights:ro",
+      "-w",
+      "/app",
+      "--entrypoint",
+      "timeout",
+      "sha256:464175f20cb5460e34e42cd295bf0c9f6629796600b32d9f514243384a55621e",
+      "--signal=TERM",
+      "--kill-after=90s",
+      "<floor(B2_start+1500-monotonic_now-100)>s",
+      "python",
+      "/control/evaluate.py",
+      "evaluate"
+    ],
+    "CPU_audit_argv": [
+      "docker",
+      "run",
+      "--init",
+      "--name",
+      "dougpu-b2-input-audit",
+      "--runtime",
+      "runc",
+      "--network",
+      "none",
+      "--memory",
+      "24g",
+      "--shm-size",
+      "2g",
+      "--read-only",
+      "--tmpfs",
+      "/tmp",
+      "-e",
+      "JAX_PLATFORMS=cpu",
+      "-e",
+      "CUDA_VISIBLE_DEVICES=",
+      "-e",
+      "NVIDIA_VISIBLE_DEVICES=void",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "-e",
+      "PYTHONPATH=/app:/app/vendor:/deps",
+      "-e",
+      "JAX_COMPILATION_CACHE_DIR=/app/.cache/jax",
+      "-e",
+      "XLA_PYTHON_CLIENT_MEM_FRACTION=0.70",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-v",
+      "/var/tmp/dougpu-b2-preaudit-20261010/source:/app:ro",
+      "-v",
+      "/var/tmp/dougpu-b2-preaudit-20261010/cache:/app/.cache",
+      "-v",
+      "/var/tmp/dougpu-b2-preaudit-20261010/control:/control:ro",
+      "-v",
+      "/var/tmp/dougpu-b2-preaudit-20261010/input:/input:ro",
+      "-v",
+      "/var/tmp/dougpu-b2-preaudit-20261010/output:/output",
+      "-v",
+      "/var/tmp/dougpu-b2-preaudit-20261010:/experiment",
+      "-v",
+      "/root/dougpu-independent-strength-20261008/deps:/deps:ro",
+      "-v",
+      "/root/dougpu-independent-strength-20261008/input/inputs:/weights:ro",
+      "-w",
+      "/app",
+      "--entrypoint",
+      "timeout",
+      "sha256:464175f20cb5460e34e42cd295bf0c9f6629796600b32d9f514243384a55621e",
+      "--signal=TERM",
+      "--kill-after=2s",
+      "108s",
+      "python",
+      "/control/evaluate.py",
+      "audit"
+    ]
+  },
+  "evidence_locations": [
+    "/Users/kingson/GitHub/DouGPU/reports/b2-preaudit-20261010/preaudit-evidence.zip",
+    "LocalServer:/var/tmp/dougpu-b2-preaudit-20261010/preaudit-evidence.zip"
+  ]
+}
